@@ -4,13 +4,15 @@ Official releases of Mario Kart Nitro, with recovered client and NitroWFC source
 prepared for review on the source-recovery branch.
 
 **This is a source-recovery draft. It is not yet verified as complete
-Corresponding Source for every distributed client or the running server.**
+Corresponding Source for every distributed version and all required inputs.**
 See [PUBLICATION_STATUS.md](PUBLICATION_STATUS.md) for the precise limits.
 
 - [Client source and build instructions](client/README.md): Pulsar C++/assembly,
   game headers, Pack Creator C#/XAML, editable configs and recovery scripts.
 - [NitroWFC server source](server/README.md): archived October source and the
-  separately repaired AGPL candidate with its public source-link route.
+  verified live export and separately repaired AGPL candidate.
+- [Verified patcher source](patcher/README.md): stage1 and four RMC payloads,
+  pinned build environment and matching hashes.
 - [Team next steps](client/NEXT_STEPS.txt) and [validation evidence](client/docs/).
 - [Existing game downloads](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/releases).
 

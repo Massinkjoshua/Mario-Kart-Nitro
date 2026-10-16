@@ -3,14 +3,15 @@
 NitroWFC is derived from Retro Rewind's `wfc-server`, itself a fork of WiiLink
 WFC. This archive restores the GNU AGPLv3 licence and explicit attribution,
 retains recovered source and supplies a separately labelled repaired candidate.
-It is not confirmation that these files match the server currently running.
+The live export and historical candidates are kept separate below.
 
 ## Live export now received
 
 `Live-Export-2026-10-16/` preserves 134 files exported from the running
 server working directory, plus its executable-hash manifest. Its source builds
 and passes race tests with vet disabled for inherited formatting warnings.
-The source-to-running-binary match and payload source remain unverified. See
+An operator rebuild on the original host matched the running executable exactly.
+Matching stage1 and four RMC payload sources are in [../patcher](../patcher/README.md). See
 [the live export review](docs/live-export-2026-10-16.md) for exact scope and gaps.
 
 ## Contents
@@ -44,9 +45,9 @@ areas; those files are preserved as historical evidence.
 
 Building does not connect to a database, change the live server or restart a
 service. Running the server also requires a PostgreSQL database, your private
-configuration, and the matching WiiLink/Retro Rewind payload. The payload source,
-build recipe and original notices must be accounted for separately if modified
-or distributed. No payload or private signing key is included here.
+configuration, and the matching WiiLink/Retro Rewind payload. The separately verified
+payload source, build recipe and original notices are in ../patcher/. No compiled
+payload or private signing key is included here.
 
 ## Public source offer
 
@@ -67,7 +68,7 @@ information in the game's online credits/help or message of the day as well.
 
 Before using this candidate, compare it with the source of the actual deployed
 executable. Publishing a new candidate alone does not address missing source
-for an older deployed version. No activation or publication was performed.
+for an older deployed version. This candidate has not been activated; source is published on the recovery branch.
 
 ## Attribution and licence
 
@@ -92,5 +93,7 @@ The original payload licence is retained in docs/upstream/wfc-patcher-wii-LICENS
 The client handoff now includes an independently rebuilt released loader, named
 client source repairs and the verified public 1.0 binary hashes. The public 1.0
 client differs from the latest upload. See docs/public/ and NEXT_STEPS.txt.
-This server package remains a recovery candidate until its live source/executable
-and separately built payload have been matched. The recovery branch and draft pull request are public; this is still an incomplete source offer.
+The live executable rebuild and five payload rebuilds matched their reference
+hashes. Required safe runtime inputs and the player-facing source offer remain
+open. The recovery branch and draft pull request are public; this is still an
+incomplete source offer.

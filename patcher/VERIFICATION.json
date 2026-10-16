@@ -1,0 +1,48 @@
+{
+  "upstream_repository": "https://github.com/Retro-Rewind-Team/wfc-patcher-wii",
+  "upstream_commit": "9ee5c2dfdcbe97408786184566ab50c9bee0d1eb",
+  "source_variant": "mknitro-patcher-welcome-build",
+  "image": "devkitpro/devkitppc@sha256:44cb1a920e1ec3ec7c06767493c3b85f8d643d6137cc4661f0201895ac6e4967",
+  "compiler": "powerpc-eabi-gcc (devkitPPC) 16.1.0",
+  "archive_sha256": "f9aee5c3bc21dfb0036c38f133b31bdcf53debc2d1ac2bd5751f26115a21f577",
+  "verification_evidence": "Operator screenshot image(20261016-141035).png; five matching SHA-256 pairs; build from exported archive in temporary folder using existing compiler image. No deployment.",
+  "payload_timestamp_utc": "2026-09-25T07:27:39Z",
+  "files": [
+    {
+      "path": "binary/payload.RMCED00.bin",
+      "bytes": 28928,
+      "sha256": "7495c31de6623ef5e11ad17af26bdd446e00219ac6638b5f2fca3e53e4145277",
+      "operator_rebuild_sha256_matches": true
+    },
+    {
+      "path": "binary/payload.RMCJD00.bin",
+      "bytes": 28928,
+      "sha256": "bf120e0ec39cd961bc6075ddf4702f5e1e6522189204911cd70877e1fdf895c6",
+      "operator_rebuild_sha256_matches": true
+    },
+    {
+      "path": "binary/payload.RMCKD00.bin",
+      "bytes": 28928,
+      "sha256": "bc9ac0b2ccc85cec16f2d7c6106add7e6abbf91d9a37d30220e986075d59affa",
+      "operator_rebuild_sha256_matches": true
+    },
+    {
+      "path": "binary/payload.RMCPD00.bin",
+      "bytes": 28928,
+      "sha256": "ee4c10e616ea23ab9b3e9a952f3c78533fd8f623918c3ff8af742d20ecff53a7",
+      "operator_rebuild_sha256_matches": true
+    },
+    {
+      "path": "stage1.bin",
+      "bytes": 3920,
+      "sha256": "9706b5c49c1802ebd57251efa2648546808fce20ba083c05ac0a40b0d9d45d64",
+      "operator_rebuild_sha256_matches": true
+    }
+  ],
+  "limits": [
+    "No game runtime test performed",
+    "Payload HTTP configuration/served bytes have not independently been fetched",
+    "No signing key is included or needed to reproduce these unsigned on-disk payload binaries",
+    "Source archive extraction preserves content but resets mtimes; build recipe restores timestamp used by __TIMESTAMP__"
+  ]
+}

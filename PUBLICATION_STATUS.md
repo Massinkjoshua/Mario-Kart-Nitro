@@ -20,15 +20,20 @@ the running NitroWFC service are not changed by this pull request.
 
 - Operator-exported live NitroWFC source (134 files) and running executable hash;
   manifest verified, source compiles and race tests pass with inherited vet
-  warnings disabled. Exact binary correspondence is not yet established.
-  See server/docs/live-export-2026-10-16.md for missing runtime/payload inputs.
+  warnings disabled. An operator rebuild on the original host exactly matched
+  the running executable. See server/docs/live-export-2026-10-16.md for evidence
+  and the distinction between the export and the on-host rebuild.
+- Matching patcher source, public verification key, upstream notices and pinned
+  Docker build instructions. Operator rebuilds from the exported archive exactly
+  matched stage1 and all four RMC payloads; see patcher/VERIFICATION.json.
 
 ## Still unverified
 
 - Full preferred-source correspondence for the latest client core and the older
   public 1.0 Code.pul. The final-PAL engine recipe still needs a precompiled core.
-- Source/executable match for live NitroWFC and the separately served payload and
-  stage1.bin. No credentials, signing keys or live player/database data belong here.
+- Complete safe runtime inputs and a prominent public source offer for online
+  users. Actual HTTP-served payload bytes/configuration were not independently
+  fetched. No credentials, signing keys or live player/database data belong here.
 - Full Wii/Dolphin and online runtime testing; complete historical release mapping;
   asset redistribution permission and preferred editable asset sources.
 

@@ -1,0 +1,57 @@
+# Prerequisites
+*.d
+
+# Local scripts
+*.bat
+*.sh
+
+!make.sh
+dist/
+
+# Editor files
+.vscode
+*.kate-swp
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# OS generated files
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+# Output
+stage1/build
+patch/build
+patch/build_tool
+payload/build
+payload/binary
+exploit/build
+exploit/sbcm
+launcher/build
+*.elf
+*.out
+*.dol
+*.wad
+*.app
+
+# Keys that should likely not be comitted
+misc/private-key-OUT.pem
+misc/wwfcPayloadPublicKey-OUT.hpp

@@ -1,6 +1,6 @@
 # NitroWFC live-source export review — 16 October 2026
 
-## Evidence
+## Initial evidence (before binary upload and rebuild)
 
 The operator exported `/opt/mknitro` on 2026-10-16 at 12:59:31 UTC using
 scripts/export_running_source.py. Process 136701 resolved to `/opt/mknitro/wwfc`
@@ -43,7 +43,7 @@ Using Go 1.25.5 locally:
 - No live database connections, service changes or game/network runtime tests
   were performed. No byte-for-byte match with the Go 1.26.0 binary is claimed.
 
-## Remaining inputs
+## Remaining inputs recorded at export
 
 The export intentionally filters file types and omits private configs, player
 state, logs, keys and backups. It is not a complete deployment/source package.
@@ -57,3 +57,37 @@ Never publish payload/private-key.pem, API keys, database credentials or player 
 Next: identify payload build/source revision, collect safe required resources,
 and reproduce/compare the running Go 1.26.0 executable from this snapshot.
 The public player-facing source offer still needs to be completed and deployed.
+
+## Later verification — running binary received and server rebuild
+
+The uploaded nitro-running-server.bin independently hashes to the recorded
+`f36e1cb75c34a4f44f93c59aacf441950fa3239a2c1f636d3f3b2c9e58dcfc6a`.
+Go build metadata independently confirms Go 1.26.0 and the flags recorded above.
+A local Go 1.26.0 build succeeds. Its whole-file SHA differs under this host's
+native CGO toolchain; all 813 project text symbols match in size and instructions
+when only verified symbol-relative branch/RIP-relative relocations are normalized.
+This is an instruction comparison, not whole-program runtime equivalence.
+
+The operator then ran the following on the original server in /opt/mknitro:
+
+```sh
+nitro_check_dir=$(mktemp -d /tmp/nitro-build-check.XXXXXX)
+go build -buildvcs=false -trimpath -o "$nitro_check_dir/wwfc" .
+sha256sum "$nitro_check_dir/wwfc" /proc/136701/exe
+```
+
+Screenshot image(20261016-131732).png records both files hashing to
+`f36e1cb75c34a4f44f93c59aacf441950fa3239a2c1f636d3f3b2c9e58dcfc6a`.
+This verifies an exact rebuild from the server's source directory on its build
+host. The archive export was separately verified as recorded above; no second
+on-server source-manifest comparison was performed after that export.
+No running service was replaced or restarted. Missing runtime inputs and public
+source-offer deployment remain open.
+
+## Later verification — matching payload source
+
+The operator subsequently rebuilt stage1 and all four RMC payloads from the
+exported patcher archive in an isolated temporary folder. All five SHA-256 pairs
+matched their on-disk references. See ../../patcher/README.md and
+../../patcher/VERIFICATION.json for the source, pinned compiler image, hashes and
+evidence limits. No HTTP-served payload response or game runtime was tested.
