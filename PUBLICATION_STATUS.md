@@ -83,3 +83,19 @@ across 30 synthetic fixtures at two bases. Original v5 leaderboard/JSON source
 files are preserved separately from the repaired candidate. See
 client/docs/leaderboard-parser-followup-2026-10-16.md for exact scope and the
 network-lifecycle differences that remain unverified. No game binary changed.
+
+## Original project restoration and released request-flow recovery
+
+Recovery/V5SourceSnapshot now restores the complete supplied v5 Source directory:
+1,097 files, all paths and bytes verified against the original. 42 differing or
+missing files are stored alongside a manifest referencing 1,055 identical files
+already published here. This fixes the original-source omission; it does not
+certify a whole binary match (see the existing v5 audit).
+
+Recovery/ReleasedLeaderboard contains readable source for the observed latest
+PAL request-flow changes and an isolated build script using source-built objects.
+252 PowerPC executions across 63 distinct cases passed for OnActivate,
+OnDeactivate, StartFetch and OnLeaderboardReceived. See
+client/docs/leaderboard-network-emulation.json and the recovery README for
+controlled-call boundaries, historical behavior and remaining integration gaps.
+The full latest core source correspondence and older release coverage remain open.
