@@ -13,7 +13,7 @@ the person installing it. The original upstream example remains unchanged.
 | profanity.txt | nas/profanity.go reads the operator's optional filter. Not found by the fixed-name collection. |
 | /opt/mknitro-rwfc/multiplier.txt and multiplierBeta.txt | Exact absolute paths used by nas/main.go. Collected multiplier.txt contains 2; multiplierBeta.txt was absent. Missing/invalid files fall back to 1x. Merely supplying these in the working directory does not change the existing lookup. |
 | payload/stage1.bin and four RMC binaries | Matching source/build recipe in ../../patcher/. Server signs responses with a private key generated/held by the operator. |
-| payload/sbcm/payload.*.bin | Additional exploit path in qr2/message.go. Whether these files exist or are used has not been established. Their source/provenance needs review if supplied. |
+| payload/sbcm/payload.*.bin | Additional exploit path in qr2/message.go. The operator's image(20261016-145859).png reports that /opt/mknitro/payload/sbcm did not exist. This records the checked path only, not historical absence or other deployments. Source/provenance needs review if supplied elsewhere. |
 | schema.sql | Exact schema file included in the live export; no live database records are needed. |
 | config.xml and TLS/signing keys | Keep production values private; use the safe example and obtain/generate appropriate keys for your own installation. |
 | state/, logs and database contents | Operational/player data; excluded from source publication and collection. |

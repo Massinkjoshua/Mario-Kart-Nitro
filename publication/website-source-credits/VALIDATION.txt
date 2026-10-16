@@ -1,0 +1,14 @@
+VALIDATION — 16 October 2026
+
+Applied to an isolated copy of the available website v32 source.
+- Every original HTML byte preserved outside the inserted section: PASS.
+- Second application leaves content unchanged: PASS.
+- Existing Worker rebuild: PASS (10,904,495 bytes; not shipped in this patch).
+- check-site.mjs: PASS (mocked upstream success/failure/privacy cases).
+- check-pagination.mjs: PASS (room codes, ranks through 197, both controls).
+- check-online.mjs: PASS (mocked feeds, rooms, privacy and error cases).
+- check-worker.mjs: PASS (generated Worker and existing asset routes).
+
+The preceding checks exercise the v32 copy, not the current live deployment.
+No browser visual QA, live deployment or live game/server changes were performed.
+Run the current website's own checks after applying this patch to its latest source.

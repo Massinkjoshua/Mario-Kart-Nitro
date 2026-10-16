@@ -55,3 +55,21 @@ and its supplied inputs. Those records retain their original scope. Current
 publication and GitHub access status are recorded here instead of rewriting
 historic evidence. The branch is intended to remain a draft while the remaining
 source, deployment, runtime and asset checks are completed.
+
+## Additional client audit and checks
+
+The v5 source audit and compiler probes are recorded in
+client/Recovery/CoreAudit-2026-10-16/. None reproduces that historical binary
+in full; this comparison is separate from the latest-release function checks.
+
+A further 352 isolated latest-release/source-built PowerPC executions passed
+across ghost challenge/replay selection, the ghost-viewer local-player check
+and cached Dolphin detection. Exact hashes and scope are in
+client/docs/core-codegen-emulation.json and core-source-followup-2026-10-16.md.
+No engine code or gameplay binaries were changed for these checks.
+
+The active publication destination remains Massinkjoshua/Mario-Kart-Nitro-Releases
+by the operator's instruction. A nitroforge/Nitropack upload was attempted but
+rejected by the GitHub integration (403); nothing was published there.
+The pending website patch in publication/website-source-credits/ targets this
+active recovery branch; it has not been deployed.
