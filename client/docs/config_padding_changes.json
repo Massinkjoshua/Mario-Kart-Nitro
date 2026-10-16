@@ -1,0 +1,60 @@
+[
+  {
+    "path": "Project/config.pul",
+    "original_sha256": "46698cf9b913e9c9ebe78d95bc7357403fe15652883ac52ad28058114986f9be",
+    "working_sha256": "11e7e7b2c1458910ad510041d00f44b9569532d107292b5e135bb340f7c38b9f",
+    "changed_bytes": [
+      {
+        "offset": 1257,
+        "old": 0,
+        "new": 108
+      },
+      {
+        "offset": 1259,
+        "old": 1,
+        "new": 109
+      },
+      {
+        "offset": 1261,
+        "old": 2,
+        "new": 110
+      },
+      {
+        "offset": 1263,
+        "old": 3,
+        "new": 111
+      }
+    ],
+    "track_records_changed": false,
+    "names_colors_crcs_changed": false
+  },
+  {
+    "path": "Project/ConfigRT.pul",
+    "original_sha256": "b96998924356484d0e233bc1b0da4a50b42a126826457bfb98850c9ce83f4669",
+    "working_sha256": "b1450d0220ea735c9b4890e4b601b8ac79d7ddee01c97c2ef363ccf2a1f8c95c",
+    "changed_bytes": [
+      {
+        "offset": 1257,
+        "old": 0,
+        "new": 108
+      },
+      {
+        "offset": 1259,
+        "old": 1,
+        "new": 109
+      },
+      {
+        "offset": 1261,
+        "old": 2,
+        "new": 110
+      },
+      {
+        "offset": 1263,
+        "old": 3,
+        "new": 111
+      }
+    ],
+    "track_records_changed": false,
+    "names_colors_crcs_changed": false
+  }
+]

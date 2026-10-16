@@ -1,0 +1,14 @@
+{
+  "README.txt": "bcb316c14851c02098f3cf0d52a5b6ad9e31995a983e2959bb66bee699d26848",
+  "Verification/test.py": "656d474d953296bff4033b8854a76096c9b6874adc137176d257c3e391d73f08",
+  "Verification/build.py": "a6f0a4e1a5810879784033240312ffda9cfe1ac14308588360e461f593b9a3db",
+  "Verification/code_tools.py": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad",
+  "Verification/results.txt": "5639128c75a480a3daef593db31bf47e7160a9d1098b7fd53910cc7ff0b9af5a",
+  "Server/approved-build.json": "ca367b60689a49308bc1e5cbcf8805080d457d804b980c5de23c616fb29fca6c",
+  "Server/register-build.py": "a9e401ff991b7ab4c0961615f06b17d22b9fb2e1286eaeb053690c752953a336",
+  "Server/restore-build.json": "24653807eb99c2b17c3eb126400a1010add5245de017b338814a84e8069fddf9",
+  "Source/online-tt-track-selection.patch": "67c9ca9790879d7247174aef7a2b2ccdb2b212ccf27737a3411b376d3dabfff8",
+  "Game/Code.json": "a3e651f044af19bda03585d622bc3ee80478c44ab950d48ea2c48a54210840b6",
+  "Game/Code-previous.pul": "5104cb1c6ca241db82f4d5d6658e72eeca8bb5b3af622ab192e5bc05422f25af",
+  "Game/Code.pul": "0f542baa4328bb75d75f5e05fcec2348ccb0817c1ff2107cfa3f6af2eab1cd68"
+}

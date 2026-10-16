@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "configuration": "Release",
+  "project": "PulsarPackCreator/Pulsar Pack Creator.csproj",
+  "target": "net7.0-windows",
+  "sdk": "10.0.402",
+  "cross_compiled_on_linux": true,
+  "enable_windows_targeting": true,
+  "errors": 0,
+  "warnings": 9,
+  "gui_runtime_tested": false,
+  "log": "docs/editor-build.log",
+  "sdk_provenance": {
+    "release-version": "10.0.13",
+    "sdk-version": "10.0.402",
+    "asset": {
+      "name": "dotnet-sdk-linux-x64.tar.gz",
+      "rid": "linux-x64",
+      "url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.402/dotnet-sdk-10.0.402-linux-x64.tar.gz",
+      "hash": "1904a98dda2db34ba78ba3c4fb1b224455329af91c341d83547843c1839e112b04ae699ee92fa2449a8f62249196a938723078c0c60b9f65c88539d5687729c2"
+    }
+  }
+}

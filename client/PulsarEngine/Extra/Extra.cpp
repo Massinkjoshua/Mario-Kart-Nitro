@@ -1,0 +1,572 @@
+#include <Gamemodes/ItemRain/ItemRain.hpp>
+#include <hooks.hpp>
+#include <kamek.hpp>
+#include <MarioKartWii/Kart/KartStatus.hpp>
+#include <MarioKartWii/Kart/KartPointers.hpp>
+#include <MarioKartWii/Item/ItemManager.hpp>
+#include <MarioKartWii/Item/ItemPlayer.hpp>
+#include <MarioKartWii/Item/ItemSlot.hpp>
+#include <MarioKartWii/Item/Obj/KouraTogezo.hpp>
+#include <MarioKartWii/RKNet/RKNetController.hpp>
+#include <Dolphin/DolphinIOS.hpp>
+#include <PulsarSystem.hpp>
+#include <SlotExpansion/CupsConfig.hpp>
+#include <CustomCharacters/CustomCharacters.hpp>
+#include <include/c_string.h>
+
+namespace Codes {
+
+// Remove Background Blur [Davidevgen]
+kmWrite32(0x80258184, 0x30);
+
+// Anti Online Item Delimiters [Ro]
+extern "C" u8 sBlockOnlineItemDelimiters = true;
+asmFunc GetItemDelimiterShock() {
+    ASM(
+        nofralloc;
+        mflr r12;
+        cmpwi r7, 0x1;
+        bne + validLightning;
+        stwu r1, -0x10(r1);
+        stw r11, 0x8(r1);
+        lis r11, sBlockOnlineItemDelimiters @ha;
+        lbz r11, sBlockOnlineItemDelimiters @l(r11);
+        cmpwi r11, 0;
+        lwz r11, 0x8(r1);
+        addi r1, r1, 0x10;
+        beq + validLightning;
+        addi r12, r12, 0x12C;
+        mtlr r12;
+        blr;
+        validLightning : mulli r29, r3, 0xF0;
+        blr;)
+}
+
+asmFunc GetItemDelimiterBlooper() {
+    ASM(
+        nofralloc;
+        mflr r12;
+        cmpwi r7, 0x1;
+        bne + validBlooper;
+        stwu r1, -0x10(r1);
+        stw r11, 0x8(r1);
+        lis r11, sBlockOnlineItemDelimiters @ha;
+        lbz r11, sBlockOnlineItemDelimiters @l(r11);
+        cmpwi r11, 0;
+        lwz r11, 0x8(r1);
+        addi r1, r1, 0x10;
+        beq + validBlooper;
+        addi r12, r12, 0x1A8;
+        mtlr r12;
+        blr;
+        validBlooper : addi r11, r1, 0x50;
+        blr;)
+}
+
+asmFunc GetItemDelimiterPOW() {
+    ASM(
+        nofralloc;
+        mflr r12;
+        cmpwi r7, 0x1;
+        bne + validPOW;
+        stwu r1, -0x10(r1);
+        stw r11, 0x8(r1);
+        lis r11, sBlockOnlineItemDelimiters @ha;
+        lbz r11, sBlockOnlineItemDelimiters @l(r11);
+        cmpwi r11, 0;
+        lwz r11, 0x8(r1);
+        addi r1, r1, 0x10;
+        beq + validPOW;
+        addi r12, r12, 0x48;
+        mtlr r12;
+        blr;
+        validPOW : mr r30, r3;
+        blr;)
+}
+
+void EnableDelimitersForAllItems() {
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    const bool isFroom = controller != nullptr && (controller->roomType == RKNet::ROOMTYPE_FROOM_HOST ||
+                                                   controller->roomType == RKNet::ROOMTYPE_FROOM_NONHOST);
+    sBlockOnlineItemDelimiters = !isFroom && !Pulsar::ItemRain::IsItemRainEnabled();
+}
+static SectionLoadHook PatchItemDelimiters(EnableDelimitersForAllItems);
+kmCall(0x807B7C34, GetItemDelimiterShock);
+kmCall(0x807A81C0, GetItemDelimiterBlooper);
+kmCall(0x807B1B44, GetItemDelimiterPOW);
+
+static bool CanItemNotBeObtained(Item::ItemSlotData *slotData, ItemObjId objId, bool hasTimer) {
+    if (!sBlockOnlineItemDelimiters || !hasTimer) return false;
+
+    switch (objId) {
+        case OBJ_LIGHTNING:
+            return slotData->itemSpawnTimers[0] >= 300;
+        case OBJ_BLUE_SHELL:
+            return slotData->itemSpawnTimers[1] >= 300;
+        case OBJ_BLOOPER:
+            return slotData->itemSpawnTimers[2] >= 300;
+        case OBJ_POW_BLOCK:
+            return slotData->itemSpawnTimers[3] >= 300;
+        default:
+            return false;
+    }
+}
+kmBranch(0x807BB380, CanItemNotBeObtained);
+
+// Blue Shell Cooldown [ZPL]
+extern "C" Item::ItemSlotData *itemSlotData;
+static void EnableBlueShellCooldown(Item::ObjKouraTogezo *blueShell) {
+    const Pulsar::System *system = Pulsar::System::sInstance;
+    if (system->IsVanillaMode() || Pulsar::ItemRain::IsItemRainEnabled()) return blueShell->Reset();
+
+    blueShell->Reset();
+    if (blueShell->itemObjId == OBJ_BLUE_SHELL && itemSlotData != nullptr) itemSlotData->ResetBlueShellTimer();
+}
+kmCall(0x807AC6B8, EnableBlueShellCooldown);
+kmWrite32(0x807BB9C8, 0x38000384);  // li r0, 900 (15 seconds)
+
+// Remove special itembox table properties [ZPL]
+static void RemoveSpecialItem(Item::Player *player, u16 playerItemBoxType, u16 cpuItemBoxType, u32 lotteryType) {
+    const Pulsar::CupsConfig *cupsConfig = Pulsar::CupsConfig::sInstance;
+    const Pulsar::PulsarId pulsarId = cupsConfig->GetWinning();
+    const char *fileName = !Pulsar::CupsConfig::IsReg(pulsarId) ? cupsConfig->GetFileName(pulsarId, cupsConfig->GetCurVariantIdx()) : 0;
+    if (fileName == 0 || fileName[0] == '\0') fileName = cupsConfig->GetFileName(pulsarId, 0);
+    if (fileName != 0 && strcmp(fileName, "Z129") == 0) {  // Haunted Woods
+        playerItemBoxType = 0;
+        cpuItemBoxType = 0;
+    }
+    player->DecideItem(playerItemBoxType, cpuItemBoxType, lotteryType);
+}
+kmCall(0x80828d70, RemoveSpecialItem);
+kmCall(0x80828da4, RemoveSpecialItem);
+
+// Anti Mii Crash
+asmFunc AntiWiper() {
+    ASM(
+        nofralloc;
+        loc_0x0 : cmpwi r4, 0x6;
+        ble validMii;
+        lhz r12, 0xE(r30);
+        cmpwi r12, 0x0;
+        bne validMii;
+        li r31, 0x0;
+        li r4, 0x6;
+        validMii : mr r29, r4;
+        blr;)
+}
+kmCall(0x800CB6C0, AntiWiper);
+kmWrite32(0x80526660, 0x38000001);  // Credits to Ro for the last line.
+
+// Anti Item Collission Crash [Marioiscool246]
+extern "C" void __ptmf_test(void *);
+asmFunc AntiItemColCrash() {
+    ASM(
+        nofralloc;
+        loc_0x0 : stwu r1, -0xC(r1);
+        stw r31, 8(r1);
+        mflr r31;
+        addi r3, r29, 0x174;
+        bl __ptmf_test;
+        cmpwi r3, 0;
+        bne end;
+        addi r31, r31, 0x14;
+
+        end : mtlr r31;
+        lwz r31, 8(r1);
+        addi r1, r1, 0xC;
+        mr r3, r29;
+        blr;)
+}
+kmCall(0x807A1A54, AntiItemColCrash);
+
+// Item Spam Anti-Freeze
+asmFunc ItemSpamAntiFreeze() {
+    ASM(
+        loc_0x0 : lbz r12, 0x1C(r27);
+        add r12, r30, r12;
+        cmpwi r12, 0xE0;
+        blt + loc_0x18;
+        li r0, 0;
+        stb r0, 0x19(r27);
+
+        loc_0x18 : lbz r0, 0x19(r27);)
+}
+kmCall(0x8065BBD4, ItemSpamAntiFreeze);
+
+// Allow All Vehicles in Battle Mode [Nameless, Scruffy]
+kmWrite32(0x80553F98, 0x3880000A);
+kmWrite32(0x8084FEF0, 0x48000044);
+kmWrite32(0x80860A90, 0x38600000);
+
+// Instant Voting Roulette Decide [Ro]
+kmWrite32(0x80643BC4, 0x60000000);
+kmWrite32(0x80643C2C, 0x60000000);
+
+// Skip Credits Launch [ZPL]
+kmWrite32(0x805BC85C, 0x60000000);  // Skip setting game mode to CREDITS for normal credits
+kmWrite32(0x805BC864, 0x3880003D);  // Go straight to congratulations
+kmWrite32(0x805BC870, 0x60000000);  // Skip setting credits course for normal credits
+kmWrite32(0x805BC8A0, 0x60000000);  // Skip setting game mode to CREDITS for true credits
+kmWrite32(0x805BC8A8, 0x3880003E);  // Go straight to congratulations complete
+kmWrite32(0x805BC8B4, 0x60000000);  // Skip setting credits course for true credits
+
+// No Disconnect on Countdown [_tZ]
+kmWrite32(0x80655578, 0x60000000);
+
+// Mushroom Glitch Fix [Vega, ported by ZPL]
+static Item::PlayerRoulette *ApplyMushroomGlitchFix(Item::PlayerRoulette *roulette) {
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    if (controller != nullptr && Pulsar::System::sInstance->IsVanillaMode()) ++roulette->itemNum;
+    return roulette;
+}
+kmCall(0x807BA078, ApplyMushroomGlitchFix);
+
+// Slow Ramp Offroad Fix [vabold, ported by ZPL]
+static Kart::Status *ClearSlowRampMushroomRequirement(Kart::Pointers *pointers) {
+    Kart::Status *status = pointers->kartStatus;
+    if (!Pulsar::System::sInstance->IsVanillaMode()) {
+        status->bitfield2 &= ~0x00100000;
+    }
+    return status;
+}
+kmCall(0x80582670, ClearSlowRampMushroomRequirement);
+
+// Allow WFC on Wiimmfi Patched ISOs
+kmWrite32(0x800EE3A0, 0x2C030000);
+kmWrite32(0x800ECAAC, 0x7C7E1B78);
+
+// Disable Camera Shaking from Bombs [ZPL]
+kmWrite32(0x805a906c, 0x4E800020);
+
+// No VR/BR Loss on Disconnect [Bully]
+kmWrite32(0x80856560, 0x60000000);  // Disable VR loss
+kmWrite32(0x808565CC, 0x60000000);  // Disable BR loss
+
+// Remove 99999 Stat Caps for WFC Wins/Losses [Zeraora]
+kmWrite32(0x80545D2C, 0x48000008);
+kmWrite32(0x80545D64, 0x48000008);
+kmWrite32(0x8085C7F0, 0x48000008);
+kmWrite32(0x8085C818, 0x48000008);
+
+// Prevent Race End from Lack of Opponents in Battle [Zeraora, ZPL]
+kmWrite32(0x8053c710, 0x38000000);
+kmWrite32(0x8053D67C, 0x38000000);
+
+// Ultra Uncut [MrBean35000vr + Chadderz]
+extern "C" void isOnlineRace__9DriverMgr(void *);
+asmFunc GetUltraUncut() {
+    ASM(
+        nofralloc;
+        lis r12, isOnlineRace__9DriverMgr @ha;
+        lbz r12, isOnlineRace__9DriverMgr @l(r12);
+        cmpwi r12, 0;
+        beq + vanilla;
+
+        lbz r3, 0x1C(r29);
+        cmplwi r3, 0x1;
+        ble + vanilla;
+        mr r0, r30;
+
+        vanilla : cmplw r30, r0;
+        blr;)
+}
+kmCall(0x8053511C, GetUltraUncut);
+
+// Anti Lag Start [Ro]
+extern "C" void sInstance__8Racedata(void *);
+asmFunc AntiLagStart() {
+    ASM(
+        nofralloc;
+        loc_0x0 : lwz r12, sInstance__8Racedata @l(r30);
+        lwz r12, 0xB70(r12);
+        cmpwi r12, 0x7;
+        blt - loc_0x14;
+        li r3, 0x1;
+
+        loc_0x14 : cmpwi r3, 0x0;
+        blr;)
+}
+kmCall(0x80533430, AntiLagStart);
+
+// Skip Bubble Formation [Ro]
+kmWrite32(0x806075F4, 0x48000060);
+
+// Fix star offroad glitch after cannon [Ro]
+asmFunc StarOffroadFix() {
+    ASM(
+        nofralloc;
+        andi.r11, r0, 0x80;
+        andis.r12, r0, 0x8000;
+        or.r0, r11, r12;
+        blr;)
+}
+kmCall(0x8057C3F8, StarOffroadFix);
+
+// Force player to not be penalized [B_squo]
+kmWrite32(0x80549898, 0x38600000);
+kmWrite32(0x8054989c, 0x4E800020);
+
+// Fix Bullet Bill speed dropping to 120 km/h after cannons [ZPL]
+kmWrite32(0x8057BBD4, 0xD3FD002C);
+
+// Deflicker when 480p [MKW-SP]
+asmFunc Deflicker() {
+    ASM(
+        nofralloc;
+        cntlzw r0, r3;
+        lwz r5, 0x14(r5);
+        cmpwi r5, 0x0;
+        bnelr;
+        li r0, 0x0;
+        blr;)
+}
+kmCall(0x8021A028, Deflicker);
+
+// Edit Battle Item Point Probabilities [Zeraora, B_squo]
+kmWrite32(0x807bd494, 0x38000000);
+kmWrite32(0x807bd498, 0x38A00003);
+kmWrite32(0x807bd4a8, 0x38000000);
+kmWrite32(0x807bd4ac, 0x38A00003);
+kmWrite32(0x807bd4b4, 0x38000000);
+kmWrite32(0x807bd4b8, 0x38A00003);
+
+// Blooper's lighting matches vehicle's lighting [B_squo]
+kmWrite32(0x807a8a5c, 0x60000000);
+
+// Vehicle arm parts load online [B_squo]
+kmWrite32(0x80577724, 0x48000024);
+
+// Fix Unfocused Small Mii Icon Border [B_squo]
+kmWrite32(0x807eb774, 0x2c000017);
+
+// Fix Online Players Stuck on Halfpipe (Halfpipe Warp Fix) [Ro]
+asmFunc halfpipeWarpFix() {
+    ASM(
+        nofralloc;
+        lwz r11, 8(r4);
+        rlwinm.r12, r11, 0, 21, 21;
+        beq - loc_0x20;
+        lha r0, 86(r31);
+        cmpwi r0, 0x52;
+        blt - loc_0x20;
+        rlwinm r11, r11, 0, 22, 20;
+        stw r11, 8(r4);
+
+        loc_0x20 :;
+        mr r4, r11;
+        blr;)
+}
+kmCall(0x8058BF58, halfpipeWarpFix);
+
+// Show Your Respawn Boost Online [Ro] #1
+asmFunc respawnBoostFix1() {
+    ASM(
+        nofralloc;
+        lwz r4, 0(r3);
+        lwz r4, 60(r4);
+        cmpwi r4, 0x0;
+        beq - loc_0x20;
+        lwz r4, 16(r4);
+        lwz r5, 16(r4);
+        xoris r5, r5, 16384;
+        stw r5, 16(r4);
+
+        loc_0x20 :;
+        li r4, 0x3;
+        blr;)
+}
+kmCall(0x80581E40, respawnBoostFix1);
+
+asmFunc respawnBoostFix2() {
+    ASM(
+        nofralloc;
+        lwz r4, 0(r3);
+        lwz r4, 60(r4);
+        cmpwi r4, 0x0;
+        beq - loc_0x20;
+        lwz r4, 16(r4);
+        lwz r5, 16(r4);
+        xoris r5, r5, 16384;
+        stw r5, 16(r4);
+
+        loc_0x20 :;
+        li r4, 0x3;
+        blr;)
+}
+kmCall(0x805820B0, respawnBoostFix2);
+
+// No Shell Tail Dissolve [Ro]
+kmWrite32(0x8068DD68, 0x38600000);
+
+// Online Miis have facial expressions [B_squo]
+kmWrite32(0x807C7944, 0x38800000);
+
+// Live View Icon Shadow Bug Fix [B_squo]
+kmWrite32(0x807eb988, 0x807c01c0);
+
+// Always Blank Offline Controller Icon [ZPL]
+kmWrite32(0x807f0644, 0x48000024);
+
+// Fix Mii opponents having silent / Rosalina voice Bug [B_squo]
+kmWrite32(0x8086975C, 0x4082001C);
+
+// Mute only Luma's two sound handles when the selected custom character has loose or silent voices [ZPL]
+static nw4r::snd::SoundHandle *MuteRosalinaLumaSounds(Audio::RaceActor *actor, u32 soundId) {
+    Audio::CharacterActor *const characterActor = static_cast<Audio::CharacterActor *>(actor);
+    const Racedata *racedata = Racedata::sInstance;
+    if ((soundId == 0xf68 || soundId == 0xf69) && racedata->racesScenario.players[characterActor->playerId].characterId == ROSALINA) {
+        const u8 table = Pulsar::CustomCharacters::RaceSkinTable(characterActor->playerId, ROSALINA);
+        const Pulsar::CustomCharacters::LooseVoiceInfo &voiceInfo = Pulsar::CustomCharacters::GetLooseVoiceInfo(ROSALINA, table);
+        if (voiceInfo.hasFiles || voiceInfo.silent) return nullptr;
+    }
+    return actor->Audio::RaceActor::HoldSoundLimited(soundId);
+}
+kmWritePointer(0x808dbcd8, MuteRosalinaLumaSounds);
+
+// Online Miis look at the camera when finishing in Live View [B_squo]
+kmWrite32(0x80596770, 0x60000000);
+
+// Invincibility Period Against Cars/Trucks Objects in All Slots [Ro]
+kmWrite32(0x806D686C, 0x3800000A);
+kmWrite32(0x80827968, 0x38000000);
+
+// Slot Specific Objects Work in All Slots (pylon01, sunDS, FireSnake and begoman_spike) [Ro]
+kmWrite32(0x8082A4F8, 0x3800000A);
+
+// Cancel Friend Room Joining by Pressing B [Ro]
+extern "C" void ptr_inputBase(void *);
+asmFunc friendRoomJoinCancel() {
+    ASM(
+        nofralloc;
+        lis r31, ptr_inputBase @ha;
+        lwz r31, ptr_inputBase @l(r31);
+        lhz r31, 0x60(r31);
+        andi.r31, r31, 0x2;
+        beq end;
+
+        li r3, 3;
+
+        end :;
+        cmpwi r3, 3;
+        blr;)
+}
+kmCall(0x805DD85C, friendRoomJoinCancel);
+
+// Play Character Icon Damage Animation When Burned Out [Ro]
+asmFunc burnoutIconFix() {
+    ASM(
+        nofralloc;
+        lwz r0, 8(r3);
+        andis.r12, r0, 0x4;
+        beq - loc_0x10;
+        ori r0, r0, 0x1;
+
+        loc_0x10 :;
+        blr;)
+}
+kmCall(0x807EB38C, burnoutIconFix);
+
+// Fix Pokey Not Respawning After Hit by POW While Dead [Ro]
+asmFunc pokeyDeathFix() {
+    ASM(
+        nofralloc;
+        loc_0x0 :;
+        cmpwi r0, 0x1;
+        beq - loc_0xC;
+        cmpwi r0, 0x3;
+        loc_0xC :;
+        blr;)
+}
+kmCall(0x8077AC50, pokeyDeathFix);
+
+// Allow Pausing Before Race Starts [Sponge]
+kmWrite32(0x80856a28, 0x40810050);
+
+// jugemnu_lap.brres [ZPL]
+kmWrite16(0x808a22ec, 'RR');
+
+// Disable 6 minute time limit Online [CLF78]
+kmWrite32(0x8053F478, 0x4800000C);
+
+// Clear Exhaust Pipe Boost Particle After Damage [Ro]
+extern "C" void exhaustPipeboost(void *);
+asmFunc exhaustPipeboostFix() {
+    ASM(
+        nofralloc;
+        lis r3, exhaustPipeboost @h;
+        lwz r3, exhaustPipeboost @l(r3);
+        lwz r3, 104(r3);
+        lwz r4, 0(r31);
+        lwz r5, 40(r4);
+        lwz r4, 0(r4);
+        lbz r4, 16(r4);
+        mulli r4, r4, 0x4;
+        lwzx r3, r3, r4;
+        li r0, 0x0;
+        stw r0, 24(r3);
+        blr;)
+}
+kmCall(0x805674B8, exhaustPipeboostFix);
+
+// Battle Timer Fix [B_squo]
+kmWrite32(0x80532744, 0x3800012C);
+kmWrite32(0x80532780, 0x3800012C);
+
+// Disable Data Save Reset for Region ID Change [Vega]
+kmWrite32(0x80544928, 0x7C601B78);
+
+// VR/BR assigned to Guest Modifier [Unnamed]
+kmWrite32(0x8065117C, 0x39C00096);
+
+// Mega Mushroom Flips Trucks [JoshuaMK]
+kmWrite32(0x8082AC00, 0x3B800001);
+
+// Disable Rainbow Road's Bottom Road Respawn and Bullet Bill Cancel [Ro]
+kmWrite32(0x8059BE20, 0x38600000);
+
+// Accurate Item Roulette [Ro]
+kmWrite32(0x807BB8EC, 0x60000000);
+
+// Prevent Item Usage in Bullet Bill [Ro]
+kmWrite32(0x80797C44, 0x3C600A0C);
+
+// Prevent Crash from Invalid Camera Pointer in Broken KMP [Gab]
+asmFunc InvalidCameraPointerFix() {
+    ASM(
+        nofralloc;
+        loc_0x0 : cmpwi r31, 0;
+        bne + loc_0x18;
+        mflr r12;
+        addi r12, r12, 0xA0;
+        mtlr r12;
+        blr;
+
+        loc_0x18 : lwz r3, 0x0(r31);
+        blr;)
+}
+kmCall(0x805ABE14, InvalidCameraPointerFix);
+
+// Force Game Language to Default [ZPL]
+kmWrite32(0x8000ad10, 0x38600001);
+
+// Allow Looking Backwards During Respawn & Countdown [Ro & Gaberboo]
+kmWrite32(0x805A228C, 0x60000000);
+kmWrite32(0x805A225C, 0x38800001);
+
+// Rename CharacterSelectName [ZPL]
+kmWrite8(0x808acfdf, 'R');
+kmWrite8(0x808ad02b, 'R');
+
+// Allow 18 rank symbols instead of 12 [ZPL]
+kmWrite32(0x805e3d48, 0x38C00012);
+
+// gsiResolveHostnameThread resolves a hostname to an IPv4 address at [sp + 0xc],
+// then needlessly performs SOInetNtoA -> SOInetAtoN before storing it at [sp + 0x8].
+// During a server-side resolver failure SOInetNtoA can return an invalid pointer;
+// SOInetAtoN then dereferences it and raises a DSI. Keep the resolved address in
+// binary form instead. Confirmed against mkw-pal in Ghidra at 0x800F20AC.
+kmWrite32(0x800F20AC, 0x8001000C);  // lwz r0, 0xc(r1)
+kmWrite32(0x800F20B0, 0x90010008);  // stw r0, 0x8(r1)
+kmWrite32(0x800F20B4, 0x60000000);  // nop SOInetAtoN call
+
+}  // namespace Codes

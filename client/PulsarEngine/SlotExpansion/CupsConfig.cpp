@@ -1,0 +1,810 @@
+// Modified for Mario Kart Nitro on 2026-10-16; see docs/source_changes.json.
+#include <MarioKartWii/Audio/Race/AudioItemAlterationMgr.hpp>
+#include <MarioKartWii/Audio/RaceMgr.hpp>
+#include <MarioKartWii/RKNet/RKNetController.hpp>
+#include <MarioKartWii/GlobalFunctions.hpp>
+#include <MarioKartWii/UI/Ctrl/PushButton.hpp>
+#include <Settings/SettingsParam.hpp>
+#include <Settings/UI/ExpWFCMainPage.hpp>
+#include <SlotExpansion/CupsConfig.hpp>
+#include <Settings/Settings.hpp>
+#include <PulsarSystem.hpp>
+#include <SlotExpansion/CupOrder.hpp>
+
+namespace Pulsar {
+
+static bool ParseHexKey(const char *text, u32 &value) {
+    value = 0;
+    if (text == nullptr || *text == '\0') return false;
+    while (*text != '\0') {
+        char c = *text++;
+        if (c == '\r' || c == '\n') break;
+        value <<= 4;
+        if (c >= '0' && c <= '9')
+            value |= static_cast<u32>(c - '0');
+        else if (c >= 'A' && c <= 'F')
+            value |= static_cast<u32>(c - 'A' + 10);
+        else if (c >= 'a' && c <= 'f')
+            value |= static_cast<u32>(c - 'a' + 10);
+        else
+            return false;
+    }
+    return true;
+}
+
+static void TrimLine(char *line) {
+    if (line == nullptr) return;
+    char *start = line;
+    while (*start == ' ' || *start == '\t') ++start;
+    if (start != line) {
+        const size_t len = strlen(start);
+        memmove(line, start, len + 1);
+    }
+    size_t length = strlen(line);
+    while (length > 0) {
+        char c = line[length - 1];
+        if (c == '\r' || c == '\n' || c == ' ' || c == '\t') {
+            line[length - 1] = '\0';
+            --length;
+        } else
+            break;
+    }
+}
+
+const size_t trackMaxFileName = 48;
+
+static bool IsNitroWorldwideRace(GameMode mode, const RKNet::Controller &controller) {
+    return mode == MODE_PUBLIC_VS && controller.connectionState != RKNet::CONNECTIONSTATE_SHUTDOWN &&
+           (controller.roomType == RKNet::ROOMTYPE_JOINING_REGIONAL || controller.roomType == RKNet::ROOMTYPE_VS_REGIONAL) &&
+           System::sInstance->netMgr.region == 0x0A;
+}
+
+static char *DuplicateFileName(const char *src) {
+    if (src == nullptr || *src == '\0') return nullptr;
+    size_t len = strlen(src);
+    if (len == 0) return nullptr;
+    const size_t maxLen = trackMaxFileName;
+    if (len > maxLen) len = maxLen;
+    char *copy = new char[maxLen + 1];
+    memcpy(copy, src, len);
+    copy[len] = '\0';
+    return copy;
+}
+
+static inline u32 GetStoredCupCount(u32 cupCount) {
+    return (cupCount & 1) != 0 ? cupCount + 1 : cupCount;
+}
+
+static inline u32 GetStoredTrackCount(u32 cupCount) {
+    return GetStoredCupCount(cupCount) * 4;
+}
+
+static inline u16 CombineTrophyCount(u16 first, u16 second) {
+    u32 total = first + second;
+    if (total > 0xFFFF) total = 0xFFFF;
+    return static_cast<u16>(total);
+}
+
+static const Track *GetSourceTracks(const CupsHolder &cups) {
+    return &cups.tracks[0];
+}
+
+static const Variant *GetSourceVariants(const CupsHolder &cups) {
+    const u8 *trackData = reinterpret_cast<const u8 *>(&cups.tracks[0]);
+    return reinterpret_cast<const Variant *>(trackData + sizeof(Track) * GetStoredTrackCount(cups.ctsCupCount));
+}
+
+static const u16 *GetSourceAlphabeticalArray(const CupsHolder &cups) {
+    const u8 *variantData = reinterpret_cast<const u8 *>(GetSourceVariants(cups));
+    return reinterpret_cast<const u16 *>(variantData + sizeof(Variant) * cups.totalVariantCount);
+}
+
+static u32 CountSourceVariants(const Track *tracks, u32 trackCount) {
+    u32 count = 0;
+    for (u32 i = 0; i < trackCount; ++i) {
+        count += tracks[i].variantCount;
+    }
+    return count;
+}
+
+CupsConfig *CupsConfig::sInstance = nullptr;
+
+CupsConfig::CupsConfig(const CupsHolder &rawCups) : regsMode(rawCups.regsMode),
+                                                    hasRegs(false),
+                                                    hasOddCups(false),
+                                                    winningCourse(PULSARID_NONE),
+                                                    selectedCourse(PULSARID_FIRSTREG),
+                                                    curVariantIdx(0),
+                                                    pendingVariantIdx(0),
+                                                    hasPendingVariant(false),
+                                                    lastSelectedCup(PULSARCUPID_FIRSTREG),
+                                                    lastSelectedCupButtonIdx(0),
+                                                    isAlphabeticalLayout(false),
+                                                    lastVariantIdxByTrack(nullptr),
+                                                    retroCupCount(rawCups.ctsCupCount),
+                                                    ctOnlyCupCount(0),
+                                                    battleCupCount(0) {
+    memset(this->vsTrackVariantIdx, 0, sizeof(this->vsTrackVariantIdx));
+    lastVariantIdxByTrack = new u8[0x2000];
+    memset(lastVariantIdxByTrack, 0, 0x2000);
+    totalVariantCount = rawCups.totalVariantCount;
+    if (regsMode != 1) {
+        lastSelectedCup = PULSARCUPID_FIRSTCT;
+        selectedCourse = PULSARID_FIRSTCT;
+    }
+    hasRegs = regsMode > 0;
+
+    u32 count = rawCups.ctsCupCount;
+    if (count & 1) {
+        ++count;
+        hasOddCups = true;
+    }
+    definedCTsCupCount = count;
+    ctsCupCount = count;
+    for (int i = 0; i < 4; ++i) {
+        trophyCount[i] = rawCups.trophyCount[i];
+        retroTrophyCount[i] = rawCups.trophyCount[i];
+        ctOnlyTrophyCount[i] = 0;
+    }
+
+    u16 ctsCount = count * 4;
+
+    mainTracks = new Track[ctsCount];
+    variants = new Variant[rawCups.totalVariantCount];
+    variantsOffs = new u16[ctsCount];
+    alphabeticalArray = new u16[ctsCount];
+    invertedAlphabeticalArray = new u16[ctsCount];
+    trackFileNames = new char *[ctsCount];
+    memset(trackFileNames, 0, sizeof(char *) * ctsCount);
+    variantFileNames = nullptr;
+    variantNameBmgIds = nullptr;
+    if (totalVariantCount != 0) {
+        variantFileNames = new char *[totalVariantCount];
+        memset(variantFileNames, 0, sizeof(char *) * totalVariantCount);
+    }
+
+    const Track *sourceTracks = GetSourceTracks(rawCups);
+    memcpy(mainTracks, sourceTracks, sizeof(Track) * ctsCount);
+
+    if (rawCups.totalVariantCount != 0) {
+        const Variant *sourceVariants = GetSourceVariants(rawCups);
+        memcpy(variants, sourceVariants, sizeof(Variant) * rawCups.totalVariantCount);
+    }
+
+    const u16 *originalAlphabeticalArray = GetSourceAlphabeticalArray(rawCups);
+    BuildCupOrder(originalAlphabeticalArray, ctsCount, alphabeticalArray, invertedAlphabeticalArray);
+
+    u16 cumulativeVarCount = 0;
+    for (int i = 0; i < ctsCount; ++i) {
+        variantsOffs[i] = cumulativeVarCount * sizeof(Variant);
+        cumulativeVarCount += mainTracks[i].variantCount;
+    }
+}
+
+CupsConfig::CupsConfig(const CupsHolder &rtCups, const CupsHolder &ctCups, const CupsHolder &btCups)
+    : regsMode(rtCups.regsMode),
+      hasRegs(false),
+      hasOddCups(false),
+      winningCourse(PULSARID_NONE),
+      selectedCourse(PULSARID_FIRSTREG),
+      curVariantIdx(0),
+      pendingVariantIdx(0),
+      hasPendingVariant(false),
+      lastSelectedCup(PULSARCUPID_FIRSTREG),
+      lastSelectedCupButtonIdx(0),
+      isAlphabeticalLayout(false),
+      lastVariantIdxByTrack(nullptr),
+      retroCupCount(rtCups.ctsCupCount),
+      ctOnlyCupCount(ctCups.ctsCupCount),
+      battleCupCount(btCups.ctsCupCount) {
+    memset(this->vsTrackVariantIdx, 0, sizeof(this->vsTrackVariantIdx));
+    lastVariantIdxByTrack = new u8[0x2000];
+    memset(lastVariantIdxByTrack, 0, 0x2000);
+    if (regsMode != 1) {
+        lastSelectedCup = PULSARCUPID_FIRSTCT;
+        selectedCourse = PULSARID_FIRSTCT;
+    }
+    hasRegs = regsMode > 0;
+
+    u32 count = retroCupCount + ctOnlyCupCount + battleCupCount;
+    if (count & 1) {
+        ++count;
+        hasOddCups = true;
+    }
+    definedCTsCupCount = count;
+    ctsCupCount = count;
+    for (int i = 0; i < 4; ++i) {
+        retroTrophyCount[i] = rtCups.trophyCount[i];
+        ctOnlyTrophyCount[i] = ctCups.trophyCount[i];
+        trophyCount[i] = CombineTrophyCount(rtCups.trophyCount[i], ctCups.trophyCount[i]);
+    }
+
+    const u16 rtTrackCount = retroCupCount * 4;
+    const u16 ctTrackCount = ctOnlyCupCount * 4;
+    const u16 btTrackCount = battleCupCount * 4;
+    const u16 ctsCount = count * 4;
+    const u16 rtStoredTrackCount = GetStoredTrackCount(rtCups.ctsCupCount);
+    const u16 ctStoredTrackCount = GetStoredTrackCount(ctCups.ctsCupCount);
+    const u16 btStoredTrackCount = GetStoredTrackCount(btCups.ctsCupCount);
+
+    const Track *rtSourceTracks = GetSourceTracks(rtCups);
+    const Track *ctSourceTracks = GetSourceTracks(ctCups);
+    const Track *btSourceTracks = GetSourceTracks(btCups);
+
+    const u32 rtVariantCount = CountSourceVariants(rtSourceTracks, rtTrackCount);
+    const u32 ctVariantCount = CountSourceVariants(ctSourceTracks, ctTrackCount);
+    const u32 btVariantCount = CountSourceVariants(btSourceTracks, btTrackCount);
+    totalVariantCount = rtVariantCount + ctVariantCount + btVariantCount;
+
+    mainTracks = new Track[ctsCount];
+    variants = new Variant[totalVariantCount];
+    variantsOffs = new u16[ctsCount];
+    alphabeticalArray = new u16[ctsCount];
+    invertedAlphabeticalArray = new u16[ctsCount];
+    trackFileNames = new char *[ctsCount];
+    memset(trackFileNames, 0, sizeof(char *) * ctsCount);
+    variantFileNames = nullptr;
+    variantNameBmgIds = nullptr;
+    if (totalVariantCount != 0) {
+        variantFileNames = new char *[totalVariantCount];
+        memset(variantFileNames, 0, sizeof(char *) * totalVariantCount);
+    }
+
+    memcpy(mainTracks, rtSourceTracks, sizeof(Track) * rtTrackCount);
+    memcpy(mainTracks + rtTrackCount, ctSourceTracks, sizeof(Track) * ctTrackCount);
+    memcpy(mainTracks + rtTrackCount + ctTrackCount, btSourceTracks, sizeof(Track) * btTrackCount);
+    if (ctsCount > rtTrackCount + ctTrackCount + btTrackCount) {
+        memset(mainTracks + rtTrackCount + ctTrackCount + btTrackCount, 0,
+               sizeof(Track) * (ctsCount - rtTrackCount - ctTrackCount - btTrackCount));
+    }
+
+    const u8 *rtVarData = reinterpret_cast<const u8 *>(&rtCups.tracks[0]) + sizeof(Track) * rtStoredTrackCount;
+    const u8 *ctVarData = reinterpret_cast<const u8 *>(&ctCups.tracks[0]) + sizeof(Track) * ctStoredTrackCount;
+    const u8 *btVarData = reinterpret_cast<const u8 *>(&btCups.tracks[0]) + sizeof(Track) * btStoredTrackCount;
+    if (rtVariantCount != 0) memcpy(variants, rtVarData, sizeof(Variant) * rtVariantCount);
+    if (ctVariantCount != 0) memcpy(variants + rtVariantCount, ctVarData, sizeof(Variant) * ctVariantCount);
+    if (btVariantCount != 0) memcpy(variants + rtVariantCount + ctVariantCount, btVarData, sizeof(Variant) * btVariantCount);
+
+    for (u32 i = 0; i < static_cast<u32>(ctsCount); ++i) {
+        alphabeticalArray[i] = i;
+        invertedAlphabeticalArray[i] = i;
+    }
+
+    const u16 *ctOrigAlphabetical = GetSourceAlphabeticalArray(ctCups);
+    if (ctTrackCount > 0) {
+        u16 *ctTrackIndices = new u16[ctTrackCount];
+        for (u32 i = 0; i < ctTrackCount; ++i) {
+            ctTrackIndices[i] = i + rtTrackCount;
+        }
+        for (u32 i = 0; i < ctTrackCount; ++i) {
+            for (u32 j = i + 1; j < ctTrackCount; ++j) {
+                u16 iPos = 0xFFFF;
+                u16 jPos = 0xFFFF;
+                for (u32 k = 0; k < ctTrackCount; ++k) {
+                    if (ctOrigAlphabetical[k] == static_cast<u16>(ctTrackIndices[i] - rtTrackCount)) iPos = k;
+                    if (ctOrigAlphabetical[k] == static_cast<u16>(ctTrackIndices[j] - rtTrackCount)) jPos = k;
+                }
+                if (iPos > jPos) {
+                    u16 temp = ctTrackIndices[i];
+                    ctTrackIndices[i] = ctTrackIndices[j];
+                    ctTrackIndices[j] = temp;
+                }
+            }
+        }
+        for (u32 i = 0; i < ctTrackCount; ++i) {
+            alphabeticalArray[rtTrackCount + i] = ctTrackIndices[i];
+        }
+        delete[] ctTrackIndices;
+    }
+
+    for (u32 i = rtTrackCount; i < static_cast<u32>(ctsCount); ++i) {
+        invertedAlphabeticalArray[alphabeticalArray[i]] = i;
+    }
+
+    u16 cumulativeVarCount = 0;
+    for (u32 i = 0; i < static_cast<u32>(ctsCount); ++i) {
+        variantsOffs[i] = cumulativeVarCount * sizeof(Variant);
+        cumulativeVarCount += mainTracks[i].variantCount;
+    }
+}
+
+// Converts trackID to track slot using table
+CourseId CupsConfig::GetCorrectTrackSlot() const {
+    const CourseId realId = ConvertTrack_PulsarIdToRealId(this->winningCourse);
+    if (IsReg(this->winningCourse))
+        return realId;
+    else
+        return static_cast<CourseId>(this->cur.slot);
+}
+
+// MusicSlot
+inline int CupsConfig::GetCorrectMusicSlot() const {
+    register const Audio::RaceMgr *mgr;
+    asm(mr mgr, r30;);
+    CourseId realId = mgr->courseId;
+    if (realId <= 0x1F) {  //! battle
+        realId = ConvertTrack_PulsarIdToRealId(this->winningCourse);
+        if (!IsReg(this->winningCourse)) realId = static_cast<CourseId>(this->cur.musicSlot);
+    }
+    int ret = Audio::ItemAlterationMgr::courseToSoundIdTable[realId];
+    register Audio::RaceState futureState;
+    asm(mr futureState, r31;);
+    if (futureState == Audio::RACE_STATE_FAST && ret == SOUND_ID_GALAXY_COLOSSEUM) ret = SOUND_ID_GALAXY_COLOSSEUM - 1;
+    return ret;
+}
+
+int CupsConfig::GetCRC32(PulsarId pulsarId) const {
+    if (IsReg(pulsarId))
+        return RegsCRC32[pulsarId];
+    else
+        return this->GetTrack(pulsarId).crc32;
+}
+
+void CupsConfig::GetTrackGhostFolder(char *dest, PulsarId pulsarId, u8 variantIdx) const {
+    const u32 crc32 = this->GetCRC32(pulsarId);
+    const char *modFolder = System::sInstance->GetModFolder();
+    const char *ghostFolder = "Ghosts";
+    if (IsReg(pulsarId))
+        snprintf(dest, IOS::ipcMaxPath, "%s/%s/%s", modFolder, ghostFolder, &crc32);
+    else if (variantIdx == 0)
+        snprintf(dest, IOS::ipcMaxPath, "%s/%s/%08x", modFolder, ghostFolder, crc32);
+    else
+        snprintf(dest, IOS::ipcMaxPath, "%s/%s/%08x/%d", modFolder, ghostFolder, crc32, variantIdx);
+}
+
+void CupsConfig::LoadFileNames(const char *buffer, u32 length, u32 trackIdxOffset, u32 sourceTrackCount) {
+    if (buffer == nullptr || length == 0 || this->GetCtsTrackCount() == 0) return;
+    char *temp = new char[length + 1];
+    memcpy(temp, buffer, length);
+    temp[length] = '\0';
+    char *cursor = temp;
+    if (length >= 3 && static_cast<u8>(cursor[0]) == 0xEF && static_cast<u8>(cursor[1]) == 0xBB && static_cast<u8>(cursor[2]) == 0xBF)
+        cursor += 3;
+    if (length < 4 || cursor[0] != 'F' || cursor[1] != 'I' || cursor[2] != 'L' || cursor[3] != 'E') {
+        delete[] temp;
+        return;
+    }
+    char *lineBreak = strchr(cursor, '\n');
+    if (lineBreak == nullptr) {
+        delete[] temp;
+        return;
+    }
+    cursor = lineBreak + 1;
+    while (*cursor != '\0') {
+        char *lineStart = cursor;
+        char *next = strchr(cursor, '\n');
+        if (next != nullptr) {
+            *next = '\0';
+            cursor = next + 1;
+        } else {
+            cursor += strlen(cursor);
+        }
+        TrimLine(lineStart);
+        if (*lineStart == '\0') continue;
+        char *equals = strchr(lineStart, '=');
+        if (equals == nullptr) continue;
+        *equals = '\0';
+        char *keyStr = lineStart;
+        char *valueStr = equals + 1;
+        TrimLine(keyStr);
+        TrimLine(valueStr);
+        if (*keyStr == '\0' || *valueStr == '\0') continue;
+        u32 key = 0;
+        if (!ParseHexKey(keyStr, key)) continue;
+        char *pipe = strchr(valueStr, '|');
+        if (pipe == nullptr) continue;
+        *pipe = '\0';
+        TrimLine(valueStr);
+        const u32 rawTrackIdx = key & 0x0FFF;
+        if (sourceTrackCount != 0 && rawTrackIdx >= sourceTrackCount) continue;
+        const u32 variantIdx = key >> 12;
+        u32 trackIdx = rawTrackIdx + trackIdxOffset;
+        if (trackIdx >= static_cast<u32>(this->GetCtsTrackCount())) {
+            if (sourceTrackCount == 0 && rawTrackIdx < static_cast<u32>(this->GetCtsTrackCount()))
+                trackIdx = rawTrackIdx;
+            else
+                continue;
+        }
+        this->RegisterFileName(trackIdx, variantIdx, valueStr);
+    }
+    delete[] temp;
+}
+
+void CupsConfig::RegisterFileName(u32 trackIdx, u32 variantIdx, const char *name) {
+    if (trackIdx >= static_cast<u32>(this->GetCtsTrackCount()) || name == nullptr || *name == '\0') return;
+    char *stored = DuplicateFileName(name);
+    if (stored == nullptr) return;
+    if (variantIdx == 0) {
+        if (trackFileNames[trackIdx] != nullptr) delete[] trackFileNames[trackIdx];
+        trackFileNames[trackIdx] = stored;
+        return;
+    }
+    if (variantIdx - 1 >= this->mainTracks[trackIdx].variantCount || this->variantFileNames == nullptr) {
+        delete[] stored;
+        return;
+    }
+    const u32 base = this->variantsOffs[trackIdx] / sizeof(Variant);
+    const u32 variantArrayIdx = base + (variantIdx - 1);
+    if (variantArrayIdx >= this->totalVariantCount) {
+        delete[] stored;
+        return;
+    }
+    if (variantFileNames[variantArrayIdx] != nullptr) delete[] variantFileNames[variantArrayIdx];
+    variantFileNames[variantArrayIdx] = stored;
+}
+
+const char *CupsConfig::GetFileName(PulsarId id, u8 variantIdx) const {
+    if (IsReg(id)) return nullptr;
+    const u32 trackIdx = ConvertTrack_PulsarIdToRealId(id);
+    if (trackIdx >= static_cast<u32>(this->GetCtsTrackCount())) return nullptr;
+    if (variantIdx == 0) return trackFileNames[trackIdx];
+    if (variantIdx - 1 >= this->mainTracks[trackIdx].variantCount || this->variantFileNames == nullptr) return nullptr;
+    const u32 base = this->variantsOffs[trackIdx] / sizeof(Variant);
+    const u32 variantArrayIdx = base + (variantIdx - 1);
+    if (variantArrayIdx >= this->totalVariantCount) return nullptr;
+    return variantFileNames[variantArrayIdx];
+}
+
+u32 CupsConfig::RandomizeVariant(PulsarId id) const {
+    u32 variantIdx = 0;
+    if (IsValidTrack(id) && !IsReg(id)) {
+        const Track &track = GetTrack(id);
+        Random random;
+        variantIdx = random.NextLimited(track.variantCount + 1);
+    }
+    return variantIdx;
+}
+
+void CupsConfig::SetPendingVariant(u8 variantIdx) {
+    this->pendingVariantIdx = variantIdx;
+    this->hasPendingVariant = true;
+}
+
+void CupsConfig::ClearPendingVariant() {
+    this->pendingVariantIdx = 0;
+    this->hasPendingVariant = false;
+}
+
+u8 CupsConfig::GetLastSelectedVariant(PulsarId id) const {
+    const u32 trackIdx = static_cast<u32>(id);
+    if (trackIdx >= 0x2000 || this->lastVariantIdxByTrack == nullptr) return 0;
+    return this->lastVariantIdxByTrack[trackIdx];
+}
+
+void CupsConfig::SetLastSelectedVariant(PulsarId id, u8 variantIdx) {
+    const u32 trackIdx = static_cast<u32>(id);
+    if (trackIdx >= 0x2000 || this->lastVariantIdxByTrack == nullptr) return;
+    this->lastVariantIdxByTrack[trackIdx] = variantIdx;
+}
+
+void CupsConfig::SetWinning(PulsarId id, u32 variantIdx) {
+    if (!IsValidTrack(id)) return;
+
+    if (variantIdx == 0xFF) variantIdx = 0;
+    if (IsReg(id)) variantIdx = 0;
+
+    if (!IsReg(id)) {
+        const Track &track = GetTrack(id);
+        if (variantIdx > track.variantCount) variantIdx = 0;
+        cur.crc32 = track.crc32;
+
+        u8 slot;
+        u8 musicSlot;
+        if (variantIdx == 0) {
+            slot = track.slot;
+            musicSlot = track.musicSlot;
+        } else {
+            const u32 base = this->variantsOffs[ConvertTrack_PulsarIdToRealId(id)] / sizeof(Variant);
+            const Variant &variant = this->variants[base + (variantIdx - 1)];
+            slot = variant.slot;
+            musicSlot = variant.musicSlot;
+        }
+        cur.slot = slot;
+        cur.musicSlot = musicSlot;
+    }
+
+    this->winningCourse = id;
+    this->curVariantIdx = variantIdx;
+}
+
+void CupsConfig::ToggleCTs(bool enabled) {
+    u32 count;
+    bool isRegsOnly = false;
+    const RacedataSettings &racedataSettings = Racedata::sInstance->menusScenario.settings;
+    const GameMode mode = racedataSettings.gamemode;
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    const bool isOnlineRoomActive = controller->connectionState != RKNet::CONNECTIONSTATE_SHUTDOWN;
+    const bool isBattle = (mode == MODE_BATTLE || mode == MODE_PUBLIC_BATTLE || mode == MODE_PRIVATE_BATTLE);
+    if ((controller->roomType == RKNet::ROOMTYPE_FROOM_HOST || controller->roomType == RKNet::ROOMTYPE_FROOM_NONHOST || controller->roomType == RKNet::ROOMTYPE_NONE) && !isBattle) {
+        if (System::sInstance->IsContext(PULSAR_REGS)) isRegsOnly = true;
+    }
+    if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_VS_WW || controller->roomType == RKNet::ROOMTYPE_BT_WW || controller->roomType == RKNet::ROOMTYPE_JOINING_WW)) {
+        isRegsOnly = true;
+    }
+    if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL || controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL) && System::sInstance->netMgr.region != 0x0B && System::sInstance->IsVanillaMode()) {
+        isRegsOnly = true;
+    }
+    if (isRegsOnly) {
+        if (lastSelectedCup > 7) {
+            hasRegs = true;
+            selectedCourse = PULSARID_FIRSTREG;
+            lastSelectedCup = PULSARCUPID_FIRSTREG;  // CT cup -> regs
+            lastSelectedCupButtonIdx = 0;
+        }
+        count = 0;
+    } else {
+        count = definedCTsCupCount;
+        hasRegs = false;
+    }
+    ctsCupCount = count;
+}
+
+void CupsConfig::SetLayout() {
+    CupsConfig::sInstance->isAlphabeticalLayout = Settings::Mgr::Get().GetSettingValue(Pulsar::Settings::SETTING_LAYOUT) == LAYOUT_ALPHABETICAL;
+}
+Settings::Hook CTLayout(CupsConfig::SetLayout);
+
+void CupsConfig::GetExpertPath(char *dest, PulsarId id, TTMode mode, u8 variantIdx) const {
+    const char *ghostFolder = "Ghosts";
+    const char *expertsFolder = "Experts";
+    u32 trackIdx = id - PULSARID_FIRSTCT;
+    u32 rtTrackCount = this->retroCupCount * 4;
+    u32 ctTrackCount = this->ctOnlyCupCount * 4;
+    if (trackIdx < rtTrackCount)
+        expertsFolder = "ExpertsRT";
+    else
+        expertsFolder = "ExpertsCT";
+    if (this->IsReg(id)) {
+        const u32 crc32 = this->GetCRC32(id);
+        snprintf(dest, IOS::ipcMaxPath, "%s/%s/%s_%s.rkg", ghostFolder, expertsFolder, &crc32, System::ttModeFolders[mode]);
+    } else {
+        u32 localIdx = trackIdx;
+        if (trackIdx >= rtTrackCount + ctTrackCount)
+            localIdx = trackIdx - rtTrackCount - ctTrackCount;
+        else if (trackIdx >= rtTrackCount)
+            localIdx = trackIdx - rtTrackCount;
+        if (variantIdx == 0) {
+            snprintf(dest, IOS::ipcMaxPath, "%s/%s/%d_%s.rkg", ghostFolder, expertsFolder, localIdx, System::ttModeFolders[mode]);
+        } else {
+            snprintf(dest, IOS::ipcMaxPath, "%s/%s/%d_v%d_%s.rkg", ghostFolder, expertsFolder, localIdx, variantIdx, System::ttModeFolders[mode]);
+        }
+    }
+}
+
+PulsarId CupsConfig::RandomizeTrack() const {
+    const Settings::Mgr &settings = Settings::Mgr::Get();
+    const RacedataSettings &racedataSettings = Racedata::sInstance->menusScenario.settings;
+    const GameMode mode = racedataSettings.gamemode;
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    const bool isOnlineRoomActive = controller->connectionState != RKNet::CONNECTIONSTATE_SHUTDOWN;
+    const bool isBattle = (mode == MODE_BATTLE || mode == MODE_PUBLIC_BATTLE || mode == MODE_PRIVATE_BATTLE);
+    Random random;
+    u32 pulsarId;
+    if (IsNitroWorldwideRace(mode, *controller)) {
+        const u32 regularCount = this->HasRegs() ? 32 : 0;
+        const u32 raceCount = this->GetRetroTrackCount() + this->GetCTOnlyTrackCount();
+        const u32 count = regularCount + raceCount;
+        if (count == 0) return PULSARID_NONE;
+        const u32 slot = random.NextLimited(count);
+        return static_cast<PulsarId>(slot < regularCount ? slot : slot - regularCount + 0x100);
+    }
+    TrackSelection retroSelection = TRACKSELECTION_ALL;
+    TrackSelection ctSelection = TRACKSELECTION_ALL;
+    TrackSelection regsSelection = TRACKSELECTION_ALL;
+    if (controller->roomType == RKNet::ROOMTYPE_FROOM_HOST || controller->roomType == RKNet::ROOMTYPE_FROOM_NONHOST || controller->roomType == RKNet::ROOMTYPE_NONE) {
+        if (System::sInstance->IsContext(PULSAR_RETROS)) retroSelection = TRACKSELECTION_RETROS;
+        if (System::sInstance->IsContext(PULSAR_CTS)) ctSelection = TRACKSELECTION_CTS;
+        if (System::sInstance->IsContext(PULSAR_REGS)) regsSelection = TRACKSELECTION_REGS;
+    }
+    if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL || controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL)) {
+        if (System::sInstance->netMgr.region == 0x0A || System::sInstance->netMgr.region == 0x0C || System::sInstance->netMgr.region == 0x0D) retroSelection = TRACKSELECTION_RETROS;
+        if (System::sInstance->netMgr.region == 0x14) ctSelection = TRACKSELECTION_CTS;
+    }
+    // A single catalogue has no separate CT-only category. Fall back to all
+    // races rather than passing a zero limit to the random generator.
+    if (ctSelection == TRACKSELECTION_CTS && this->ctOnlyCupCount == 0) ctSelection = TRACKSELECTION_ALL;
+    if (retroSelection == TRACKSELECTION_RETROS && this->retroCupCount == 0) retroSelection = TRACKSELECTION_ALL;
+    if (retroSelection == TRACKSELECTION_RETROS && regsSelection != TRACKSELECTION_REGS && !isBattle)
+        pulsarId = random.NextLimited(this->GetRetroTrackCount()) + 0x100;
+    else if (ctSelection == TRACKSELECTION_CTS && regsSelection != TRACKSELECTION_REGS && !isBattle)
+        pulsarId = random.NextLimited(this->GetCTOnlyTrackCount()) + 0x100 + this->GetRetroTrackCount();
+    else if (regsSelection == TRACKSELECTION_REGS && !isBattle)
+        pulsarId = random.NextLimited(32);
+    else if (isBattle)
+        pulsarId = random.NextLimited(this->GetBattleTrackCount()) + 0x100 + this->GetRetroTrackCount() + this->GetCTOnlyTrackCount();
+    else if (this->HasRegs()) {
+        pulsarId = random.NextLimited(this->GetCtsTrackCount() + 32);
+        if (pulsarId > 31) pulsarId += (0x100 - 32);
+    } else
+        pulsarId = random.NextLimited(this->GetRetroTrackCount() + this->GetCTOnlyTrackCount()) + 0x100;
+    return static_cast<PulsarId>(pulsarId);
+}
+
+PulsarCupId CupsConfig::GetNextCupId(PulsarCupId pulsarId, s32 direction) const {
+    const Settings::Mgr &settings = Settings::Mgr::Get();
+    const u32 idx = ConvertCup_PulsarIdToIdx(pulsarId);
+    const RacedataSettings &racedataSettings = Racedata::sInstance->menusScenario.settings;
+    const GameMode mode = racedataSettings.gamemode;
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    const bool isOnlineRoomActive = controller->connectionState != RKNet::CONNECTIONSTATE_SHUTDOWN;
+    const bool isBattle = (mode == MODE_BATTLE || mode == MODE_PUBLIC_BATTLE || mode == MODE_PRIVATE_BATTLE);
+    if (IsNitroWorldwideRace(mode, *controller)) {
+        const u32 first = this->HasRegs() ? 0 : 8;
+        const u32 count = this->retroCupCount + this->ctOnlyCupCount + (this->HasRegs() ? 8 : 0);
+        if (count == 0) return pulsarId;
+        s32 next = (static_cast<s32>(idx) - static_cast<s32>(first) + direction) % static_cast<s32>(count);
+        if (next < 0) next += count;
+        return ConvertCup_IdxToPulsarId(first + next);
+    }
+    TrackSelection retroSelection = TRACKSELECTION_ALL;
+    TrackSelection ctSelection = TRACKSELECTION_ALL;
+    TrackSelection regsSelection = TRACKSELECTION_ALL;
+    if (controller->roomType == RKNet::ROOMTYPE_FROOM_HOST || controller->roomType == RKNet::ROOMTYPE_FROOM_NONHOST) {
+        if (System::sInstance->IsContext(PULSAR_RETROS)) retroSelection = TRACKSELECTION_RETROS;
+        if (System::sInstance->IsContext(PULSAR_CTS)) ctSelection = TRACKSELECTION_CTS;
+        if (System::sInstance->IsContext(PULSAR_REGS)) regsSelection = TRACKSELECTION_REGS;
+    }
+    if (controller->roomType == RKNet::ROOMTYPE_NONE) {
+        if (System::sInstance->IsContext(PULSAR_RETROS)) retroSelection = TRACKSELECTION_ALL;
+        if (System::sInstance->IsContext(PULSAR_CTS)) ctSelection = TRACKSELECTION_ALL;
+        if (System::sInstance->IsContext(PULSAR_REGS)) regsSelection = TRACKSELECTION_REGS;
+    }
+    if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL || controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL)) {
+        if (System::sInstance->netMgr.region == 0x0A || System::sInstance->netMgr.region == 0x0C || System::sInstance->netMgr.region == 0x0D) retroSelection = TRACKSELECTION_RETROS;
+        if (System::sInstance->netMgr.region == 0x14) ctSelection = TRACKSELECTION_CTS;
+    }
+    // Do not divide by zero if a saved host filter names an absent category.
+    if (ctSelection == TRACKSELECTION_CTS && this->ctOnlyCupCount == 0) ctSelection = TRACKSELECTION_ALL;
+    if (retroSelection == TRACKSELECTION_RETROS && this->retroCupCount == 0) retroSelection = TRACKSELECTION_ALL;
+    if (retroSelection == TRACKSELECTION_RETROS && regsSelection != TRACKSELECTION_REGS && !isBattle) {
+        const u32 countRetro = this->retroCupCount;
+        const u32 minRetro = countRetro < 8 ? 8 : 0;
+        const u32 nextIdxRetro = ((idx + direction + countRetro) % countRetro) + minRetro;
+        if (!this->hasRegs && nextIdxRetro < 8) return static_cast<PulsarCupId>(nextIdxRetro + countRetro + 0x38);
+        return ConvertCup_IdxToPulsarId(nextIdxRetro);
+    } else if (ctSelection == TRACKSELECTION_CTS && regsSelection != TRACKSELECTION_REGS && !isBattle) {
+        const u32 countCT = this->ctOnlyCupCount;
+        const u32 lastCupIndex = this->GetTotalCupCount() - 1;
+        const u32 startIdx = 8 + this->retroCupCount;
+        const u32 nextIdxCT = startIdx + ((idx - startIdx + direction + countCT) % countCT);
+        if (!this->hasRegs && nextIdxCT < 8) return static_cast<PulsarCupId>(nextIdxCT + countCT + 0x38);
+        return ConvertCup_IdxToPulsarId(nextIdxCT);
+    } else if (isBattle) {
+        const u32 countBT = this->battleCupCount;
+        const u32 lastCupIndex = this->GetTotalCupCount() - 1;
+        const u32 startIdx = 8 + this->retroCupCount + this->ctOnlyCupCount;
+        const u32 nextIdxBT = startIdx + ((idx - startIdx + direction + countBT) % countBT);
+        if (!this->hasRegs && nextIdxBT < 8) return static_cast<PulsarCupId>(nextIdxBT + countBT + 0x38);
+        return ConvertCup_IdxToPulsarId(nextIdxBT);
+    } else if (regsSelection == TRACKSELECTION_REGS) {
+        const u32 count = 8;
+        const u32 nextIdx = ((idx + direction + count) % count);
+        return ConvertCup_IdxToPulsarId(nextIdx);
+    } else {
+        const u32 count = this->retroCupCount + this->ctOnlyCupCount;
+        const u32 min = count < 8 ? 8 : 0;
+        const u32 nextIdx = ((idx + direction + count) % count) + min;
+        if (!this->hasRegs && nextIdx < 8) return static_cast<PulsarCupId>(nextIdx + count + 0x38);
+        return ConvertCup_IdxToPulsarId(nextIdx);
+    }
+}
+
+void CupsConfig::SaveSelectedCourse(const PushButton &courseButton) {
+    this->selectedCourse = ConvertTrack_PulsarCupToTrack(this->lastSelectedCup, courseButton.buttonId);
+    u32 variantIdx = 0;
+    if (this->hasPendingVariant) {
+        variantIdx = this->pendingVariantIdx;
+        this->hasPendingVariant = false;
+    }
+    this->SetWinning(selectedCourse, variantIdx);
+}
+
+static int GetCorrectMusicSlotWrapper() {
+    return CupsConfig::sInstance->GetCorrectMusicSlot();
+}
+kmCall(0x80711fd8, GetCorrectMusicSlotWrapper);
+kmCall(0x8071206c, GetCorrectMusicSlotWrapper);
+
+u32 CupsConfig::ConvertCup_PulsarIdToRealId(PulsarCupId pulsarCupId) {
+    if (IsRegCup(pulsarCupId)) {
+        if ((pulsarCupId & 1) == 0)
+            return pulsarCupId / 2;
+        else
+            return (pulsarCupId + 7) / 2;
+    } else
+        return pulsarCupId - 0x40;
+}
+
+u32 CupsConfig::ConvertCup_PulsarIdToIdx(PulsarCupId pulsarCupId) {
+    u32 idx = pulsarCupId;
+    if (!IsRegCup(pulsarCupId)) idx = pulsarCupId - 0x38;
+    return idx;
+}
+
+PulsarCupId CupsConfig::ConvertCup_IdxToPulsarId(u32 cupIdx) {
+    if (!IsRegCup(static_cast<PulsarCupId>(cupIdx))) {
+        return static_cast<PulsarCupId>(cupIdx + 0x38);
+    } else
+        return static_cast<PulsarCupId>(cupIdx);
+}
+
+CourseId CupsConfig::ConvertTrack_PulsarIdToRealId(PulsarId pulsarId) {
+    if (IsReg(pulsarId)) {
+        if (pulsarId < 32)
+            return static_cast<CourseId>(idToCourseId[pulsarId]);
+        else
+            return static_cast<CourseId>(pulsarId);  // battle
+    } else
+        return static_cast<CourseId>(pulsarId - 0x100);
+}
+
+PulsarId CupsConfig::ConvertTrack_RealIdToPulsarId(CourseId id) {
+    if (id < 32)
+        for (int i = 0; i < 32; ++i)
+            if (id == idToCourseId[i]) return static_cast<PulsarId>(i);
+    return static_cast<PulsarId>(id);
+}
+
+PulsarId CupsConfig::ConvertTrack_IdxToPulsarId(u32 idx) const {
+    if (!this->HasRegs()) {
+        idx += 0x100;
+    } else if (idx > 31)
+        idx += 0x100 - 32;
+    return static_cast<PulsarId>(idx);
+}
+
+const u8 CupsConfig::idToCourseId[32] = {
+    0x08, 0x01, 0x02, 0x04,  // mushroom cup
+    0x10, 0x14, 0x19, 0x1A,  // shell cup
+    0x00, 0x05, 0x06, 0x07,  // flower cup
+    0x1B, 0x1F, 0x17, 0x12,
+    0x09, 0x0F, 0x0B, 0x03,
+    0x15, 0x1E, 0x1D, 0x11,
+    0x0E, 0x0A, 0x0C, 0x0D,
+    0x18, 0x16, 0x13, 0x1C
+
+};
+
+const u32 CupsConfig::RegsCRC32[] = {
+    0x4C430000,  // LC
+    0x4D4D4D00,  // MMM
+    0x4D470000,  // MG
+    0x54460000,  // TF
+
+    0x72504200,  // rPB
+    0x72594600,  // rYF
+    0x72475600,  // rGV
+    0x724D5200,  // rMR
+
+    0x4D430000,  // MC
+    0x434D0000,  // CM
+    0x444B5300,  // DKS
+    0x57474D00,  // WGM
+
+    0x72534C00,  // rSL
+    0x53474200,  // SGB
+    0x72445300,  // rDS
+    0x72575300,  // rWS
+
+    0x44430000,  // DC
+    0x4B430000,  // KC
+    0x4D540000,  // MT
+    0x47560000,  // GV
+
+    0x72444800,  // rDH
+    0x42433300,  // BC3
+    0x72444B00,  // rDK
+    0x724D4300,  // rMC
+
+    0x44445200,  // DDR
+    0x4D480000,  // MH
+    0x42430000,  // BC
+    0x52520000,  // RR
+
+    0x4D433300,  // MC3
+    0x72504700,  // rPG
+    0x444B4D00,  // DKM
+    0x72424300  // rBC
+};
+
+}  // namespace Pulsar

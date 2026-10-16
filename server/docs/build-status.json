@@ -1,0 +1,23 @@
+{
+  "go": "1.25.5",
+  "buildvcs": false,
+  "builds": [
+    {
+      "source": "Archived-October-11",
+      "built": true,
+      "binary_sha256": "bccaf7561232493d3d9561e107627d09bb1f07957fac6647d81600553d6da9b6",
+      "binary_bytes": 17938528
+    },
+    {
+      "source": "October-12-Security-Candidate",
+      "built": true,
+      "binary_sha256": "b78cf49258ec3ce01073c00213b8ae39f38c5963bbc731f4412e32290b3071dd",
+      "binary_bytes": 17983230
+    }
+  ],
+  "repaired_candidate_race_tests_passed": true,
+  "archived_source_vet_errors_preserved": true,
+  "live_server_match_verified": false,
+  "published": false,
+  "deployed": false
+}

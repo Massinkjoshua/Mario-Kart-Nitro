@@ -1,0 +1,497 @@
+#include <MarioKartWii/UI/Page/RaceHUD/RaceHUD.hpp>
+#include <MarioKartWii/UI/Layout/Layout.hpp>
+#include <MarioKartWii/Archive/ArchiveMgr.hpp>
+#include <UI/UI.hpp>
+#include <PulsarSystem.hpp>
+
+// Expanded Pages:
+#include <Ghost/UI/ExpGhostSelect.hpp>
+#include <SlotExpansion/UI/ExpCupSelect.hpp>
+#include <UI/Leaderboard/ExpGPVSLeaderboardUpdate.hpp>
+#include <UI/Leaderboard/ExpGPVSLeaderboardTotal.hpp>
+#include <UI/Leaderboard/ExpWWLeaderboardUpdate.hpp>
+#include <UI/SelectStage/ExpVotePage.hpp>
+#include <AutoTrackSelect/ExpFroomMessages.hpp>
+#include <Settings/UI/ExpFroomPage.hpp>
+#include <Settings/UI/ExpMultiPlayer.hpp>
+#include <Settings/UI/ExpOptionsPage.hpp>
+#include <Settings/UI/ExpWFCMainPage.hpp>
+#include <UI/ChangeCombo/ChangeCombo.hpp>
+
+// Pulsar Custom Pages:
+#include <UI/CustomItems/CustomItemPage.hpp>
+#include <UI/TeamSelect/TeamSelect.hpp>
+#include <UI/RoomKick/RoomKickPage.hpp>
+#include <UI/ExtendedTeamSelect/ExtendedTeamSelect.hpp>
+#include <UI/ExtendedTeamSelect/Result/ExtendedTeamResultTotal.hpp>
+#include <UI/ExtendedTeamSelect/Result/ExtendedTeamResultIrregularTotal.hpp>
+#include <AutoTrackSelect/AutoVote.hpp>
+#include <AutoTrackSelect/ChooseNextTrack.hpp>
+#include <Gamemodes/KO/KORaceEndPage.hpp>
+#include <Gamemodes/KO/KOMgr.hpp>
+#include <Gamemodes/KO/KOWinnerPage.hpp>
+#include <Settings/UI/SettingsPanel.hpp>
+#include <Settings/UI/SettingsPageSelect.hpp>
+#include <UI/SelectStage/VariantSelect.hpp>
+#include <UI/TransmissionSelect/TransmissionSelect.hpp>
+#include <UI/VRLeaderboard/VRLeaderboard.hpp>
+
+namespace Pulsar {
+namespace UI {
+
+// ExpSection
+static ExpSection *CreateSection() {
+    return new ExpSection;
+}
+kmCall(0x8063504c, CreateSection);
+kmWrite32(0x80635058, 0x60000000);
+
+void ExpSection::CreatePages(ExpSection &self, SectionId id) {
+    const System *system = System::sInstance;
+    if (!self.hasAutoVote) self.CreateSectionPages(id);
+    self.CreatePulPages();
+}
+kmCall(0x80622088, ExpSection::CreatePages);
+
+void ExpSection::CreatePulPages() {
+    const System *system = System::sInstance;
+    switch (this->sectionId) {
+        case SECTION_GP:  // 0x1e
+        case SECTION_TT:  // 0x1f
+        case SECTION_P1VS:  // 0x20
+        case SECTION_P2VS:  // 0x21
+        case SECTION_P3VS:  // 0x22
+        case SECTION_P4VS:  // 0x23
+        case SECTION_P1TEAM_VS:  // 0x24
+        case SECTION_P2TEAM_VS:  // 0x25
+        case SECTION_P3TEAM_VS:  // 0x26
+        case SECTION_P4TEAM_VS:  // 0x27
+            if (system->IsContext(PULSAR_MODE_OTT)) {
+                this->CreateAndInitPage(*this, PAGE_TT_SPLITS);
+                Pages::RaceHUD::sInstance->nextPageId = PAGE_TT_SPLITS;
+            }
+            if (system->IsContext(PULSAR_EXTENDEDTEAMS)) {
+                this->CreateAndInitPage(*this, PULPAGE_EXTENDEDTEAMS_RESULT_TOTAL);
+                this->CreateAndInitPage(*this, PULPAGE_EXTENDEDTEAMS_RESULT_TOTAL_IRREGULAR);
+            }
+            break;
+        case SECTION_P1_WIFI_FROOM_VS_VOTING:  // 0x60
+        case SECTION_P1_WIFI_FROOM_TEAMVS_VOTING:  // 0x61
+        case SECTION_P1_WIFI_FROOM_BALLOON_VOTING:  // 0x62
+        case SECTION_P1_WIFI_FROOM_COIN_VOTING:  // 0x63
+        case SECTION_P2_WIFI_FROOM_VS_VOTING:  // 0x64
+        case SECTION_P2_WIFI_FROOM_TEAMVS_VOTING:  // 0x65
+        case SECTION_P2_WIFI_FROOM_BALLOON_VOTING:  // 0x66
+        case SECTION_P2_WIFI_FROOM_COIN_VOTING:  // 0x67
+            this->CreateAndInitPage(*this, SettingsPanel::id);
+            this->CreateAndInitPage(*this, SettingsPageSelect::id);
+            this->CreateAndInitPage(*this, PULPAGE_BADGESELECT);
+            break;
+
+        case SECTION_P1_WIFI_VS:  // 0x68
+        case SECTION_P2_WIFI_VS:  // 0x69
+        case SECTION_P1_WIFI_FRIEND_VS:  // 0x70
+        case SECTION_P1_WIFI_FRIEND_TEAMVS:  // 0x71
+        case SECTION_P2_WIFI_FRIEND_VS:  // 0x74
+        case SECTION_P2_WIFI_FRIEND_TEAMVS:  // 0x75
+        case SECTION_P1_WIFI_FRIEND_BALLOON:
+        case SECTION_P1_WIFI_FRIEND_COIN:
+        case SECTION_P2_WIFI_FRIEND_BALLOON:
+        case SECTION_P2_WIFI_FRIEND_COIN:
+            if (system->IsContext(PULSAR_MODE_OTT)) {
+                this->CreateAndInitPage(*this, PAGE_TT_SPLITS);
+                Pages::RaceHUD::sInstance->nextPageId = PAGE_TT_SPLITS;
+            }
+            if (system->IsContext(PULSAR_MODE_KO)) {
+                this->CreateAndInitPage(*this, KO::RaceEndPage::id);
+                this->CreateAndInitPage(*this, KO::WinnerPage::id);
+            }
+            if (system->IsContext(PULSAR_EXTENDEDTEAMS)) {
+                this->CreateAndInitPage(*this, PULPAGE_EXTENDEDTEAMS_RESULT_TOTAL);
+                this->CreateAndInitPage(*this, PULPAGE_EXTENDEDTEAMS_RESULT_TOTAL_IRREGULAR);
+            }
+            break;
+        case SECTION_SINGLE_P_FROM_MENU:  // 0x48
+        case SECTION_SINGLE_P_TT_CHANGE_CHARA:  // 0x49
+        case SECTION_SINGLE_P_TT_CHANGE_COURSE:  // 0x4a
+        case SECTION_SINGLE_P_VS_NEXT_RACE:  // 0x4b
+        case SECTION_SINGLE_P_BT_NEXT_BATTLE:  // 0x4c
+        case SECTION_SINGLE_P_MR_CHOOSE_MISSION:  // 0x4d
+        case SECTION_SINGLE_P_CHAN_RACE_GHOST:  // 0x4e
+        case SECTION_SINGLE_P_LIST_RACE_GHOST:  // 0x50
+        case SECTION_P1_WIFI:  // 0x55
+        case SECTION_P1_WIFI_FROM_FROOM_RACE:  // 0x56
+        case SECTION_P1_WIFI_FROM_FIND_FRIEND:  // 0x57
+        case SECTION_P2_WIFI:  // 0x5b
+        case SECTION_P2_WIFI_FROM_FROOM_RACE:  // 0x5c
+        case SECTION_OPTIONS:  // 0x8c
+            this->CreateAndInitPage(*this, CustomItemPage::id);
+        case SECTION_P1_WIFI_VS_VOTING:  // 0x60
+        case SECTION_P1_WIFI_BATTLE_VOTING:
+            this->CreateAndInitPage(*this, SettingsPanel::id);
+            this->CreateAndInitPage(*this, SettingsPageSelect::id);
+            this->CreateAndInitPage(*this, PULPAGE_BADGESELECT);
+            this->CreateAndInitPage(*this, VRLeaderboardPage::id);
+            break;
+        case SECTION_LOCAL_MULTIPLAYER:  // 0x54
+            this->CreateAndInitPage(*this, SettingsPanel::id);
+            this->CreateAndInitPage(*this, SettingsPageSelect::id);
+            this->CreateAndInitPage(*this, CustomItemPage::id);
+            break;
+    }
+    Pages::CourseSelect *coursePage = SectionMgr::sInstance->curSection->Get<Pages::CourseSelect>();
+    if (coursePage != nullptr) {
+        this->CreateAndInitPage(*this, PULPAGE_VARIANTSELECT);
+    }
+    if (this->hasAutoVote) {
+        this->CreateAndInitPage(*this, PAGE_AUTO_ENDING2);
+        this->CreateAndInitPage(*this, PAGE_MESSAGEBOX);
+        this->CreateAndInitPage(*this, PAGE_SELECT_STAGE_MGR);
+    }
+    if (this->Get<ExpFroom>() != nullptr) {
+        this->CreateAndInitPage(*this, RoomKickPage::id);
+        this->CreateAndInitPage(*this, PULPAGE_TEAMSELECT);
+        this->CreateAndInitPage(*this, PULPAGE_EXTENDEDTEAMSELECT);
+    }
+    if (this->Get<Pages::DriftSelect>() != nullptr) {
+        this->CreateAndInitPage(*this, TransmissionSelect::id);
+    }
+}
+
+void ExpSection::CreateAndInitPage(ExpSection &self, u32 id) {
+    Page *page;
+    PageId initId = static_cast<PageId>(id);  // in case a pulpage wants a specific init id
+    switch (id) {
+        case PAGE_CUP_SELECT:
+            page = new ExpCupSelect;
+            break;
+        case PAGE_GHOST_SELECT:
+            page = new ExpGhostSelect;
+            break;
+        case PAGE_FRIEND_ROOM:
+            page = new ExpFroom;
+            break;
+        case PAGE_OPTIONS:
+            page = new ExpOptions;
+            break;
+        case PAGE_WFC_MAIN:
+            page = new ExpWFCMain;
+            break;
+        case PAGE_WFC_MODE_SELECT:
+            page = new ExpWFCModeSel;
+            break;
+        case PAGE_MULTIPLAYER_MENU:
+            page = new ExpMultiPlayer;
+            break;
+        case PAGE_VR:
+            page = new ExpVR;
+            break;
+        case PAGE_CHARACTER_SELECT:
+            page = new ExpCharacterSelect;
+            break;
+        case PAGE_KART_SELECT:
+            page = new ExpKartSelect;
+            break;
+        case PAGE_BATTLE_KART_SELECT:
+            page = new ExpBattleKartSelect;
+            break;
+        case PAGE_MULTIPLAYER_KART_SELECT:
+            page = new ExpMultiKartSelect;
+            break;
+        case PAGE_SELECT_STAGE_MGR:
+            if (self.hasAutoVote)
+                page = new AutoVote;
+            else
+                page = new Pages::SELECTStageMgr;
+            break;
+        case PAGE_GPVS_LEADERBOARD_UPDATE:
+            page = new ExpGPVSLeaderboardUpdate;
+            break;
+        case PAGE_GPVS_TOTAL_LEADERBOARDS:
+            page = new ExpGPVSLeaderboardTotal;
+            break;
+        case PAGE_WW_LEADERBOARDS_UPDATE:
+            page = new ExpWWLeaderboardUpdate;
+            break;
+        case PAGE_VOTE:
+            page = new ExpVotePage;
+            break;
+            // PULPAGES
+        case ChooseNextTrack::id:
+            initId = ChooseNextTrack::fakeId;
+            page = new ChooseNextTrack;
+            break;
+        case TeamSelect::id:
+            page = new TeamSelect;
+            break;
+        case RoomKickPage::id:
+            page = new RoomKickPage;
+            break;
+        case KO::RaceEndPage::id:
+            initId = KO::RaceEndPage::fakeId;
+            page = new KO::RaceEndPage;
+            break;
+        case KO::WinnerPage::id:
+            page = new KO::WinnerPage;
+            break;
+        case SettingsPanel::id:
+            page = new SettingsPanel;
+            break;
+        case SettingsPageSelect::id:
+            page = new SettingsPageSelect;
+            break;
+        case PULPAGE_BADGESELECT:
+            page = new SettingsPageSelect(true);
+            break;
+        case ExtendedTeamSelect::id:
+            page = new ExtendedTeamSelect;
+            break;
+        case ExtendedTeamResultTotal::id:
+            page = new ExtendedTeamResultTotal;
+            break;
+        case ExtendedTeamResultIrregularTotal::id:
+            page = new ExtendedTeamResultIrregularTotal;
+            break;
+        case PULPAGE_VARIANTSELECT:
+            page = new VariantSelect;
+            break;
+        case VRLeaderboardPage::id:
+            page = new VRLeaderboardPage;
+            break;
+        case TransmissionSelect::id:
+            page = new TransmissionSelect;
+            break;
+        case CustomItemPage::id:
+            page = new CustomItemPage;
+            break;
+        default:
+            page = self.CreatePageById(initId);
+    }
+    if (id < PULPAGE_INITIAL)
+        self.Set(page, initId);
+    else
+        self.SetPulPage(page, static_cast<PulPageId>(id));
+    page->Init(initId);
+}
+kmBranch(0x80622d08, ExpSection::CreateAndInitPage);
+
+void ExpSection::DisposePulPages(SectionPad &pad, bool enablePointer) {
+    pad.EnablePointer(enablePointer);  // default
+    register ExpSection *section;
+    asm(mr section, r31;);
+    for (int pulPageId = 0; pulPageId < PULPAGE_MAX; ++pulPageId) {
+        Page *page = section->pulPages[pulPageId];
+        if (page != nullptr) {
+            page->Dispose();
+            delete page;
+        }
+    }
+}
+kmCall(0x80622268, ExpSection::DisposePulPages);
+
+void ExpSection::AddPageLayer(ExpSection &self, u32 id) {
+    AddPageLayerAnimatedReturnTopLayer(self, id, 0xff);
+}
+kmBranch(0x80622da0, ExpSection::AddPageLayer);
+
+Page *ExpSection::AddPageLayerAnimatedReturnTopLayer(ExpSection &self, u32 id, u32 animDirection) {
+    if (animDirection == 0xff) animDirection = self.animDirection;
+    Page *page;
+    if (id < PULPAGE_INITIAL) {
+        page = self.pages[id];
+    } else
+        page = self.pulPages[id - PULPAGE_INITIAL];
+
+    self.activePages[++self.layerCount] = page;
+    if (animDirection != 0xffffffff) page->animationDirection = animDirection;  // inlined Page::SetAnimDirection
+    page->Activate();
+    return page;
+}
+kmBranch(0x80622e00, ExpSection::AddPageLayerAnimatedReturnTopLayer);
+
+kmWrite32(0x80623128, 0x48000020);  // skip the usual activate
+kmWrite32(0x80623140, 0x60000000);  // nop layerCount increase, as AddPageLayer will do it for us
+kmWrite32(0x80623144, 0x60000000);  // nop setanimdirection as r29 is faulty
+
+void ExpSection::SetNextPage(u32 id, u32 animDirection) {
+    register ExpSection *self;
+    asm(mr self, r28;);
+    AddPageLayerAnimatedReturnTopLayer(*self, id, animDirection);
+}
+kmCall(0x8062314c, ExpSection::SetNextPage);
+
+// Various Util funcs
+void ChangeImage(LayoutUIControl &control, const char *paneName, const char *tplName) {
+    TPLPalettePtr tplRes = static_cast<TPLPalettePtr>(control.layout.resources->multiArcResourceAccessor.GetResource(lyt::res::RESOURCETYPE_TEXTURE, tplName));
+    if (tplRes == nullptr) {
+        Section *section = SectionMgr::sInstance->curSection;
+        if (section && section->resourceAccessorList) {
+            LayoutResourceAccessor *acc = *reinterpret_cast<LayoutResourceAccessor **>(section->resourceAccessorList);
+            for (; acc != nullptr; acc = acc->prev) {
+                tplRes = static_cast<TPLPalettePtr>(acc->multiArcResourceAccessor.GetResource(lyt::res::RESOURCETYPE_TEXTURE, tplName));
+                if (tplRes) break;
+            }
+        }
+    }
+    if (tplRes != nullptr) {
+        lyt::Pane *pane = control.layout.GetPaneByName(paneName);
+        if (pane) pane->GetMaterial()->GetTexMapAry()->ReplaceImage(tplRes);
+    }
+};
+
+// Implements the use of Pulsar's BMGHolder when needed
+enum BMGType {
+    BMG_NORMAL,
+    CUSTOM_BMG,
+};
+BMGType isCustom;
+
+static int GetMsgIdxByBmgId(const BMGHolder &bmg, s32 bmgId) {
+    if (bmg.bmgFile == nullptr || bmg.messageIds == nullptr) return -1;
+    const BMGMessageIds &msgIds = *bmg.messageIds;
+    int ret = -1;
+    for (int i = 0; i < msgIds.msgCount; ++i) {
+        int curBmgId = msgIds.messageIds[i];
+        if (curBmgId == bmgId) {
+            ret = i;
+            break;
+        } else if (curBmgId > bmgId)
+            break;
+    }
+    return ret;
+}
+
+static const BMGHolder *matchedCustomBmg = nullptr;
+
+static const BMGHolder *GetCharaNameBmg() {
+    static BMGHolder charaNameBmg;
+    static const void *loadedFile = nullptr;
+
+    ArchiveMgr *archiveMgr = ArchiveMgr::sInstance;
+    if (archiveMgr == nullptr) return nullptr;
+
+    void *file = archiveMgr->GetFile(ARCHIVE_HOLDER_UI, "message/CharaName.bmg", nullptr);
+    if (file == nullptr) {
+        loadedFile = nullptr;
+        charaNameBmg.bmgFile = nullptr;
+        return nullptr;
+    }
+
+    if (file != loadedFile) {
+        charaNameBmg.Init(*reinterpret_cast<const BMGHeader *>(file));
+        loadedFile = file;
+    }
+    return &charaNameBmg;
+}
+
+static int GetMsgIdxById(const BMGHolder &normalHolder, s32 bmgId) {
+    int ret = GetMsgIdxByBmgId(System::sInstance->GetBMG(), bmgId);
+    if (ret >= 0) {
+        isCustom = CUSTOM_BMG;
+        matchedCustomBmg = &System::sInstance->GetBMG();
+        return ret;
+    }
+    ret = GetMsgIdxByBmgId(System::sInstance->GetBMGCT(), bmgId);
+    if (ret >= 0) {
+        isCustom = CUSTOM_BMG;
+        matchedCustomBmg = &System::sInstance->GetBMGCT();
+        return ret;
+    }
+    ret = GetMsgIdxByBmgId(System::sInstance->GetBMGBT(), bmgId);
+    if (ret >= 0) {
+        isCustom = CUSTOM_BMG;
+        matchedCustomBmg = &System::sInstance->GetBMGBT();
+        return ret;
+    }
+    const BMGHolder *charaNameBmg = GetCharaNameBmg();
+    if (charaNameBmg != nullptr) {
+        ret = GetMsgIdxByBmgId(*charaNameBmg, bmgId);
+        if (ret >= 0) {
+            isCustom = CUSTOM_BMG;
+            matchedCustomBmg = charaNameBmg;
+            return ret;
+        }
+    }
+    isCustom = BMG_NORMAL;
+    matchedCustomBmg = nullptr;
+    ret = GetMsgIdxByBmgId(normalHolder, bmgId);
+    return ret;
+}
+kmBranch(0x805f8c88, GetMsgIdxById);
+
+wchar_t *GetMsgByMsgIdx(const BMGHolder &bmg, s32 msgIdx) {
+    const BMGInfo &info = *bmg.info;
+    if (msgIdx < 0 || msgIdx >= info.msgCount) return nullptr;
+    const u32 offset = info.entries[msgIdx].dat1Offset & 0xFFFFFFFE;
+    const BMGData &data = *bmg.data;
+    return reinterpret_cast<wchar_t *>((u8 *)&data + offset);
+}
+
+wchar_t *GetMsg(const BMGHolder &normalHolder, s32 msgIdx) {
+    wchar_t *ret = nullptr;
+    if (isCustom == CUSTOM_BMG && matchedCustomBmg != nullptr) {
+        ret = GetMsgByMsgIdx(*matchedCustomBmg, msgIdx);
+    }
+    if (ret == nullptr) ret = GetMsgByMsgIdx(normalHolder, msgIdx);
+    return ret;
+}
+kmBranch(0x805f8cf0, GetMsg);
+
+const u8 *GetFontIndex(const BMGHolder &bmg, s32 msgIdx) {
+    const BMGInfo &info = *bmg.info;
+    if (msgIdx < 0 || msgIdx >= info.msgCount) return nullptr;
+    return &info.entries[msgIdx].font;
+};
+
+const u8 *GetFont(const BMGHolder &normalHolder, s32 msgIdx) {
+    const u8 *ret = nullptr;
+    if (isCustom == CUSTOM_BMG && matchedCustomBmg != nullptr) {
+        ret = GetFontIndex(*matchedCustomBmg, msgIdx);
+    }
+    if (ret == nullptr) ret = GetFontIndex(normalHolder, msgIdx);
+    return ret;
+}
+kmBranch(0x805f8d2c, GetFont);
+
+const wchar_t *GetCustomMsg(s32 bmgId) {
+    const BMGHolder &bmg = System::sInstance->GetBMG();
+    int msgIdx = GetMsgIdxById(bmg, bmgId);
+    if (isCustom == CUSTOM_BMG && matchedCustomBmg != nullptr) {
+        return GetMsgByMsgIdx(*matchedCustomBmg, msgIdx);
+    }
+    return GetMsgByMsgIdx(bmg, msgIdx);
+}
+void ResetMatColor(lyt::Pane *pane, u32 color) {
+    lyt::Material *mat = pane->material;
+    ut::Color colors(color);
+    mat->tevColours[0].r = colors.r;
+    mat->tevColours[0].g = colors.g;
+    mat->tevColours[0].b = colors.b;
+    mat->tevColours[0].a = colors.a;
+    mat->tevColours[1].r = 0xff;
+    mat->tevColours[1].g = 0xff;
+    mat->tevColours[1].b = 0xff;
+    mat->tevColours[1].a = 0xff;
+}
+void UnbindRLMC(lyt::Material *mat) {
+    for (ut::LinkList<lyt::AnimationLink, offsetof(lyt::AnimationLink, link)>::Iterator it = mat->animLinkList.GetBeginIter();
+         it != mat->animLinkList.GetEndIter(); ++it) {
+        if (!it->disable) {
+            lyt::AnimTransform *anim = it->animTrans;
+            u32 idx = it->idx;
+            const lyt::res::AnimationBlock *res = anim->resource;
+            u32 animOffsets = ut::ConvertOffsToPtr<u32>(res, res->animOffsetToAnimOffsetsArray)[idx];
+            const lyt::res::AnimationContent *animContent = ut::ConvertOffsToPtr<lyt::res::AnimationContent>(res, animOffsets);
+
+            const u32 *animInfoOffsets = ut::ConvertOffsToPtr<u32>(animContent, sizeof(*animContent));
+            for (int i = 0; i < animContent->infoCount; ++i) {
+                const lyt::res::AnimationInfo *animInfo = ut::ConvertOffsToPtr<lyt::res::AnimationInfo>(animContent, animInfoOffsets[i]);
+                if (animInfo->kind == lyt::res::ANIMATIONTYPE_RLMC) mat->UnbindAnimation(anim);
+            }
+        }
+        if (mat->animLinkList.GetSize() == 0) break;
+    }
+}
+
+}  // namespace UI
+}  // namespace Pulsar

@@ -1,0 +1,582 @@
+[
+  {
+    "feature": "Disc path lookup",
+    "pal_address": "800910b4",
+    "P": {
+      "mapped_address": "800910b4",
+      "commands": [
+        {
+          "file_offset": 903600,
+          "region_offset": 903584,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2148077748,
+          "values": [
+            1208798873
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80091014",
+      "commands": [
+        {
+          "file_offset": 1791116,
+          "region_offset": 876008,
+          "command": "BranchLink",
+          "command_id": 65,
+          "absolute": true,
+          "address": 2148077588,
+          "values": [
+            148280
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "80090fd4",
+      "commands": [
+        {
+          "file_offset": 2677776,
+          "region_offset": 876008,
+          "command": "BranchLink",
+          "command_id": 65,
+          "absolute": true,
+          "address": 2148077524,
+          "values": [
+            148280
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "Character name author control",
+    "pal_address": "8083d9dc",
+    "P": {
+      "mapped_address": "8083d9dc",
+      "commands": [
+        {
+          "file_offset": 900236,
+          "region_offset": 900220,
+          "command": "BranchLink",
+          "command_id": 65,
+          "absolute": true,
+          "address": 2156124636,
+          "values": [
+            44232
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80822f7c",
+      "commands": [
+        {
+          "file_offset": 1787752,
+          "region_offset": 872644,
+          "command": "BranchLink",
+          "command_id": 65,
+          "absolute": true,
+          "address": 2156015484,
+          "values": [
+            44232
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "8083d048",
+      "commands": [
+        {
+          "file_offset": 2674412,
+          "region_offset": 872644,
+          "command": "BranchLink",
+          "command_id": 65,
+          "absolute": true,
+          "address": 2156122184,
+          "values": [
+            44232
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "UMT1",
+    "pal_address": "80588894",
+    "P": {
+      "mapped_address": "80588894",
+      "commands": [
+        {
+          "file_offset": 911172,
+          "region_offset": 911156,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153285780,
+          "values": [
+            738197506
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80582070",
+      "commands": [
+        {
+          "file_offset": 1798688,
+          "region_offset": 883580,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153259120,
+          "values": [
+            738197507
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "80588214",
+      "commands": [
+        {
+          "file_offset": 2685348,
+          "region_offset": 883580,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153284116,
+          "values": [
+            738197507
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "UMT2",
+    "pal_address": "8058889c",
+    "P": {
+      "mapped_address": "8058889c",
+      "commands": [
+        {
+          "file_offset": 911184,
+          "region_offset": 911168,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153285788,
+          "values": [
+            738197505
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80582078",
+      "commands": [
+        {
+          "file_offset": 1798700,
+          "region_offset": 883592,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153259128,
+          "values": [
+            738197507
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "8058821c",
+      "commands": [
+        {
+          "file_offset": 2685360,
+          "region_offset": 883592,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153284124,
+          "values": [
+            738197507
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "UMT3",
+    "pal_address": "805888a8",
+    "P": {
+      "mapped_address": "805888a8",
+      "commands": [
+        {
+          "file_offset": 911196,
+          "region_offset": 911180,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153285800,
+          "values": [
+            1283588128
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80582084",
+      "commands": [
+        {
+          "file_offset": 1798712,
+          "region_offset": 883604,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153259140,
+          "values": [
+            1099038884
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "80588228",
+      "commands": [
+        {
+          "file_offset": 2685372,
+          "region_offset": 883604,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153284136,
+          "values": [
+            1099038884
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "UMT4",
+    "pal_address": "80588928",
+    "P": {
+      "mapped_address": "80588928",
+      "commands": [
+        {
+          "file_offset": 911208,
+          "region_offset": 911192,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153285928,
+          "values": [
+            2969764094
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80582104",
+      "commands": [
+        {
+          "file_offset": 1798724,
+          "region_offset": 883616,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153259268,
+          "values": [
+            1610612736
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "805882a8",
+      "commands": [
+        {
+          "file_offset": 2685384,
+          "region_offset": 883616,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153284264,
+          "values": [
+            1610612736
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "UMT5",
+    "pal_address": "80588938",
+    "P": {
+      "mapped_address": "80588938",
+      "commands": [
+        {
+          "file_offset": 911220,
+          "region_offset": 911204,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153285944,
+          "values": [
+            738197504
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80582114",
+      "commands": [
+        {
+          "file_offset": 1798736,
+          "region_offset": 883628,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153259284,
+          "values": [
+            2080637816
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "805882b8",
+      "commands": [
+        {
+          "file_offset": 2685396,
+          "region_offset": 883628,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153284280,
+          "values": [
+            2080637816
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "UMT6",
+    "pal_address": "8058893c",
+    "P": {
+      "mapped_address": "8058893c",
+      "commands": [
+        {
+          "file_offset": 911232,
+          "region_offset": 911216,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153285948,
+          "values": [
+            1300365344
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80582118",
+      "commands": [
+        {
+          "file_offset": 1798748,
+          "region_offset": 883640,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153259288,
+          "values": [
+            1207959568
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "805882bc",
+      "commands": [
+        {
+          "file_offset": 2685408,
+          "region_offset": 883640,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2153284284,
+          "values": [
+            1207959568
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "Mii costume count",
+    "pal_address": "807e2714",
+    "P": {
+      "mapped_address": "807e2714",
+      "commands": [
+        {
+          "file_offset": 901760,
+          "region_offset": 901744,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2155751188,
+          "values": [
+            1002438682
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "807dc684",
+      "commands": [
+        {
+          "file_offset": 1789276,
+          "region_offset": 874168,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2155726468,
+          "values": [
+            1002438682
+          ]
+        }
+      ]
+    },
+    "J": {
+      "mapped_address": "807e1d80",
+      "commands": [
+        {
+          "file_offset": 2675936,
+          "region_offset": 874168,
+          "command": "Write32",
+          "command_id": 32,
+          "absolute": true,
+          "address": 2155748736,
+          "values": [
+            1002438682
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "feature": "Item frame update",
+    "pal_address": "807eede0",
+    "P": {
+      "mapped_address": "807eede0",
+      "commands": [
+        {
+          "file_offset": 914292,
+          "region_offset": 914276,
+          "command": "BranchLink",
+          "command_id": 65,
+          "absolute": true,
+          "address": 2155802080,
+          "values": [
+            793788
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "807e4ad0",
+      "commands": []
+    },
+    "J": {
+      "mapped_address": "807ee44c",
+      "commands": []
+    }
+  },
+  {
+    "feature": "Online exit",
+    "pal_address": "805fd8e8",
+    "P": {
+      "mapped_address": "805fd8e8",
+      "commands": [
+        {
+          "file_offset": 914248,
+          "region_offset": 914232,
+          "command": "Branch",
+          "command_id": 64,
+          "absolute": true,
+          "address": 2153765096,
+          "values": [
+            793696
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "8063c284",
+      "commands": []
+    },
+    "J": {
+      "mapped_address": "805fd1c4",
+      "commands": []
+    }
+  },
+  {
+    "feature": "Speedometer1",
+    "pal_address": "80662d80",
+    "P": {
+      "mapped_address": "80662d80",
+      "commands": [
+        {
+          "file_offset": 914320,
+          "region_offset": 914304,
+          "command": "Branch",
+          "command_id": 64,
+          "absolute": true,
+          "address": 2154179968,
+          "values": [
+            794312
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80660c9c",
+      "commands": []
+    },
+    "J": {
+      "mapped_address": "806623ec",
+      "commands": []
+    }
+  },
+  {
+    "feature": "Speedometer2",
+    "pal_address": "80662dc4",
+    "P": {
+      "mapped_address": "80662dc4",
+      "commands": [
+        {
+          "file_offset": 914332,
+          "region_offset": 914316,
+          "command": "Branch",
+          "command_id": 64,
+          "absolute": true,
+          "address": 2154180036,
+          "values": [
+            794400
+          ]
+        }
+      ]
+    },
+    "E": {
+      "mapped_address": "80660ce0",
+      "commands": []
+    },
+    "J": {
+      "mapped_address": "80662430",
+      "commands": []
+    }
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "powerpc_build_outputs_present": true,
+  "structural_checks_passed": true,
+  "matching_latest_release_source_verified": false,
+  "gameplay_tested": false,
+  "code_sha256": "815e72cb1cdac125ba02d8c87b7cbcc403f4d91122a5fe8a3f59c42ce12aad5e",
+  "loader_sha256": "5902b701b941d50393390ececb46caf1fc54a944bc72e3a17ddc6d31b1267bf2",
+  "loader_bytes": 5600,
+  "regions": [
+    {
+      "region": "P",
+      "code_bytes": 471236,
+      "commands": 10876
+    },
+    {
+      "region": "E",
+      "code_bytes": 471236,
+      "commands": 10868
+    },
+    {
+      "region": "J",
+      "code_bytes": 471236,
+      "commands": 10868
+    }
+  ],
+  "clean_source_only_build": true,
+  "authorised_toolchain_supplied_externally": true,
+  "version_metadata": "Build-time git version differs from the historical handoff; generated Version.cpp restored afterward.",
+  "runtime_tested": false,
+  "log": "client-source-only-build.log"
+}

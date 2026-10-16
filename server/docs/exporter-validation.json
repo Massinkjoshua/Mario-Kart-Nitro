@@ -1,0 +1,14 @@
+{
+  "exporter_fixture_passed": true,
+  "checks": [
+    "source allowlist",
+    "schema vs data-dump SQL",
+    "key/config/data exclusions",
+    "symlink exclusion",
+    "private PEM refusal",
+    "existing output refusal"
+  ],
+  "proc_executable_hash_mocked_in_fixture": true,
+  "real_proc_hash_tested": false,
+  "limitation": "Workspace /proc executable access is denied. Running-server verification is pending."
+}

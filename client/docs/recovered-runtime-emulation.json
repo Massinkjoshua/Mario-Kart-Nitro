@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "executions": 460,
+  "allocation_bases": [
+    "0x81000000",
+    "0x81200000"
+  ],
+  "scope": "Real released vs compiled reconstructed PowerPC functions; native APIs intercepted.",
+  "checked": [
+    "empty/golden/roulette item drawing and invalid slots/owners",
+    "background null checks, fixed model and reanimation",
+    "preview diagnostic sequence, heap checks and exact native load arguments"
+  ],
+  "full_gameplay_tested": false
+}

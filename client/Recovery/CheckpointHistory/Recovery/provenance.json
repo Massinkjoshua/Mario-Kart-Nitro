@@ -1,0 +1,168 @@
+{
+  "date": "2026-10-08",
+  "base": "MKNitro_Menu_Character_Fix_v5/Source from MKNITRO LATEST PATCH CODES.zip",
+  "toolchain": "From supplied MKNitro_RR_Build_Kit (2).zip; its server/profile wrapper was not adopted.",
+  "working_code_sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc",
+  "inputs": [
+    {
+      "name": "MKNitro_RR_Build_Kit (2).zip.openai-download-4e021668204045d4aa3a5086848f7e3e",
+      "bytes": 31367168,
+      "sha256": "2852d7d9048ca1886b7746b21842b311736ae57c3007e9d2c0547bbb7f50f551"
+    },
+    {
+      "name": "MKNitro_RR_Build_Kit (2).zip",
+      "bytes": 35770916,
+      "sha256": "3eb3ac7668079ac400b57406c70f8e6d92e1366cc6c9d3a08f8a5198a22844f6"
+    },
+    {
+      "name": "MarioKartNitro(8).xml",
+      "bytes": 199322,
+      "sha256": "2105789ee85606de634820107aac2b87a27460d5034c1456e8d50587bc0aaee9"
+    },
+    {
+      "name": "Code(10).pul",
+      "bytes": 2680200,
+      "sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc"
+    },
+    {
+      "name": "MKNITRO-Pulsar-Source-play.mknitro.com (1) (1).zip",
+      "bytes": 23088538,
+      "sha256": "753db79ae78e6ca59e521e65f67b12b6b445877d2fde0c73705e4063cee6a7e5"
+    },
+    {
+      "name": "MKNITRO-Pulsar-Source-play.mknitro.com (1) (1).zip.openai-download-7acc2a27655d4c1bae59287d70561ce2",
+      "bytes": 10663360,
+      "sha256": "4b80268561542423e6a2983550c9e8beb0936fc9f15c917f8ded5d34d8dd3e8d"
+    },
+    {
+      "name": "MKNITRO_NitroIntegrity_PAL_Source.zip",
+      "bytes": 29505,
+      "sha256": "15743ad65e87121feb57d7bd1a87984a3f3118c2772e6ff425640c7eed12317d"
+    },
+    {
+      "name": "MKNitro_v5_Source_Checkpoint.zip",
+      "bytes": 67114,
+      "sha256": "68fa3b4ececbb8e19f2b7ee7e441abfe35dac173d22cd701f54a2692a188ceb8"
+    },
+    {
+      "name": "MKNitro-Save-And-MyStuff-Fix.zip",
+      "bytes": 753441,
+      "sha256": "47d2bc6a9428ed704104ccf86f20f4125e7ea310b7d7d0ffaa9510fbda9d17b7"
+    },
+    {
+      "name": "MKNitro-HTTP-Fallback-Fix.zip",
+      "bytes": 1501480,
+      "sha256": "41354e6c294c61887968776e1c5b2a650f07045a0e4f77274d100b4bb9cfea54"
+    },
+    {
+      "name": "MKNitro-License-Visibility-Fix-v9.2.zip",
+      "bytes": 726602,
+      "sha256": "7f7474b5d7952ff5cc35455441e59e455526cf3712e05c781f17417f6e85b792"
+    },
+    {
+      "name": "MKNitro-MEM2-Pool-Fix.zip",
+      "bytes": 2233676,
+      "sha256": "c3f04873349c9831a3156bed03b409df70bb3de3c5f767b0ecff6bdaf0ee367d"
+    },
+    {
+      "name": "MKNitro-Itembox-UI-Colour-Fix.zip",
+      "bytes": 2960984,
+      "sha256": "5046f37484dbb615c053e2425451c212019b3988a6681c6e6583a3f81c6029f8"
+    },
+    {
+      "name": "MKNitro-Leaderboard-Mii-Fix.zip",
+      "bytes": 6645015,
+      "sha256": "fb30d4d68cbcc2caf94c8f8a8b5face7e57ae80fb981f0d28f29eb6d9a73a5be"
+    },
+    {
+      "name": "MKNitro-Native-Settings-And-Preview-v5.zip",
+      "bytes": 1377861,
+      "sha256": "075f329488141028004bc07a7cccd5e106fd9d5b6b519cd6693fcfded7fad4a6"
+    },
+    {
+      "name": "MKNitro-Settings-Footer-Fix-v10.1.zip",
+      "bytes": 2675154,
+      "sha256": "46a2acb24979424443b8d67e064815da873ce2fb0d7c45b23a782c6500e5102e"
+    },
+    {
+      "name": "MKNitro-Online-TT-Track-Fix.zip",
+      "bytes": 1491295,
+      "sha256": "71b92c35bd335de5a504e745c232b34bcb28d7722b5f03eead0ec002b836c2b9"
+    },
+    {
+      "name": "MKNITRO LATEST PATCH CODES.zip",
+      "bytes": 10611537,
+      "sha256": "f7f2115458c47d31553b6203d736298f2fea56f2d04742403201089b40a112ba"
+    },
+    {
+      "name": "MKNitro-VR-Profile-ID-Fix.zip",
+      "bytes": 1488431,
+      "sha256": "c6fa66263b6f909d90f51ff0c86b75466266911989d9b40ae6b5e5b23db17167"
+    },
+    {
+      "name": "MKNitro-Settings-Filename-Update.zip",
+      "bytes": 744019,
+      "sha256": "44a6352d2bf747b317468e53845b2bbf40a1fa3507e1713da64fe845cf42a994"
+    },
+    {
+      "name": "MKNitro-Menu-And-BackModel-Fixes-v9.1.zip",
+      "bytes": 8936169,
+      "sha256": "c3b1625633564b0f6710eef722618c8cf31ad8e2e70153232638b2d0440ae484"
+    },
+    {
+      "name": "MKNitro_Source_Pack_Comparison.zip",
+      "bytes": 444640,
+      "sha256": "78aee6da41504563a176ae1134eb6f953ebec50236606a7c027090704a941f11"
+    },
+    {
+      "name": "MKNitro-Itembox-UI-Colour-Fix.zip.openai-download-cb3f65f757f54282881e840a4b7cfd15",
+      "bytes": 2960984,
+      "sha256": "5046f37484dbb615c053e2425451c212019b3988a6681c6e6583a3f81c6029f8"
+    },
+    {
+      "name": "MKNitro-Leaderboard-Reserve-Fix.zip",
+      "bytes": 1493368,
+      "sha256": "e05398125935ace4c7bbd5b0ad4f6976f8f168955be612285dcccdfa9f17aaae"
+    },
+    {
+      "name": "MKNitro-Settings-Footer-Fix-v10.1.zip.openai-download-739ef3e4928541689cca02ead2d93a60",
+      "bytes": 393216,
+      "sha256": "6b694c31f4cb0dac7e85efa1a6639a87d60ad0635907f68353e146b3c4cf738f"
+    },
+    {
+      "name": "MKNitro-PAL-Preview-And-VR-Test-Fix.zip",
+      "bytes": 746649,
+      "sha256": "763297c15a4788a4e36eef38be1d6e1e0c12caf3b83866c4e734970f69d01b92"
+    },
+    {
+      "name": "MKNitro-PAL-Voting-Preview-Test-Fix-v2.zip",
+      "bytes": 743646,
+      "sha256": "49813152c98ed8eb66ebab5af4afe4d34cdca51c300799f7ca08f515d97d2c07"
+    },
+    {
+      "name": "MKNitro-Main-Settings-v10.zip",
+      "bytes": 12255281,
+      "sha256": "32c9faca64bd810cc972668990c020beea0c2af97a3b77b1c5ab1a8f91f66a06"
+    },
+    {
+      "name": "MKNitro-License-Visibility-Fix-v9.2.zip.openai-download-2c4ed94a7d004687b2774715c7df10ab",
+      "bytes": 726602,
+      "sha256": "7f7474b5d7952ff5cc35455441e59e455526cf3712e05c781f17417f6e85b792"
+    },
+    {
+      "name": "MKNitro-VR-Persistence-Repair.zip",
+      "bytes": 34557497,
+      "sha256": "55781d25b0e8545eb932813037e746d8ffdeb5666daed51300deeccc04a09fc4"
+    },
+    {
+      "name": "MKNitro-Preview-Crash-Repair-v6.zip",
+      "bytes": 1365435,
+      "sha256": "474e0b92d75ce873ff3377719d18e68485be83834625d7394f0ffeb5eca863b5"
+    },
+    {
+      "name": "MKNITRO_NitroIntegrity_PAL_Source(1).zip",
+      "bytes": 29505,
+      "sha256": "15743ad65e87121feb57d7bd1a87984a3f3118c2772e6ff425640c7eed12317d"
+    }
+  ]
+}

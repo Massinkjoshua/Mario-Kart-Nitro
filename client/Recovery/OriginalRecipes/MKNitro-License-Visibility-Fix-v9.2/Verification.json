@@ -1,0 +1,36 @@
+{
+  "region": "PAL",
+  "hook_site": "0x805edc3c",
+  "hook_offset": 784632,
+  "hook_size": 452,
+  "prior_code_preserved": true,
+  "prior_commands_preserved": true,
+  "other_regions_preserved": true,
+  "pane_reference": {
+    "mii": [
+      -67.0,
+      -28.757217407226562,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.5,
+      0.5,
+      90.0,
+      90.0
+    ],
+    "nitro_mii_frame": [
+      0.0,
+      45.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      128.0,
+      132.0
+    ]
+  },
+  "full_game_rendering_tested": false
+}

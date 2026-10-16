@@ -1,0 +1,33 @@
+{
+  "failure_address": "0x000c1ce6",
+  "failure_cause": "Internal relocation destination incorrectly encoded as absolute",
+  "corrected_relative_destinations": true,
+  "native_checks": [
+    {
+      "allocation": "0x81000000",
+      "frame_present": false,
+      "actual_serialized_patch_applied": true,
+      "native_call_return_and_register_checks": true
+    },
+    {
+      "allocation": "0x81000000",
+      "frame_present": true,
+      "actual_serialized_patch_applied": true,
+      "native_call_return_and_register_checks": true
+    },
+    {
+      "allocation": "0x81600000",
+      "frame_present": false,
+      "actual_serialized_patch_applied": true,
+      "native_call_return_and_register_checks": true
+    },
+    {
+      "allocation": "0x81600000",
+      "frame_present": true,
+      "actual_serialized_patch_applied": true,
+      "native_call_return_and_register_checks": true
+    }
+  ],
+  "original_code_commands_and_other_regions_preserved": true,
+  "Dolphin_gameplay_tested": false
+}

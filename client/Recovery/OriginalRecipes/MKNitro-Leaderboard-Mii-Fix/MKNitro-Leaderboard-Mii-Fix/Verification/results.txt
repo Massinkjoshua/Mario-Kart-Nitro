@@ -1,0 +1,19 @@
+Go tests: common, api and qr2 PASS; database package compiles.
+Go Linux amd64 CGO-disabled production build: PASS (Go 1.25.5).
+PostgreSQL/PGlite: additive migration, repeated migration, existing ratings,
+explicit reports versus stale snapshots, Mii persistence with empty snapshots,
+stored-license Mii join, ban filtering and reopen: PASS.
+PowerPC emulation: 40 checks PASS using the actual PAL JSON/base64 parser and
+native RFL validation, including separate Alice/Bob data, invalid/missing Miis,
+row visibility reuse, registers, and exact preservation of the working memory
+fix. Native renderer/UI calls are intercepted; live Dolphin testing is required.
+Response budget: 50 rows with maximum ratings, 104-character Mii records,
+long HTML-sensitive input names: response remains below the 16 KiB game buffer.
+Installer simulations: successful deploy/approval, database backup failure
+before service stop, and failed health check restoring executable/approval: PASS.
+No live VPS deployment or Dolphin rendering was performed here.
+
+Correction validation: real HTTP dispatcher handles success, initializing and
+wrong-method responses without response-type reflection failures. Actual local
+HTTP listener on configured nasPort passes health check. Go api/common/qr2 tests
+pass and database package compiles; Linux amd64 server rebuilt successfully.

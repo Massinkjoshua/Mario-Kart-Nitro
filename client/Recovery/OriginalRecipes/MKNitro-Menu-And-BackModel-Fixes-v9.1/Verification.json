@@ -1,0 +1,54 @@
+{
+  "native_patches": [
+    {
+      "address": "0x805eda74",
+      "old": "li 9,0",
+      "new": "li 9,1",
+      "purpose": "Check Records input disabled"
+    },
+    {
+      "address": "0x805edc24",
+      "old": "addi 3,3,1480",
+      "new": "addi 3,3,2076",
+      "purpose": "Initial focus Change Mii"
+    },
+    {
+      "address": "0x805edc30",
+      "old": "li 4,2121",
+      "new": "li 4,2122",
+      "purpose": "Initial Change Mii help text"
+    },
+    {
+      "address": "0x807ef204",
+      "old": "clrlwi 6,27,24",
+      "new": "li 6,0",
+      "purpose": "Remove roulette additive white rectangle"
+    },
+    {
+      "address": "0x807ef0a4",
+      "old": "clrlwi 0,0,24",
+      "new": "li 0,0",
+      "purpose": "Remove item-acquisition additive white rectangle"
+    }
+  ],
+  "v6_code_and_existing_commands_preserved": true,
+  "other_regions_preserved": true,
+  "game_rendering_tested": false,
+  "MenuOther": {
+    "changed_files": [
+      "bg/blyt/obi_top_text.brlyt",
+      "bg/blyt/obi_bottom_message.brlyt",
+      "bg/timg/nitro_readable.tpl",
+      "control/blyt/common_w076_license_icon_center.brlyt",
+      "button/blyt/common_w097_license_screen_menu.brlyt",
+      "button/ctrl/LicenseManagementButton.brctr"
+    ],
+    "archive_roundtrip": true
+  },
+  "Title": {
+    "changed_files": [
+      "button/blyt/open_icon_option.brlyt"
+    ],
+    "archive_roundtrip": true
+  }
+}

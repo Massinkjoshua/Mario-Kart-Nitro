@@ -1,0 +1,33 @@
+--- a/PulsarEngine/PulsarSystem.cpp
++++ b/PulsarEngine/PulsarSystem.cpp
+@@ -480,8 +480,9 @@
+                 sInstance->context2 &= ~(1 << PULSAR_ITEMMODESTORM);
+                 break;
+ 
+-            case 0x0B:  // OTT with retro tracks
++            case 0x0B:  // OTT with the Nitro track list
+                 ApplyVanillaModeRestrictions(this, false);
++                this->context &= ~(1 << PULSAR_REGS);
+                 this->context |= (1 << PULSAR_MODE_OTT);
+                 sInstance->context2 &= ~(1 << PULSAR_ITEMMODERAIN);
+                 sInstance->context2 &= ~(1 << PULSAR_FFA);
+--- a/PulsarEngine/SlotExpansion/CupsConfig.cpp
++++ b/PulsarEngine/SlotExpansion/CupsConfig.cpp
+@@ -544,7 +544,7 @@
+     if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_VS_WW || controller->roomType == RKNet::ROOMTYPE_BT_WW || controller->roomType == RKNet::ROOMTYPE_JOINING_WW)) {
+         isRegsOnly = true;
+     }
+-    if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL || controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL) && System::sInstance->IsVanillaMode()) {
++    if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL || controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL) && System::sInstance->netMgr.region != 0x0B && System::sInstance->IsVanillaMode()) {
+         isRegsOnly = true;
+     }
+     if (isRegsOnly) {
+@@ -653,7 +653,7 @@
+         if (System::sInstance->IsContext(PULSAR_REGS)) regsSelection = TRACKSELECTION_REGS;
+     }
+     if (isOnlineRoomActive && (controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL || controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL)) {
+-        if (System::sInstance->netMgr.region == 0x0A || System::sInstance->netMgr.region == 0x0B || System::sInstance->netMgr.region == 0x0C || System::sInstance->netMgr.region == 0x0D) retroSelection = TRACKSELECTION_RETROS;
++        if (System::sInstance->netMgr.region == 0x0A || System::sInstance->netMgr.region == 0x0C || System::sInstance->netMgr.region == 0x0D) retroSelection = TRACKSELECTION_RETROS;
+         if (System::sInstance->netMgr.region == 0x14) ctSelection = TRACKSELECTION_CTS;
+     }
+     if (retroSelection == TRACKSELECTION_RETROS && regsSelection != TRACKSELECTION_REGS && !isBattle) {

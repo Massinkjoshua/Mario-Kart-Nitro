@@ -1,0 +1,449 @@
+{
+  "modified_date": "2026-10-16",
+  "changes": [
+    {
+      "path": "CREDITS.txt",
+      "origin": "restored explicit attribution and original payload licence reference",
+      "sha256": "1af68a3cb2c4b18f3622b61d072304c3528c0675f53e6ba9f48e9d3c3438b242"
+    },
+    {
+      "path": "GameSource/MarioKartWii/Archive/ArchiveMgr.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "cf59f2ac26c8a00b2c2f832606048c8f2e8a7796d8b12e5c18a0d14356fa7dfa",
+      "sha256": "4ac8e6599b4d667d16ae1f7c9515fc1496a680ad3f1c6c728d3e0c16b2807ae5"
+    },
+    {
+      "path": "GameSource/MarioKartWii/UI/Ctrl/ModelControl.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "86ac89364e6bef28cb689cac9f25c7d685b24f78fe47a2128920cfe937a46e70",
+      "sha256": "56bd0fa156421ff59a86292420c221ed6c6c64ace3dc2139140870da55ac2c5f"
+    },
+    {
+      "path": "GameSource/MarioKartWii/UI/Page/Other/BackModel.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "9ea22139b8279c526100f9ac4fd67ea6ed4886406172b6223a77de4340a7e043",
+      "sha256": "8ccfe97e6e10d1921c1ed0fb55624489f4889957c042a759a6605c8370a0bcf5"
+    },
+    {
+      "path": "GameSource/symbols.txt",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": "525b6f7ee2bf643187846566770e703be15af8cf6479ad5c46b64068824fa511",
+      "sha256": "917fc0f902ddb78553b88df1adbecbbfda816f522dcc77b90052d7c5d19f4357"
+    },
+    {
+      "path": "KamekInclude/kamek.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "1276c6deb8d06fd4ef79c234cbcfa8c88c2d11f66ad1e55f59a0f23961179db1",
+      "sha256": "565689cffd6b4d76023b0f620c2460bf33cd63b5e9dc130dac0323a0ae9bfaa4"
+    },
+    {
+      "path": "Loader/Makefile",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "bf9aa5b02cee3bf103d6ea6465ace555c3c87922b4173182eb1f17fa7fd186ca",
+      "sha256": "ed24448c78835ac4cd59087c657e30cfdd6d44ef76c07db869c8ed8c548fff5c"
+    },
+    {
+      "path": "Loader/kamekLoader.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "28612e5643396aa9cd016f96545fcd8be62ca36363cbe2f0a63e98ba352cc5e7",
+      "sha256": "c4b80353164a46da118dcc050d7c24a1d5e3fb40db6b31bf5987cc1512b12033"
+    },
+    {
+      "path": "Loader/kamekValidation.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "8f52d3a2a2d4d8f34c480c550ce0d6bc64c9a80542423082112468c4802b7dd3"
+    },
+    {
+      "path": "Loader/mkw.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "19c1b2d50e3f26f8c91d33111f90cdb5b95f3e33ca90a830b14aee9be2e3c9b4",
+      "sha256": "58bec21a0089d121b68f1c1d5a70c61f598058876e8bd1f16cdb104e6730d2c3"
+    },
+    {
+      "path": "Makefile",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "7035125f2a1f52d4050873d5aa24c339a53f1ebbc3f81cbec0ed75c17216c3d0",
+      "sha256": "15dc8e13c6ee4cf923416b4059ca61b322af1c4d084d432ea7acd343df229862"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacterAssets.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "2111cbb6dc357e76164dec443bbb4d4a09cf9736ae6b7f21224fb22fee5171b6",
+      "sha256": "9490f7ddc4a23a8088bf414e90b92e52548b3d560c4a58531e508d3b5c9fd659"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacterMenu.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "20477c353e5517095feddfc3118eba4f98ac75cbdf21d4e0c7f2bc6ffbdb9c3b",
+      "sha256": "769ef9704f9b4d581f6886757e8a9e1f35d609df415cd2c8c00ee10322d724bf"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacterRaceAndNetwork.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "51d61ea2b62d25635786cb4ca5d67d4e71495fda3c2e0a01bbf303b91e77844f",
+      "sha256": "daacd449d0e8f00245c7aacc3da73b810af0986c57dbcc9a1e0ae15c0b065fe8"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacters.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "09e408699d40224461f4ea4ecd5a096670a1d61f79a4686d13393aba52aac534",
+      "sha256": "2997e32d8b29eea048ffe8e52d6551f96adc9604db3fcfb0b75259aa604063ec"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/DriftColours.cpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "cc70fe9588f64a0839568b9f19c9d2942e01f8f65d94dc9d909e2c0fc27e0593"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/DriftColours.inc",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "e37b490e184ef7e23123a33446ea07fddd0899f49381ab1efcc5c5e159456ca3"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/RecoveredCoursePreview.cpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "f370397835a8bab863db67c4ecd67bc8f0088051c1721be24fe2e790a4401023"
+    },
+    {
+      "path": "PulsarEngine/Extra/Discord.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "08506474cabe710a2281e4b4db64f873f85d60f9a5586f5fffb426f96cb60626",
+      "sha256": "4fe749451c277840af477ac3701cd20bbfa43c20443ef47e8a344600185ea7c2"
+    },
+    {
+      "path": "PulsarEngine/Extra/MiiOutfitC.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "89ed981f912563ff6fa5eda246273471aa3db46460776412bf8479697dbb9cfc",
+      "sha256": "db7614177ab453dabf7cefd2660ab1a19ab8adcef4d5656498354cb0fb498a21"
+    },
+    {
+      "path": "PulsarEngine/IO/SDIO_RKSYS.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "1e06f6fe84108c4d8761749ccc2397ee85f0e6590b0a892f9973df78ebbeceaa",
+      "sha256": "160fcc9a24b862c4d153939f216785444ee66baa5cc7b2aff94dffdfcfaf795c"
+    },
+    {
+      "path": "PulsarEngine/Info.hpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": "2f52db056af81a01d332cfdbed451e2071c9e91377dca96d57cb67f27107d576",
+      "sha256": "be2bbeb3083493c2bba6b205b460755c00dae16935ceec940348f2bbb00b5eae"
+    },
+    {
+      "path": "PulsarEngine/Network/NHTTPHelper.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "7f36fa8c7f7e1b6a8f0c7710341acbc3e086bb6a54140d5cb45c0bb53d0c3e90",
+      "sha256": "8b17a76181cc185f045b4b2dd923d4dd0d20c2c6c709df28c43131adc6240ffa"
+    },
+    {
+      "path": "PulsarEngine/Network/NHTTPPool.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "23db8fd3905bebbdc94c1c197739eecfbb4fab15d65ace161946b096b593a6c6"
+    },
+    {
+      "path": "PulsarEngine/Network/NHTTPPool.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "fd39263c1d6602a6a33e2f1083a6abfbc0872c301ca64242cb6a521ab3c54c0e"
+    },
+    {
+      "path": "PulsarEngine/Network/Network.hpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": "91df49530fa840e72a51c9890293d9f3bf1680dd27adf871ad1ddeac1a155ea2",
+      "sha256": "e6a96e9f986940f8110e42da38cb08a87c69013411fc0acfcdcec6c4d6089156"
+    },
+    {
+      "path": "PulsarEngine/Network/Ranking.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "6c76a245c80ad576c124c47779c5b725d58ae329ff8a32a53792ada9defc82b5",
+      "sha256": "1d0f49f770b9e6624483709480f33ab6876416a5213c5103092b537d6f113558"
+    },
+    {
+      "path": "PulsarEngine/Network/Rating/PlayerRating.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "9752de140d6d7e40e4e7b6af08cbc7c8aec6b24da22e154ea949ede1d1dec168",
+      "sha256": "b252d03309d3866c408df3c3f70e37b950341451eb7f5f548352331e39e45776"
+    },
+    {
+      "path": "PulsarEngine/Network/Rating/RatingMultiplier.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "ae298abb533d1f2497e6e5a6c2556707f925cbb6229c1a18d71eb7abc2ed3181",
+      "sha256": "9fc2f6870a9f38221694af4d12a1669a7d230d6bda359c5495ff8f2d5003d950"
+    },
+    {
+      "path": "PulsarEngine/Network/Rating/RatingSave.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "141e2b63e2cf19227e9063b7f6e0f2597a7c780a8816cac44b3bafd47ae95dd9",
+      "sha256": "d3993a5ac986ccda41a49b49985f2d87ade6e80a3a765ec47b984a9e7e72d286"
+    },
+    {
+      "path": "PulsarEngine/Network/Region.cpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": "afb49819a5616bedd554441dc5c9b85480a72b855722285e8edab5b8dec6ca73",
+      "sha256": "234b525136308096f6db8d0f42aeaf3862b2c1c1060bbb343f6c927a3b41815f"
+    },
+    {
+      "path": "PulsarEngine/PulsarSystem.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "c8dd705840bdb4d74971a90449af2d176f6bfd0a4ce619e518730d7486557ada",
+      "sha256": "97285477b2e31d2597079bfda96c9e5886c928a5a10abeb5182c7f94eb1f5a79"
+    },
+    {
+      "path": "PulsarEngine/PulsarSystem.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "52f25f7d1bb634e04842e82e7ff0d77510c7d7c7f593f31d8bb836e17a5ce0cd",
+      "sha256": "88381d18cbc898776ed061255884b67db7ea9879510a2f90e2eff0494fdbdf15"
+    },
+    {
+      "path": "PulsarEngine/Race/MiscRace.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "cac3a85401feb3f0a91663a0bf8dffb2d3ecacde4c5427a9fc4a6355ce1ecd73",
+      "sha256": "11dcb38ee7b31152e005aa70e8ca779d45419dba6d7e9b66c5cca356c52bb2a5"
+    },
+    {
+      "path": "PulsarEngine/Race/UltraMiniTurbos.cpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": "99c1b7693c056b5699fcd852abd80109e3b9921165295c9bd3c416723ba339cd",
+      "sha256": "66ffa1475f40d5922f99c42d38f4dbff054e5ec084ba7228645ab8417da5710e"
+    },
+    {
+      "path": "PulsarEngine/Settings/Settings.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "8e74cfecfbe14b7b5c26c3b6a27ca10668d7675196827f2ce64bd830706a04fe",
+      "sha256": "304ac61a872fbe5f426543157063ad23eaae063a925d56e7faaafa869d9dce38"
+    },
+    {
+      "path": "PulsarEngine/Settings/SettingsParam.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "e9125df8b336f90a02561d5b2b7456b0d8b765caffc43cedd6ec0bb3c9a6a9b5",
+      "sha256": "a935fb8518f49a4c01363e8ea9d027e417dda1cbda1117b8baabddddbe681a1d"
+    },
+    {
+      "path": "PulsarEngine/Settings/UI/ExpSinglePlayer.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "3aff261e87d37619050c8ad03e58b3374bc8aec94197273106ac330dfd5ed304",
+      "sha256": "aaf17e510186eeaf9989f5cbf3820639eee0b7695066f7ae1e8a11958766c804"
+    },
+    {
+      "path": "PulsarEngine/Settings/UI/ExpWFCMainPage.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "ea40c2a578c45d48b2e56ced260a734b6a28c4362fb1c6e0e76ba900459f561a",
+      "sha256": "4febf74c25b76457d62a3c817cb8059ee9032b3800be3f0c76d245aa5ed63b7f"
+    },
+    {
+      "path": "PulsarEngine/Settings/UI/SettingsPanel.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "c9b750095630c04561444d1d59728e8c8aabbb76e113d714a0f2dc591367d1b6",
+      "sha256": "5be35f489e4272ba7aeccc4e8b31d1a752a56fd42b22b749d068a83c5124ed5b"
+    },
+    {
+      "path": "PulsarEngine/SlotExpansion/CupOrder.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "cf56313d2e980203512ecbfe40cc7aecc4e0eaf736b14875da5dd767ccd8a2d7"
+    },
+    {
+      "path": "PulsarEngine/SlotExpansion/CupsConfig.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "3e06cea42c318b8fc7e3ef1fb829348263203f73f61f215cc4d4972fc18b7e22",
+      "sha256": "9781e79ee03604df49e613639b13fef33c30acbc9f29fb26ee25f2737938e940"
+    },
+    {
+      "path": "PulsarEngine/UI/NitroMenuRepairs.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "191c2eebc9dc0aef8c28b85e7bbb68b4add5994e1d97cbc548fdacfa951dcce7"
+    },
+    {
+      "path": "PulsarEngine/UI/PlayerCount.cpp",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": "cff3bba6fa959f7dd9e62c57bafade7fcb4897dfe8a41f60ccc2673bc8d9ca60",
+      "sha256": "4b26d7a1c2228b62e87a67d1fe1111e75d3b2f2f7c303b1ab128ab234230afcb"
+    },
+    {
+      "path": "PulsarEngine/UI/RecoveredRuntimeRepairs.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "31f2e9694169900ada533462a472d53e998538db86113ada0731b759d66feef0"
+    },
+    {
+      "path": "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "18345ac8c1068a5610138a05c88b664fd70bf55e4433a1cd8d10be3b17a8fc5f",
+      "sha256": "48cae33744ea9b41169749acd7a8666790fb6cc26fbc640be2071c8745e54650"
+    },
+    {
+      "path": "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "d85a28caffd5c906cdc88632d015126bc727f918c21144f06f618d12bdbecaf9",
+      "sha256": "20e96fb4a1f470ba85827131374bfb13cecd07eae031bce2399477c745c990d9"
+    },
+    {
+      "path": "PulsarEngine/Version.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "7dbbde1cd0509ac03605bcfc811c6f91624a3e0501dcc9c6dbbd4146afecc567",
+      "sha256": "cf0d1d43d4764c02c2d0880d6c51faaabdb4397a2ef136158ee60766ec7b4f04"
+    },
+    {
+      "path": "PulsarPackCreator/IO/Builder.cs",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "6d4e883571760848d21fd95280962112b5a5a24613388323209efe9bd8c215f2",
+      "sha256": "a02b556dc757728bce5426e37a68f6eadeda864946d49cbea6cac1cb355d9aa6"
+    },
+    {
+      "path": "PulsarPackCreator/Pulsar Pack Creator.csproj",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "380aae311dade4c767018144b04a9d9d65cff7d13acf469d2c4eee525ae840f4",
+      "sha256": "138283a396e91a7126dc8b495570b48b4c13b1c683a304d8cda040034902f577"
+    },
+    {
+      "path": "PulsarPackCreator/Pulsar Pack Creator_uet4ql4f_wpftmp.csproj",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "9c8435e9a1b8b58115465947df0cd214adbc9f982a3fbf6bed763e6f70023089"
+    },
+    {
+      "path": "Recovery/LoaderV15/build.py",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "13ee928fa5dad06f84545fbdaa063afaef3db0c402b67c076530adaf83f2021d"
+    },
+    {
+      "path": "Recovery/LoaderV15/loader_data.json",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "3867cba5e2be6e1c9254a242709b35023435148033d7986c8500b3089821c499"
+    },
+    {
+      "path": "Recovery/LoaderV15/loader_v15.asm",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "55c681c2efc6b1f43af3aff6d42a54e14e4e7f0e4b5a6d1ddd28f99fb79e9b15"
+    },
+    {
+      "path": "build_linux.sh",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "afbd64ddc85d33fc7910f2594f93ba7545b7b2615bf0cd8a4510075477ad8b89"
+    },
+    {
+      "path": "build_msys2.sh",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "89bb7d345d2a9322066c44eb903e431ab8266cbbcf52f22ef7ae40a6fac9efef"
+    },
+    {
+      "path": "scripts/apply_release_policy.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "41ffbe9d38d43031eed7ee488bf9b3feb518d38cc6137c7c6ddf40beb9a578a1"
+    },
+    {
+      "path": "scripts/check_build_output.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "3ac40579ad8add734268b6098d9712d38422a530f01d16241b062f4563696b27"
+    },
+    {
+      "path": "scripts/check_toolchain.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "65cf58df73483a7e60f446f6bbc011ee2b142ee8c718821f00989975a1d845c9"
+    },
+    {
+      "path": "scripts/combine_bin.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": "2878d854ebcea952b5f65795c3207e4da7728c6cd053d65d84d80d71377d96c6",
+      "sha256": "8d6229b2abb4996390b465bd7b394f230a091514f4a65ae09f0e321585e22827"
+    },
+    {
+      "path": "scripts/compare_native_sites.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "9213682371b6481e0641a46d01c47d456a00abd95164ceef206a86d898f2a055"
+    },
+    {
+      "path": "scripts/fetch_linux_tools.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "af3b48c8538006bf02d57779dab6df72c62d28e662a677d11d107ab08f180d0d"
+    },
+    {
+      "path": "scripts/generate_drift_colours.py",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "fdc3ed5edbecab72c1b9f01d381cba1d260b8be4207027077a63fcd46173d278"
+    },
+    {
+      "path": "scripts/nitro_formats.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "c6cbd5f72755ac22bf4a435388f35ca82abac35613d219a2203bbf625e26bd23"
+    },
+    {
+      "path": "scripts/stage_candidate.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "39a308350a916ca537380f39554a7a6eb7d0889a9b002a7665404ebb5297fb0d"
+    },
+    {
+      "path": "scripts/test_integration.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "9503629b967a1c395c09846e19d26f1f7b93e879aefe7b31373ff8f75d442341"
+    },
+    {
+      "path": "scripts/write_header_stamp.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "eb39b834b9778d295b461afc79ad9db914ac6dc5f9857e6f005d864b7e24b798"
+    },
+    {
+      "path": "scripts/write_version.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "1744b0e2e6d3289e6c66cc6a01bbe564ace0b57f45964c9da56022d61a6aabf4"
+    },
+    {
+      "path": "tests/cup_order.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "6c1d91bb1f1c33f2f011649d432f24798f6fb560c438d2add2ac1f48fa43493c"
+    },
+    {
+      "path": "tests/kamek_validation.cpp",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "e6c049c21e799f11f51eb4f0a060e19ba923b14e47bcd3b134d32b0b0aa59fc6"
+    },
+    {
+      "path": "tests/recovered_nhttp_pool.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "a320e2bcaf1ee49393e4cb2327b63188113c2fbd0d8e13534e699d4322a3596f"
+    },
+    {
+      "path": "tests/recovered_remaining_ppc.py",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "651cff39fffaa31f8c469b5d86308306abc9b51446f2c5e4a4da7df751c385d9"
+    },
+    {
+      "path": "tests/recovered_runtime_ppc.py",
+      "origin": "recovered, reconstructed or integrated source; see recovery-provenance.json",
+      "original_sha256": null,
+      "sha256": "73549a62e6e74b4d3fd504dc55199e76c02f31974887d0bc8d1824298bd6b746"
+    },
+    {
+      "path": "tests/requirements-ppc.txt",
+      "origin": "16 October source reconstruction/integration; see recovered-source-followup.md",
+      "original_sha256": null,
+      "sha256": "56bce36af734e3b9aeff2be4301bbc2a2c2b58ea1ea1e6ee6e792db84f96fbd4"
+    }
+  ],
+  "recovery_revision": 3
+}

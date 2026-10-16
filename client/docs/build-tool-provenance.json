@@ -1,0 +1,12 @@
+{
+  "wibo": {
+    "release": "https://github.com/decompals/wibo/releases/tag/1.2.0",
+    "asset": "wibo-x86_64",
+    "sha256": "13f86a2d618f0dbe67179d349625345eabf9b46450295cb4c904e49f6aff85af"
+  },
+  "kamek": {
+    "release": "https://github.com/Treeki/Kamek/releases/tag/2026-02-24",
+    "asset": "linux-x64.tar.gz",
+    "sha256": "48e0b095c9774abae95caa965584f1cd231a52bb23d3c425742649aa7f768b5b"
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "file": "LICENSE",
+    "repository": "Retro-Rewind-Team/wfc-server",
+    "commit": "6592a03887011c00c532b46306ddb3773a6c3842",
+    "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+  },
+  {
+    "file": "README.md",
+    "repository": "Retro-Rewind-Team/wfc-server",
+    "commit": "6592a03887011c00c532b46306ddb3773a6c3842",
+    "sha256": "a87dbe00e39b11e6ced0de81ee74e69bc2a92571bc2d48a0f9839442ad241c3e"
+  },
+  {
+    "file": "schema.sql",
+    "repository": "Retro-Rewind-Team/wfc-server",
+    "commit": "6592a03887011c00c532b46306ddb3773a6c3842",
+    "sha256": "6de08924224ef980bb882149b796e575a740412902222191a2190de8e461d3c3"
+  },
+  {
+    "file": "config_example.xml",
+    "repository": "Retro-Rewind-Team/wfc-server",
+    "commit": "6592a03887011c00c532b46306ddb3773a6c3842",
+    "sha256": "3e3c08adc94effdaee8c02f71ae50707ee7da7788567cd0243c2fbeab3cd833c"
+  }
+]

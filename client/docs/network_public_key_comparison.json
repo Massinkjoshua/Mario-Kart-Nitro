@@ -1,0 +1,21 @@
+{
+  "source_public_key_bytes": 516,
+  "source_public_key_sha256": "4bc449731f3900297ff90a5b07c5bd9ee3727b0683df3922be00e931e49d9256",
+  "regions": [
+    {
+      "region": "P",
+      "matching_public_key_found": true,
+      "text_offset": 429212
+    },
+    {
+      "region": "E",
+      "matching_public_key_found": true,
+      "text_offset": 429212
+    },
+    {
+      "region": "J",
+      "matching_public_key_found": true,
+      "text_offset": 429212
+    }
+  ]
+}

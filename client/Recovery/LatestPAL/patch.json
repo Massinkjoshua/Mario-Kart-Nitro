@@ -1,0 +1,364 @@
+{
+  "description": "Exact PAL post-checkpoint changes; binary-dependent baseline, not complete matching core source.",
+  "baseline_sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc",
+  "target_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "append_start": 813536,
+  "code_patches": [
+    {
+      "offset": 23748,
+      "assembly": "cmpwi 3, 0"
+    },
+    {
+      "offset": 350260,
+      "assembly": "b 0x558a8"
+    },
+    {
+      "offset": 350700,
+      "assembly": "bl 0xc69e0"
+    },
+    {
+      "offset": 350796,
+      "assembly": "b 0x55aa0"
+    }
+  ],
+  "command_edits": [
+    {
+      "start": 222,
+      "end": 223,
+      "expected": [
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x00001c38",
+          "values": [
+            "0x80005f34"
+          ]
+        }
+      ],
+      "replacement": [
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x00001c38",
+          "values": [
+            "0x000c6a28"
+          ]
+        }
+      ]
+    },
+    {
+      "start": 10060,
+      "end": 10061,
+      "expected": [
+        {
+          "operation": "BranchLink",
+          "absolute": true,
+          "address": "0x800910b4",
+          "values": [
+            "0x00024338"
+          ]
+        }
+      ],
+      "replacement": [
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x800910b4",
+          "values": [
+            "0x480cce99"
+          ]
+        }
+      ]
+    },
+    {
+      "start": 10693,
+      "end": 10700,
+      "expected": [
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80588894",
+          "values": [
+            "0x2c000003"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x8058889c",
+          "values": [
+            "0x2c000003"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x805888a8",
+          "values": [
+            "0x418200a4"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80588928",
+          "values": [
+            "0x60000000"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80588938",
+          "values": [
+            "0x7c040378"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x8058893c",
+          "values": [
+            "0x48000010"
+          ]
+        },
+        {
+          "operation": "Branch",
+          "absolute": true,
+          "address": "0x8058894c",
+          "values": [
+            "0x00055528"
+          ]
+        }
+      ],
+      "replacement": [
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80588894",
+          "values": [
+            "0x2c000002"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x8058889c",
+          "values": [
+            "0x2c000001"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x805888a8",
+          "values": [
+            "0x4c820020"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80588928",
+          "values": [
+            "0xb10300fe"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80588938",
+          "values": [
+            "0x2c000000"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x8058893c",
+          "values": [
+            "0x4d820020"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x8058894c",
+          "values": [
+            "0x4e800020"
+          ]
+        }
+      ]
+    },
+    {
+      "start": 10709,
+      "end": 10711,
+      "expected": [
+        {
+          "operation": "Branch",
+          "absolute": true,
+          "address": "0x806a2f60",
+          "values": [
+            "0x00055c48"
+          ]
+        },
+        {
+          "operation": "Branch",
+          "absolute": true,
+          "address": "0x806a3004",
+          "values": [
+            "0x00055c48"
+          ]
+        }
+      ],
+      "replacement": [
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x806a2f60",
+          "values": [
+            "0x4bff4674"
+          ]
+        },
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x806a3004",
+          "values": [
+            "0x4bff45d0"
+          ]
+        }
+      ]
+    },
+    {
+      "start": 10719,
+      "end": 10720,
+      "expected": [
+        {
+          "operation": "Branch",
+          "absolute": true,
+          "address": "0x806a31fc",
+          "values": [
+            "0x00055e68"
+          ]
+        }
+      ],
+      "replacement": [
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x806a31fc",
+          "values": [
+            "0x4bff458c"
+          ]
+        }
+      ]
+    },
+    {
+      "start": 11067,
+      "end": 11067,
+      "expected": [],
+      "replacement": [
+        {
+          "operation": "Write32",
+          "absolute": true,
+          "address": "0x80542310",
+          "values": [
+            "0x3f400012"
+          ]
+        },
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x000c6a00",
+          "values": [
+            "0x00055460"
+          ]
+        },
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x000c6a44",
+          "values": [
+            "0x80005f34"
+          ]
+        },
+        {
+          "operation": "Addr16Ha",
+          "absolute": false,
+          "address": "0x000c6ace",
+          "values": [
+            "0x000c6cb4"
+          ]
+        },
+        {
+          "operation": "Addr16Lo",
+          "absolute": false,
+          "address": "0x000c6ad6",
+          "values": [
+            "0x000c6cb4"
+          ]
+        },
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x000c6b70",
+          "values": [
+            "0x0000cdfc"
+          ]
+        },
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x000c6c34",
+          "values": [
+            "0x80223834"
+          ]
+        },
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x000c6c60",
+          "values": [
+            "0x80222d90"
+          ]
+        },
+        {
+          "operation": "Rel24",
+          "absolute": false,
+          "address": "0x000c6c94",
+          "values": [
+            "0x80223f58"
+          ]
+        },
+        {
+          "operation": "Addr32",
+          "absolute": true,
+          "address": "0x802a2dd4",
+          "values": [
+            "0x000c6c4c"
+          ]
+        },
+        {
+          "operation": "Addr32",
+          "absolute": true,
+          "address": "0x802a2e48",
+          "values": [
+            "0x000c6c80"
+          ]
+        }
+      ]
+    }
+  ],
+  "effect_prefixes": [
+    "rk_driftSpark",
+    "rk_purpleTurbo",
+    "rk_miniTurbo"
+  ],
+  "palette_offset": 814260,
+  "palette_entries": [
+    48,
+    51,
+    3
+  ]
+}

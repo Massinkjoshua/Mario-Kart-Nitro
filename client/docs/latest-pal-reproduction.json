@@ -1,0 +1,10 @@
+{
+  "baseline_sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc",
+  "output_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "recorded_release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "matches_recorded_release": true,
+  "pal_commands": 11078,
+  "usa_japan_unchanged": true,
+  "full_core_rebuilt_from_source": false,
+  "gameplay_tested": false
+}

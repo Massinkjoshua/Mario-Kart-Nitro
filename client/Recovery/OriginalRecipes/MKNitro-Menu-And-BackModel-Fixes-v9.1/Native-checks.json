@@ -1,0 +1,7 @@
+{
+  "native_onactivate": "passed",
+  "initial_selection": "Change Mii",
+  "initial_help_id": "0x84a",
+  "additive_flash_registers_zeroed": true,
+  "boundaries": "SelectInitial and help-text rendering intercepted; full game rendering not run"
+}

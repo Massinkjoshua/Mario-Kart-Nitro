@@ -1,0 +1,137 @@
+#include <MarioKartWii/Race/RaceData.hpp>
+#include <SlotExpansion/CupsConfig.hpp>
+#include <Settings/UI/SettingsPanel.hpp>
+#include <Settings/Settings.hpp>
+#include <MarioKartWii/Kart/KartValues.hpp>
+#include <MarioKartWii/File/StatsParam.hpp>
+#include <MarioKartWii/RKNet/RKNetController.hpp>
+#include <MarioKartWii/Objects/Collidable/Itembox/Itembox.hpp>
+#include <Dolphin/DolphinIOS.hpp>
+#include <MarioKartWii/Kart/KartManager.hpp>
+#include <core/rvl/OS/OS.hpp>
+
+namespace RetroRewind {
+Pulsar::System *System::Create() {
+    return new System();  // now Pulsar::sInstance is of type RetroRewind
+}
+Pulsar::System::Inherit CreateRetroRewind(System::Create);
+
+bool System::Is500cc() {
+    return Racedata::sInstance->racesScenario.settings.engineClass == CC_50;
+}
+
+System::WeightClass System::GetWeightClass(const CharacterId id) {
+    switch (id) {
+        case BABY_MARIO:
+        case BABY_LUIGI:
+        case BABY_PEACH:
+        case BABY_DAISY:
+        case TOAD:
+        case TOADETTE:
+        case KOOPA_TROOPA:
+        case DRY_BONES:
+            return LIGHTWEIGHT;
+        case MARIO:
+        case LUIGI:
+        case PEACH:
+        case DAISY:
+        case YOSHI:
+        case BIRDO:
+        case DIDDY_KONG:
+        case BOWSER_JR:
+            return MEDIUMWEIGHT;
+        case WARIO:
+        case WALUIGI:
+        case DONKEY_KONG:
+        case BOWSER:
+        case KING_BOO:
+        case ROSALINA:
+        case FUNKY_KONG:
+        case DRY_BOWSER:
+            return HEAVYWEIGHT;
+        default:
+            return MIIS;
+    }
+}
+
+// Force 30 FPS [Vabold]
+kmWrite32(0x80554224, 0x3C808000);
+kmWrite32(0x80554228, 0x88841204);
+kmWrite32(0x8055422C, 0x48000044);
+
+static bool IsTTMode(const GameMode mode) {
+    return mode == MODE_TIME_TRIAL || mode == MODE_GHOST_RACE;
+}
+
+void FPSPatch() {
+    FPSPatchHook = 0x00;
+    const GameMode mode = Racedata::sInstance->racesScenario.settings.gamemode;
+    if (Pulsar::Settings::Mgr::Get().GetSettingValue(Pulsar::Settings::SETTING_FPS) == Pulsar::FPS_HALF &&
+        !IsTTMode(mode)) {
+        FPSPatchHook = 0x00FF0100;
+    }
+}
+static SectionLoadHook PatchFPS(FPSPatch);
+static RaceLoadHook PatchFPSOnRaceLoad(FPSPatch);
+
+void ItemBoxRespawn(Objects::Itembox *itembox) {
+    bool is200 = Racedata::sInstance->racesScenario.settings.engineClass == CC_100 && RKNet::Controller::sInstance->roomType != RKNet::ROOMTYPE_VS_WW;
+    bool isFastRespawn = Pulsar::ITEMBOX_DEFAULTRESPAWN;
+    if (RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_FROOM_NONHOST || RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_FROOM_HOST || RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_NONE) {
+        isFastRespawn = Pulsar::System::sInstance->IsContext(Pulsar::PULSAR_ITEMBOXRESPAWN) ? Pulsar::ITEMBOX_FASTRESPAWN : Pulsar::ITEMBOX_DEFAULTRESPAWN;
+    }
+    itembox->respawnTime = 150;
+    itembox->isActive = 0;
+    if (isFastRespawn == Pulsar::ITEMBOX_FASTRESPAWN || is200) {
+        itembox->respawnTime = 75;
+        itembox->isActive = 0;
+    }
+}
+kmCall(0x80828EDC, ItemBoxRespawn);
+
+void PredictionPatch() {
+    float predictionValue = 0.1f;
+    if (Pulsar::Settings::Mgr::Get().GetSettingValue(Pulsar::Settings::SETTING_PREDICTIONREMOVAL) == Pulsar::PREDICTIONREMOVAL_ENABLED) {
+        predictionValue = 1.0f;
+    }
+    PredictionHook = *reinterpret_cast<u32 *>(&predictionValue);
+}
+static SectionLoadHook PatchPrediction(PredictionPatch);
+
+// Clear contexts from worldwides upon disconnecting from WFC. [Opt]
+static void ClearContextsUponWFCDisconnect() {
+    Pulsar::System *system = Pulsar::System::sInstance;
+    SectionId id = SectionMgr::sInstance->curSection->sectionId;
+
+    // Single-player menu
+    const bool isSinglePlayerMenu = (id == SECTION_SINGLE_P_FROM_MENU);
+
+    // Local splitscreen multiplayer menu
+    const bool isLocalMultiplayerMenu = (id == SECTION_LOCAL_MULTIPLAYER);
+
+    if (isSinglePlayerMenu || isLocalMultiplayerMenu) {
+        // Reset OTT context the same way StartWW does
+        system->context = 0;
+        system->UpdateContext();
+    }
+}
+
+SectionLoadHook clearContext(ClearContextsUponWFCDisconnect);
+
+// Hide the channel button on the title screen [ZPL]
+extern "C" u32 sMainMenuControlCount = 4;
+static void HideChannelButton() {
+    sMainMenuControlCount = Dolphin::IsEmulator() ? 3 : 4;
+}
+BootHook hideChannelButton(HideChannelButton, 0);
+
+asmFunc LoadMainMenuControlCount() {
+    ASM(
+        nofralloc;
+        lis r4, sMainMenuControlCount @ha;
+        lwz r4, sMainMenuControlCount @l(r4);
+        blr;)
+}
+kmCall(0x80625E1C, LoadMainMenuControlCount);
+
+}  // namespace RetroRewind

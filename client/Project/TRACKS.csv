@@ -1,0 +1,109 @@
+index,cup,cup_name,name,course_slot,music_slot,crc32
+0,0,Haunted Cup,DS Luigi's Mansion,8,8,17bac3f7
+1,0,Haunted Cup,New Moon Manor,8,8,1a3279d4
+2,0,Haunted Cup,Boo's Cinema,8,8,5a3d09da
+3,0,Haunted Cup,King Boo's Library,8,8,2cc31575
+4,1,Spooky Cup,Haunted Gardens,8,8,664bd7df
+5,1,Spooky Cup,Spooky Swamp,8,8,36abe848
+6,1,Spooky Cup,Vile Isle,8,8,c89e6232
+7,1,Spooky Cup,Boo Painted Pipelines,8,8,9c442ae3
+8,2,Ghost Valley Cup,SNES Ghost Valley 1,8,8,df009364
+9,2,Ghost Valley Cup,GBA Boo Lake,8,8,adf442a0
+10,2,Ghost Valley Cup,GBA Broken Pier,8,8,623b9479
+11,2,Ghost Valley Cup,SW2 Ghost Valley,25,25,280c7af2
+12,3,Phantom Cup,Haunted Village,8,8,df33bb3c
+13,3,Phantom Cup,Luigi's Garden,8,8,413b4294
+14,3,Phantom Cup,Ghost House,8,8,ab0608a5
+15,3,Phantom Cup,Daisy Palace,8,8,6129f203
+16,4,Witching Hour Cup,SW2 Starview Peak (Night),6,6,6031a3c7
+17,4,Witching Hour Cup,Forsaken Funfair,8,8,865ac419
+18,4,Witching Hour Cup,Bouldergeist's Ghostly Manor,13,8,202d8be2
+19,4,Witching Hour Cup,Windy Whirl,18,8,d919ec64
+20,5,Nightmare Cup,Thunder Canyon,8,8,ba7ffc8e
+21,5,Nightmare Cup,Lost Ruins,8,8,4e342f59
+22,5,Nightmare Cup,Liquid Complex,11,8,465b3aae
+23,5,Nightmare Cup,Nightmare Cliff,8,8,67463839
+24,6,Hollow Cup,Thump Bump Forest,8,8,36b18c69
+25,6,Hollow Cup,Luigi's Forest,8,8,38dfcd24
+26,6,Hollow Cup,SW2 Ghost Valley 2,25,25,da839388
+27,6,Hollow Cup,Luminous Grotto,7,8,9570b7f4
+28,7,Forest Cup,Harvest Harbor,8,8,2c162ad5
+29,7,Forest Cup,Maplewood Caverns,8,8,316a6ee7
+30,7,Forest Cup,N64 Jungle Parkway,8,8,5a709a58
+31,7,Forest Cup,Whispy Woodlands,8,8,c57fd130
+32,8,Bowser Cup,N64 Bowser Castle,28,12,98f6d689
+33,8,Bowser Cup,Bowser Jr.'s Crafty Castle,8,8,250c90c7
+34,8,Bowser Cup,SW2 Bowser's Castle,8,8,413b8d11
+35,8,Bowser Cup,Bowser's Termination Station,8,8,7ce8e29a
+36,9,Western Cup,Canyon Run,8,8,5129c016
+37,9,Western Cup,Spectral Station,8,8,040361a7
+38,9,Western Cup,SW2 Wario's Shipyard,8,8,c4826138
+39,9,Western Cup,SW2 Acorn Heights,8,8,9bce2e94
+40,10,Desert Cup,Wii Dry Dry Ruins,14,14,70bc1733
+41,10,Desert Cup,SW2 DS Airship Fortress,8,8,5a414d44
+42,10,Desert Cup,Desert Illusion,8,8,b549cf08
+43,10,Desert Cup,Chomp Ruins,8,8,af9eb3f1
+44,11,Shy Guy Cup,SW2 Cheep Cheep Falls,8,8,50ef80f2
+45,11,Shy Guy Cup,Shy Guy Spelunking,8,8,d75c0b42
+46,11,Shy Guy Cup,Treetops,8,8,35c8a1e1
+47,11,Shy Guy Cup,Wii U Shy Guy Falls,8,8,51245015
+48,12,Mountain Cup,SW2 Whistlestop Summit,8,8,a1db01c8
+49,12,Mountain Cup,Magical Forest,8,8,c6e508b9
+50,12,Mountain Cup,Deciduous Grounds,8,8,0f27e9ac
+51,12,Mountain Cup,Kongrove Point,8,8,9bb6aa7d
+52,13,Jungle Cup,Fungle Jungle,8,8,29bd08bd
+53,13,Jungle Cup,Breathing Bosque,8,8,0af5d844
+54,13,Jungle Cup,GBA Lakeside Park,8,8,c04b7dcf
+55,13,Jungle Cup,Forest Creek,8,8,81faf60d
+56,14,Garden Cup,Boo Mansion,8,8,7b23eb8d
+57,14,Garden Cup,Flowery Greenhouse,8,8,394d9149
+58,14,Garden Cup,SW2 Ghost Valley 1,25,25,22ad4d58
+59,14,Garden Cup,Wii U Thwomp Ruins,8,8,b80d59cd
+60,15,Water Cup,Goomba Gorge,8,8,65dddedd
+61,15,Water Cup,Caliginous Valley,8,8,d66ed3f6
+62,15,Water Cup,Autumnal Archipelago,8,8,7aef0798
+63,15,Water Cup,Celestial Ruins,8,8,345d392a
+64,16,Seaside Cup,N64 Banshee Boardwalk,8,8,af27a5f1
+65,16,Seaside Cup,Pianta Shore,8,8,594aef81
+66,16,Seaside Cup,Blooper Ruins,8,15,116eb753
+67,16,Seaside Cup,Faraway Forest,8,8,d3f91dd9
+68,17,City Lights Cup,Tokyo Blur,10,8,8784c941
+69,17,City Lights Cup,SW2 Ghost Valley 3,25,25,cf9b231f
+70,17,City Lights Cup,Land of the Livid Dead,8,8,171b3ef2
+71,17,City Lights Cup,Crown City,8,8,a9cdcabc
+72,18,Future Cup,3DS Neo Bowser City,8,8,26f169ac
+73,18,Future Cup,Altepeyolko,8,8,41076564
+74,18,Future Cup,Kingdom of Galvanic Discharge,8,8,780316d0
+75,18,Future Cup,Garnok's Fury,8,8,39d40dde
+76,19,Tour Cup,Wii U Twisted Mansion,0,8,75595e86
+77,19,Tour Cup,Abandoned Boardwalk,8,8,72efd057
+78,19,Tour Cup,Halloween Land,8,8,66211b1c
+79,19,Tour Cup,Tour Ninja Hideaway,8,8,00155e89
+80,20,Toad Cup,SW2 Toad's Factory,8,8,6e6bc984
+81,20,Toad Cup,Kamek's Library,8,8,76812ffd
+82,20,Toad Cup,3DS Toad Circuit,8,8,1bd14032
+83,20,Toad Cup,The Grand Archives,5,8,f607246a
+84,21,Mushroom Cup,GBA Luigi Circuit,24,8,dc4d524b
+85,21,Mushroom Cup,Honeyhive Falls,8,8,c0e1beda
+86,21,Mushroom Cup,Lantern Light Terrace,8,8,3b4cd586
+87,21,Mushroom Cup,Tour New York Minute 2,0,8,d3a05c80
+88,22,Rainbow Cup,DS Rainbow Road,8,8,4e54e664
+89,22,Rainbow Cup,GCN Rainbow Road,8,8,d9e10c28
+90,22,Rainbow Cup,N64 Rainbow Road,8,8,7b0c2394
+91,22,Rainbow Cup,3DS Rainbow Road,8,8,64ab009b
+92,23,Music Cup,Bingo Party,8,8,5df94438
+93,23,Music Cup,Music Park,8,8,7425f47f
+94,23,Music Cup,Disco Fever,8,8,e1ff2001
+95,23,Music Cup,Electrodrome,8,8,7f865ece
+96,24,Grumble Volcano Cup,Grumble Volcano,8,8,1fc9e609
+97,24,Grumble Volcano Cup,Maple Treeway,8,8,23230820
+98,24,Grumble Volcano Cup,Koopa Cape,15,15,92e96705
+99,24,Grumble Volcano Cup,SNES Ghost Valley 2,8,8,1a835b38
+100,25,Haunted Garden Cup,Mushroom Gorge,8,8,647930c0
+101,25,Haunted Garden Cup,Cherry Blossom Garden,8,8,5df12d4d
+102,25,Haunted Garden Cup,Red Rooms,8,8,3c16bb2a
+103,25,Haunted Garden Cup,Minecraft Dungeon,8,8,7f37df2b
+104,26,Midnight Cup,Cathedral of Deca,8,8,079c903b
+105,26,Midnight Cup,GP Monaco,8,8,ca536b03
+106,26,Midnight Cup,Bonneton Raceway,8,8,89246f1a
+107,26,Midnight Cup,Tour Boo Lake,8,8,bb097929

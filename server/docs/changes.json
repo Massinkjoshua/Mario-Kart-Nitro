@@ -1,0 +1,77 @@
+{
+  "modified_date": "2026-10-16",
+  "archives": [
+    {
+      "name": "MKNitro-active-source.tar.gz",
+      "sha256": "fb9fd92092b09920688084ee9964d2374cce6f769ceb754c526fd080e0cf24e5",
+      "bytes": 176031
+    },
+    {
+      "name": "mknitro-source-review.tar.gz",
+      "sha256": "d70890ab7781cc1873249d43be244f11ebe4686594393bb757e89c983b6336c2",
+      "bytes": 125006
+    },
+    {
+      "name": "mknitro-server-source.zip",
+      "sha256": "9e77fab00395fd3c23ea5cf1fc426ca76ed1349a7a8e928918f87f6ad07a7751",
+      "bytes": 215764
+    },
+    {
+      "name": "MKNitro-security-fix(2).zip",
+      "sha256": "d1ad7255d77d0a490f76f058437d44f8a7db9e3203698e832557849981f333e5",
+      "bytes": 248864
+    }
+  ],
+  "candidate_changes": [
+    {
+      "path": "api/main.go",
+      "original_sha256": "44c1ad54cca7ebf2b72e9976904d3613d73403e0fcd82338734be0647436328e",
+      "sha256": "9b63c523c54181346b886c58465cc768d1e3d572bb7a83d6ba788328d3f5345e"
+    },
+    {
+      "path": "api/source.go",
+      "original_sha256": null,
+      "sha256": "57928371efcedf2d3a2bd863469e5b25a383bc986afa33c027706887c5819722"
+    },
+    {
+      "path": "api/source_test.go",
+      "original_sha256": null,
+      "sha256": "fc0abba03af966d0a49d055ed8ca69a295b3b712b5bd61fa71463c1ac30d70cc"
+    },
+    {
+      "path": "common/config.go",
+      "original_sha256": "7d71aa9bf115ea1c9d712edc43040934330177170400cb71665615caa9e0009c",
+      "sha256": "4de970ea2f6e33e090588392a103bdc98c58dbe4845c034ad6d86e60a3727e79"
+    },
+    {
+      "path": "gpcm/error_messages.go",
+      "original_sha256": "585e670365579d82d007e0cfb55b3756cf3dfd5d4c08f4ade2f31b4a120814a5",
+      "sha256": "942172a182d5cfed71288c3346911b058f9edddf1282469a3bc38efceb3790f8"
+    },
+    {
+      "path": "nhttp/server.go",
+      "original_sha256": "626e1e36ad50e56abb817844adb52de66e9b856d3a7e4e47a2d188f4b122b01d",
+      "sha256": "9378575c494812c7c6833d1a22ac927678e9df550f8e5782bf358075fcc042b6"
+    },
+    {
+      "path": "serverbrowser/filter/scanner_helper.go",
+      "original_sha256": "504a96be6df4c872c6a061852af02e933358fe8bba6278150e104bdd522df938",
+      "sha256": "6e25a8075e115235dafc041af577a9dbaf27c2540346f13a74c3fbeff557733d"
+    },
+    {
+      "path": "serverbrowser/filter/tokens.go",
+      "original_sha256": "b62355e086ece30580956f29f8d5a01e0f97f2d0f063f895b39b92906a5cd6dd",
+      "sha256": "e3a5932a136809867eb7682218754184a99591346fbf050ca987b6081a235a38"
+    }
+  ],
+  "changes_summary": [
+    "Restored upstream AGPLv3 licence and explicit attribution",
+    "Repaired fmt print/error formatting without changing archived history",
+    "Added configurable public GET /api/source offer and regression tests",
+    "Applied gofmt to the candidate",
+    "Added read-only running-source exporter"
+  ],
+  "deployed": false,
+  "published": false,
+  "matches_live_server_verified": false
+}

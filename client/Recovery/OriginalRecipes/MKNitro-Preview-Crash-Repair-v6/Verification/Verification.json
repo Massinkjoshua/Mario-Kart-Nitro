@@ -1,0 +1,168 @@
+{
+  "negative_control": "Original 0xE1000 heap reproduces invalid write at PC 0x8006dd0c after an 800-byte native allocation returns null.",
+  "positive_controls": [
+    {
+      "post": "fk-7",
+      "battle": false,
+      "screens": 1,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 259296,
+      "allocation_calls": 133,
+      "vehicles": 12,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-7",
+      "battle": false,
+      "screens": 4,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 250080,
+      "allocation_calls": 133,
+      "vehicles": 12,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-7",
+      "battle": true,
+      "screens": 1,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 651904,
+      "allocation_calls": 45,
+      "vehicles": 4,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-7",
+      "battle": true,
+      "screens": 4,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 648832,
+      "allocation_calls": 45,
+      "vehicles": 4,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-8",
+      "battle": false,
+      "screens": 1,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 259296,
+      "allocation_calls": 133,
+      "vehicles": 12,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-8",
+      "battle": false,
+      "screens": 4,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 250080,
+      "allocation_calls": 133,
+      "vehicles": 12,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-8",
+      "battle": true,
+      "screens": 1,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 651904,
+      "allocation_calls": 45,
+      "vehicles": 4,
+      "null_allocations": []
+    },
+    {
+      "post": "fk-8",
+      "battle": true,
+      "screens": 4,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 648832,
+      "allocation_calls": 45,
+      "vehicles": 4,
+      "null_allocations": []
+    },
+    {
+      "post": "kt-5",
+      "battle": false,
+      "screens": 1,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 293728,
+      "allocation_calls": 133,
+      "vehicles": 12,
+      "null_allocations": []
+    },
+    {
+      "post": "kt-5",
+      "battle": false,
+      "screens": 4,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 284512,
+      "allocation_calls": 133,
+      "vehicles": 12,
+      "null_allocations": []
+    },
+    {
+      "post": "kt-5",
+      "battle": true,
+      "screens": 1,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 673792,
+      "allocation_calls": 45,
+      "vehicles": 4,
+      "null_allocations": []
+    },
+    {
+      "post": "kt-5",
+      "battle": true,
+      "screens": 4,
+      "heap_bytes": 1183744,
+      "remaining_bytes": 670720,
+      "allocation_calls": 45,
+      "vehicles": 4,
+      "null_allocations": []
+    }
+  ],
+  "native_heap_lifecycle": [
+    {
+      "local_players": 1,
+      "scene_heap_index": 0,
+      "cycles": 3,
+      "all_native_heap_memory_recovered": true,
+      "allocated_bytes_including_dump_heap": 2002976
+    },
+    {
+      "local_players": 1,
+      "scene_heap_index": 1,
+      "cycles": 3,
+      "all_native_heap_memory_recovered": true,
+      "allocated_bytes_including_dump_heap": 2002976
+    },
+    {
+      "local_players": 4,
+      "scene_heap_index": 0,
+      "cycles": 3,
+      "all_native_heap_memory_recovered": true,
+      "allocated_bytes_including_dump_heap": 5554256
+    },
+    {
+      "local_players": 4,
+      "scene_heap_index": 1,
+      "cycles": 3,
+      "all_native_heap_memory_recovered": true,
+      "allocated_bytes_including_dump_heap": 5554256
+    }
+  ],
+  "code_delta": "Exactly one appended PAL Kamek WRITE32 command and the outer PAL-block length. All existing v5 code, commands and other regions are unchanged.",
+  "ui_identical_to_v5": true,
+  "main_dol_sha256": "80d18895b39c63bd80f457398bfcbb91b7d16ac116a41a88967e954080155b05",
+  "static_rel_sha256": "16d9d146112541fefea701ecb5bc1a496f9d50e4a752fbb5b6778e7c6399f67d",
+  "limits": [
+    "Unicorn execution harness, not Dolphin or real hardware.",
+    "Archive I/O supplies bytes from the uploaded v9 assets. Scene/renderer structures are fixtures.",
+    "Paired-single identity/copy math is implemented by host equivalents; fog registration and scene/unlock predicates are replaced at their boundaries.",
+    "Native EGG/MEM allocation, ScnMdl construction, ModelDirector initialization, scene insertion and draw-priority writes execute from the supplied binaries.",
+    "Preview test covers primary vehicle models; single-player thumbnail rendering uses a separate heap and is not exercised.",
+    "Heap lifecycle tests use an 8 MiB parent fixture; available memory in the complete themed menu has not been measured.",
+    "Driver skin changes, animation rendering and race transitions still require a fresh Dolphin run."
+  ]
+}

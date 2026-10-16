@@ -1,0 +1,31 @@
+{
+  "release_url": "https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/releases/tag/1.0",
+  "tag": "1.0",
+  "published_at": "2026-10-05T13:25:58Z",
+  "release_assets": [
+    {
+      "name": "GPL3.License",
+      "bytes": 35128
+    },
+    {
+      "name": "MarioKartNitro_Test.zip",
+      "bytes": 2016315977
+    }
+  ],
+  "source_archive_attached": false,
+  "binary_hashes_verified": true,
+  "files": 2983,
+  "binaries": [
+    {
+      "path": "MarioKartNitro_Test/Binaries/Code.pul",
+      "bytes": 2661632,
+      "sha256": "36c0e702d1143e196f6fd3da4449ec4c66aa95ef138ec44599bffa7dda9327c1"
+    },
+    {
+      "path": "MarioKartNitro_Test/Binaries/Loader.pul",
+      "bytes": 4192,
+      "sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb"
+    }
+  ],
+  "bytes_read_via_ranges": 1121625
+}

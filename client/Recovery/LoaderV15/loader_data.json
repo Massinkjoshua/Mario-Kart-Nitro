@@ -1,0 +1,256 @@
+{
+  "bytes": 4192,
+  "base": "0x80004000",
+  "code_bytes": 2712,
+  "strings": [
+    {
+      "offset": 2712,
+      "text": "FATAL ERROR: Truncated Kamek header"
+    },
+    {
+      "offset": 2748,
+      "text": "FATAL ERROR: Corrupted file, please check your game's Kamek files"
+    },
+    {
+      "offset": 2816,
+      "text": "FATAL ERROR: Incompatible file (version %d), please upgrade your Kamek Loader"
+    },
+    {
+      "offset": 2896,
+      "text": "FATAL ERROR: Invalid Kamek section bounds"
+    },
+    {
+      "offset": 2940,
+      "text": "header: bssSize=%u, codeSize=%u, ctors=%u-%u\n"
+    },
+    {
+      "offset": 2992,
+      "text": "FATAL ERROR: Out of code memory"
+    },
+    {
+      "offset": 3024,
+      "text": "FATAL ERROR: Truncated Kamek command"
+    },
+    {
+      "offset": 3064,
+      "text": "FATAL ERROR: Unsupported Kamek command"
+    },
+    {
+      "offset": 3104,
+      "text": "FATAL ERROR: Truncated Kamek address"
+    },
+    {
+      "offset": 3144,
+      "text": "FATAL ERROR: Truncated Kamek operands"
+    },
+    {
+      "offset": 3184,
+      "text": "FATAL ERROR: Kamek command length mismatch"
+    },
+    {
+      "offset": 3228,
+      "text": "DOL"
+    },
+    {
+      "offset": 3232,
+      "text": "REL"
+    },
+    {
+      "offset": 3236,
+      "text": "[NitroLoader v15] phase=%s text=0x%08x applied=%u skipped=%u\n"
+    },
+    {
+      "offset": 3300,
+      "text": "{Kamek by Treeki}\nLoading Kamek binary"
+    },
+    {
+      "offset": 3340,
+      "text": "/Binaries/Code.pul"
+    },
+    {
+      "offset": 3360,
+      "text": "FATAL ERROR: Failed to locate file on the disc: %s"
+    },
+    {
+      "offset": 3412,
+      "text": "FATAL ERROR: Failed to open file!"
+    },
+    {
+      "offset": 3448,
+      "text": "DVD file located: addr=%p, size=%d\n"
+    },
+    {
+      "offset": 3484,
+      "text": "FATAL ERROR: Failed to read Code.pul header"
+    },
+    {
+      "offset": 3528,
+      "text": "FATAL ERROR: Invalid Code.pul region bounds"
+    },
+    {
+      "offset": 3572,
+      "text": "FATAL ERROR: Missing or truncated Code.pul region"
+    },
+    {
+      "offset": 3624,
+      "text": "FATAL ERROR: Out of file memory"
+    },
+    {
+      "offset": 3656,
+      "text": "FATAL ERROR: Failed to read Code.pul region"
+    }
+  ],
+  "params_offset": 3700,
+  "params": [
+    {
+      "region": "P",
+      "fields": {
+        "OSReport": "0x801a25d0",
+        "OSFatal": "0x801a4ec4",
+        "DVDConvertPathToEntrynum": "0x8015df4c",
+        "DVDFastOpen": "0x8015e254",
+        "DVDReadPrio": "0x8015e834",
+        "DVDClose": "0x8015e568",
+        "sprintf": "0x80011a2c",
+        "RKSystem": "0x802a4080",
+        "NETSHA1Init": "0x801d24f4",
+        "NETSHA1Update": "0x801d2544",
+        "NETSHA1GetDigest": "0x801d25f8",
+        "region": "0x00000000",
+        "relStart": "0x80510238"
+      }
+    },
+    {
+      "region": "E",
+      "fields": {
+        "OSReport": "0x801a2530",
+        "OSFatal": "0x801a4e24",
+        "DVDConvertPathToEntrynum": "0x8015deac",
+        "DVDFastOpen": "0x8015e1b4",
+        "DVDReadPrio": "0x8015e794",
+        "DVDClose": "0x8015e4c8",
+        "sprintf": "0x80010ecc",
+        "RKSystem": "0x8029fd00",
+        "NETSHA1Init": "0x801d2454",
+        "NETSHA1Update": "0x801d24a4",
+        "NETSHA1GetDigest": "0x801d2558",
+        "region": "0x00000001",
+        "relStart": "0x8050bf50"
+      }
+    },
+    {
+      "region": "J",
+      "fields": {
+        "OSReport": "0x801a24f0",
+        "OSFatal": "0x801a4de4",
+        "DVDConvertPathToEntrynum": "0x8015de6c",
+        "DVDFastOpen": "0x8015e174",
+        "DVDReadPrio": "0x8015e754",
+        "DVDClose": "0x8015e488",
+        "sprintf": "0x80011950",
+        "RKSystem": "0x802a3a00",
+        "NETSHA1Init": "0x801d2414",
+        "NETSHA1Update": "0x801d2464",
+        "NETSHA1GetDigest": "0x801d2518",
+        "region": "0x00000002",
+        "relStart": "0x8050fc50"
+      }
+    },
+    {
+      "region": "K",
+      "fields": {
+        "OSReport": "0x801a292c",
+        "OSFatal": "0x801a5220",
+        "DVDConvertPathToEntrynum": "0x8015dfc4",
+        "DVDFastOpen": "0x8015e2cc",
+        "DVDReadPrio": "0x8015e8ac",
+        "DVDClose": "0x8015e5e0",
+        "sprintf": "0x80011a94",
+        "RKSystem": "0x80292080",
+        "NETSHA1Init": "0x801d2850",
+        "NETSHA1Update": "0x801d28a0",
+        "NETSHA1GetDigest": "0x801d2954",
+        "region": "0x00000003",
+        "relStart": "0x804fe2f0"
+      }
+    }
+  ],
+  "jump_table_offset": 3908,
+  "jump_table": [
+    "0x8000468c",
+    "0x80004470",
+    "0x8000468c",
+    "0x8000468c",
+    "0x80004494",
+    "0x800044b8",
+    "0x800044e0",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000451c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x80004550",
+    "0x80004560",
+    "0x80004570",
+    "0x800045e8",
+    "0x80004580",
+    "0x800045a0",
+    "0x800045c4",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000468c",
+    "0x8000461c",
+    "0x80004654"
+  ],
+  "state_offset": 4172,
+  "state_words": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "target_sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb"
+}

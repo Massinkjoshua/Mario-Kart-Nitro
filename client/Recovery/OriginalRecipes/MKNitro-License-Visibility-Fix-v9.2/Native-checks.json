@@ -1,0 +1,56 @@
+{
+  "cases": [
+    {
+      "state": 0,
+      "panes": "both",
+      "result": "pass"
+    },
+    {
+      "state": 0,
+      "panes": "missing_frame",
+      "result": "pass"
+    },
+    {
+      "state": 0,
+      "panes": "missing_both",
+      "result": "pass"
+    },
+    {
+      "state": 0,
+      "panes": "no_root",
+      "result": "pass"
+    },
+    {
+      "state": 1,
+      "panes": "both",
+      "result": "pass"
+    },
+    {
+      "state": 1,
+      "panes": "missing_frame",
+      "result": "pass"
+    },
+    {
+      "state": 1,
+      "panes": "missing_both",
+      "result": "pass"
+    },
+    {
+      "state": 1,
+      "panes": "no_root",
+      "result": "pass"
+    }
+  ],
+  "checks": [
+    "Records control hidden",
+    "Mii/frame exact reference transform",
+    "missing pane/root guards",
+    "native activation return and r31 preservation"
+  ],
+  "intercepted_boundaries": [
+    "pane lookup",
+    "initial selection",
+    "help rendering"
+  ],
+  "full_game_rendering_tested": false
+}

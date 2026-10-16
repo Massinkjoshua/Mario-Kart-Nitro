@@ -1,0 +1,175 @@
+{
+  "reason": "Runtime reference binaries, editor art/archive resources and proprietary compiler tools are not added by this source-only draft. Supply locally where needed; asset rights and full source correspondence remain under review.",
+  "files": [
+    {
+      "path": "Loader/Makefile",
+      "bytes": 73,
+      "sha256": "ed24448c78835ac4cd59087c657e30cfdd6d44ef76c07db869c8ed8c548fff5c"
+    },
+    {
+      "path": "PulsarPackCreator/Executable/Pulsar Pack Creator.exe",
+      "bytes": 18153472,
+      "sha256": "d3b6144f6302c6974aaee5af90c22bc395bddaed5960b001ab069c5d535c1c50"
+    },
+    {
+      "path": "PulsarPackCreator/Properties/PublishProfiles/FolderProfile.pubxml",
+      "bytes": 648,
+      "sha256": "d587fbffd231909a32ded9569cd4923ce089c881cdd64eb4aff3cbd9a86e2ccb"
+    },
+    {
+      "path": "PulsarPackCreator/Properties/PublishProfiles/FolderProfile.pubxml.user",
+      "bytes": 4309,
+      "sha256": "e76ddf8bfa71cd3f4c665403508026f438d27529e43ea234dd6de03adbf9abb2"
+    },
+    {
+      "path": "PulsarPackCreator/Pulsar Pack Creator.csproj.user",
+      "bytes": 1016,
+      "sha256": "8ed3b7b33d4617ec62b16696901fb9067048f13f4711ba0d6fe60b8a91f36aab"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/Code.pul",
+      "bytes": 2688428,
+      "sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/CommonAssets.szs",
+      "bytes": 175807,
+      "sha256": "df3d05d9ed4fc1a8b8403d64afb6e9c9b2ec1f722d2740319b1ca7b080474de0"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/Loader.pul",
+      "bytes": 4192,
+      "sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/Pulsar.ico",
+      "bytes": 180638,
+      "sha256": "a183a91332fb6af0bab7ad2216e062d7baefd8ae015dc667db87151775ba5daf"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/RaceAssets.szs",
+      "bytes": 181420,
+      "sha256": "555d3ed2d410f4de1a647519f678d2216a50a83c5e2c0cd1dd22cce662b9d236"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/UIAssets.szs",
+      "bytes": 930025,
+      "sha256": "da45673c4bb07bdeec3b9c260d338e7887dbeec236748baeda740b0b3329e84e"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygcrypto-1.1.dll",
+      "bytes": 2546707,
+      "sha256": "9b3f3a8f80f7f6d7e8ae2a18dc07133ba268dc4bf3bf9c2260f6c4076c3df081"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygncursesw-10.dll",
+      "bytes": 334867,
+      "sha256": "b23395fa3cd838a6377c88559820afa05cc6866ab9f772a88bbd41f693eaec99"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygpng16-16.dll",
+      "bytes": 202259,
+      "sha256": "24f581ca3272bb4fb77de36c4b7efe0d1e1bd38e40324cec48e715f526be0286"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygwin1.dll",
+      "bytes": 2953269,
+      "sha256": "334f6acf07d034b9b9e8cccdd8f7eb423b3bd1ffad73d0c8e5bea049b5706366"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygz.dll",
+      "bytes": 89619,
+      "sha256": "bf07eed4b3648099ba1fde320a178a6bf98d0865c8be87429a6eb356a4555a77"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/mkwiiBG.png",
+      "bytes": 285,
+      "sha256": "e87d4ac4b84544f54b0e44e521cbda80824d1ede4f0e131a88addbd7c4407d24"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/space.jpg",
+      "bytes": 48987,
+      "sha256": "5f50df4fa5d6e3713e3f370136e8be2758eb85806af3dcee95651a2ad2b97027"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/transparent.png",
+      "bytes": 2078,
+      "sha256": "176e254a94347b5f8d91b65b1ece72b7bf1fcd26982816231d5741ba8ac35501"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/wbmgt.exe",
+      "bytes": 1720832,
+      "sha256": "510ff65d6477feaf5cfddecb5d58dc24bef4e73d4a6be144650bba780bfcd98b"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/wimgt.exe",
+      "bytes": 2011136,
+      "sha256": "0a7005ab7d3483a75c893e54a06bf6b41b52df34793625b105a52c2ce8c86bad"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/wszst.exe",
+      "bytes": 4864512,
+      "sha256": "1c5f512e21b4dabc344a98b2aac9bb65df2bda790180d5ccac285efb475a645c"
+    },
+    {
+      "path": "Recovery/CheckpointHistory/Verification/powerpc-build.log",
+      "bytes": 12383,
+      "sha256": "08f2881b9be4ba5d12194c4ab215a72e52b753d6c6345acecc318f0b5474dffd"
+    },
+    {
+      "path": "Recovery/PublicRelease-1.0/Code.pul",
+      "bytes": 2661632,
+      "sha256": "36c0e702d1143e196f6fd3da4449ec4c66aa95ef138ec44599bffa7dda9327c1"
+    },
+    {
+      "path": "Recovery/PublicRelease-1.0/Loader.pul",
+      "bytes": 4192,
+      "sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb"
+    },
+    {
+      "path": "Recovery/Reference/Code-10-UNCHANGED.pul",
+      "bytes": 2680200,
+      "sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc"
+    },
+    {
+      "path": "docs/clean-linux-build.log",
+      "bytes": 25947,
+      "sha256": "3e1621e79e5dd95459d03f7fdf21b0a5ade7109a03048232b2bc2875a4d77f87"
+    },
+    {
+      "path": "docs/editor-build.log",
+      "bytes": 9606,
+      "sha256": "7589930612ed68ac8159ec0732f33c27ce6559f6611522772c914cdc0e48cb70"
+    },
+    {
+      "path": "docs/integration.log",
+      "bytes": 1069,
+      "sha256": "486e6c44cd569c97f6c79e0b69319a6a57f6e5edb996ba729bffb3f68e658f72"
+    },
+    {
+      "path": "docs/make-dry-run.log",
+      "bytes": 91312,
+      "sha256": "636a8554b23019d273bf72cd36fd6b3d7a9db8b9123f574424257ec1bdf94794"
+    },
+    {
+      "path": "docs/nhttp-tests.log",
+      "bytes": 195,
+      "sha256": "ab76dc6d6354846dcbe47e64a71d9f75ead84dfbd7c7ec471a0ecfad5c7062f3"
+    },
+    {
+      "path": "docs/powerpc-build.log",
+      "bytes": 12596,
+      "sha256": "ce0f49ad8d5e97cd481e268b00ee058d886ec3d90b5a101e17a65ff4a95b4455"
+    },
+    {
+      "path": "docs/remaining-ppc-tests.log",
+      "bytes": 166,
+      "sha256": "d983a2b20332fa7d63bece130710b5d64c69cee2ccab53e83a48da4ee4788d85"
+    },
+    {
+      "path": "docs/upstream/wfc-patcher-wii-LICENSE",
+      "bytes": 1129,
+      "sha256": "e1543a219c39aa9184be079cbc1edd5c2535e832da2cc0e4474f7eea1826e2ba"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+120 PowerPC wrapper execution cases passed. Getter was stubbed; conversion and packet writes executed. Original code and patch commands retained; US/J blocks byte-identical. Not tested in Dolphin or a live online room.

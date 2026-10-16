@@ -1,0 +1,300 @@
+{
+  "filename": "MKNitroGameSettings.pul",
+  "new_file_priority": true,
+  "legacy_fallback": true,
+  "missing_files_use_existing_default_initialization": true,
+  "original_path_retained_for_save": true,
+  "serialized_relocation_checks": true,
+  "native_helper_cases": [
+    {
+      "region": "PAL",
+      "allocation": "0x81000000",
+      "case": "new",
+      "path_length": 39,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81000000",
+      "case": "legacy",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81000000",
+      "case": "legacy",
+      "path_length": 63,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 8,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 66,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81600000",
+      "case": "new",
+      "path_length": 39,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81600000",
+      "case": "legacy",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81600000",
+      "case": "legacy",
+      "path_length": 63,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 8,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "PAL",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 66,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81000000",
+      "case": "new",
+      "path_length": 39,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81000000",
+      "case": "legacy",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81000000",
+      "case": "legacy",
+      "path_length": 63,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 8,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 66,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81600000",
+      "case": "new",
+      "path_length": 39,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81600000",
+      "case": "legacy",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81600000",
+      "case": "legacy",
+      "path_length": 63,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 8,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "USA",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 66,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81000000",
+      "case": "new",
+      "path_length": 39,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81000000",
+      "case": "legacy",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81000000",
+      "case": "legacy",
+      "path_length": 63,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 8,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81000000",
+      "case": "none",
+      "path_length": 66,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81600000",
+      "case": "new",
+      "path_length": 39,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81600000",
+      "case": "legacy",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 39,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81600000",
+      "case": "legacy",
+      "path_length": 63,
+      "open_calls": 2,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 8,
+      "open_calls": 1,
+      "passed": true
+    },
+    {
+      "region": "Japan",
+      "allocation": "0x81600000",
+      "case": "none",
+      "path_length": 66,
+      "open_calls": 1,
+      "passed": true
+    }
+  ],
+  "old_itembox_hook_and_existing_commands_preserved": true,
+  "Dolphin_gameplay_tested": false
+}

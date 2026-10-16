@@ -1,0 +1,32 @@
+{
+  "powerpc_build_outputs_present": true,
+  "structural_checks_passed": true,
+  "matching_latest_release_source_verified": false,
+  "gameplay_tested": false,
+  "code_sha256": "1f7b8ac51517463814071360dfce91356f0e622198811c383bb9776e1c2d3f62",
+  "loader_sha256": "5902b701b941d50393390ececb46caf1fc54a944bc72e3a17ddc6d31b1267bf2",
+  "loader_bytes": 5600,
+  "regions": [
+    {
+      "region": "P",
+      "code_bytes": 471264,
+      "commands": 10876
+    },
+    {
+      "region": "E",
+      "code_bytes": 471264,
+      "commands": 10868
+    },
+    {
+      "region": "J",
+      "code_bytes": 471264,
+      "commands": 10868
+    }
+  ],
+  "clean_build": true,
+  "compiler": "Freescale CodeWarrior 4.3 build 224 via wibo 1.2.0",
+  "linker": "Kamek 2.0, official Linux release 2026-02-24",
+  "build_log": "docs/clean-linux-build.log",
+  "compiled_from_editable_source": true,
+  "cpp_processor_override": false
+}

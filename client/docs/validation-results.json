@@ -1,0 +1,16 @@
+{
+  "scope": "host integrity, config, portable parser, regional release policy and build-script checks",
+  "powerpc_compile_executed_by_this_suite": false,
+  "separate_powerpc_build_report": "docs/powerpc-build-status.json",
+  "csharp_compile": false,
+  "gameplay_tested": false,
+  "checks": [
+    "2885 current runtime file hashes; no save payloads",
+    "27 cups, 108 visible tracks, odd-cup padding; all four configs and three record differences preserved",
+    "Creator embeds the current supplied engine/loader and three core archives",
+    "Creator XML template exactly reproduces current patch definitions",
+    "12-site PAL policy transforms a fresh-link fixture, is idempotent on current release, and preserves fixture E/J bytes",
+    "shared C++ loader parser and cup-order tests with ASan/UBSan; leak checks excluded",
+    "build script syntax and multi-config engine/loader Makefile dry run"
+  ]
+}
