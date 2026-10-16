@@ -1,0 +1,31 @@
+{
+  "purpose": "Private review before any publication; fixed allowlist only.",
+  "files": [
+    {
+      "path": "server/game_list.tsv",
+      "bytes": 222490,
+      "sha256": "f2f1a501175978f09ac91d01c2db25f1a1f33e84a8c32bd9ae2ff53a9b8730fb"
+    },
+    {
+      "path": "server/translations/gen_translations.lua",
+      "bytes": 5205,
+      "sha256": "a3a17a85afbe9ef8547fa6b5ee2807c46998377f1fea237230337c30042a4ee1"
+    },
+    {
+      "path": "server/translations/utils.lua",
+      "bytes": 788,
+      "sha256": "97c2b92989ba7476cea2e210c208149bb2e6a8b669e0d50c54ab2bad1fe86d79"
+    },
+    {
+      "path": "multiplier/multiplier.txt",
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    }
+  ],
+  "missing": [
+    "server/motd.txt",
+    "server/profanity.txt",
+    "multiplier/multiplierBeta.txt"
+  ],
+  "excluded": "config.xml, keys, certificates, databases, player state, logs and binaries"
+}

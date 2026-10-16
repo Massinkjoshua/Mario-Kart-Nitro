@@ -16,6 +16,9 @@ Matching stage1 and four RMC payload sources are in [../patcher](../patcher/READ
 
 ## Contents
 
+- `Live-Inputs-2026-10-16/`: reviewed game list, original Lua translation
+  generator/helpers and the separate live multiplier setting, with manifests.
+
 - `Archived-October-11/`: recovered active-source archive, excluding a clearly
   named unrelated backup directory. Its Go files are preserved byte for byte.
 - `October-12-Security-Candidate/`: recovered 12 October source plus the matching

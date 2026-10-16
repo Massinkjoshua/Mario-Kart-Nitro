@@ -27,6 +27,10 @@ the running NitroWFC service are not changed by this pull request.
   Docker build instructions. Operator rebuilds from the exported archive exactly
   matched stage1 and all four RMC payloads; see patcher/VERIFICATION.json.
 
+- Supplemental live inputs: game_list.tsv and both Lua translation scripts
+  exactly match upstream; the separately stored multiplier is 2x. Absent optional
+  inputs and the generator's unrecovered historical sheet are documented.
+
 ## Still unverified
 
 - Full preferred-source correspondence for the latest client core and the older
