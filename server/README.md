@@ -49,6 +49,13 @@ configuration, and the matching WiiLink/Retro Rewind payload. The separately ver
 payload source, build recipe and original notices are in ../patcher/. No compiled
 payload or private signing key is included here.
 
+## Safe configuration and remaining runtime inputs
+
+See [the runtime input checklist](docs/runtime-inputs.md), the separately prepared
+[configuration example](examples/config_example.xml), and the fixed-allowlist
+collector in scripts/export_public_inputs.py. These additions do not alter the
+verified source snapshots or deployed service.
+
 ## Public source offer
 
 The candidate adds a public `GET /api/source` route. After publishing the complete
