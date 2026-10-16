@@ -1,0 +1,27 @@
+{
+  "origin": "Uploaded MKNitro_Menu_Character_Fix_v5/Source; copied without edits",
+  "scope": "Four leaderboard/JSON files and their supplied license; not a complete standalone source project",
+  "files": {
+    "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp": {
+      "sha256": "18345ac8c1068a5610138a05c88b664fd70bf55e4433a1cd8d10be3b17a8fc5f",
+      "bytes": 30067
+    },
+    "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp": {
+      "sha256": "d85a28caffd5c906cdc88632d015126bc727f918c21144f06f618d12bdbecaf9",
+      "bytes": 2285
+    },
+    "PulsarEngine/Network/Json.cpp": {
+      "sha256": "35ea70922a187874064a3de0a2cd894d7fa9c6454e55cda904c344ba94dae998",
+      "bytes": 1459
+    },
+    "PulsarEngine/Network/Json.hpp": {
+      "sha256": "4994a056e9cc1c912b8bf94b13982d077248484d065081143b7b99c44cecb95f",
+      "bytes": 505
+    },
+    "LICENSE": {
+      "sha256": "0ae0485a5bd37a63e63603596417e4eb0e653334fa6c7f932ca3a0e85d4af227",
+      "bytes": 35148
+    }
+  },
+  "parse_response_source_body_identical_to_candidate": true
+}

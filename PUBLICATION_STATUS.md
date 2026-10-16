@@ -35,9 +35,9 @@ the running NitroWFC service are not changed by this pull request.
 
 - Full preferred-source correspondence for the latest client core and the older
   public 1.0 Code.pul. The final-PAL engine recipe still needs a precompiled core.
-- Complete safe runtime inputs and a prominent public source offer for online
-  users. Actual HTTP-served payload bytes/configuration were not independently
-  fetched. No credentials, signing keys or live player/database data belong here.
+- Completeness of safe runtime inputs. Actual HTTP-served payload bytes and
+  configuration were not independently fetched. No credentials, signing keys
+  or live player/database data belong here.
 - Full Wii/Dolphin and online runtime testing; complete historical release mapping;
   asset redistribution permission and preferred editable asset sources.
 
@@ -71,5 +71,15 @@ No engine code or gameplay binaries were changed for these checks.
 The active publication destination remains Massinkjoshua/Mario-Kart-Nitro-Releases
 by the operator's instruction. A nitroforge/Nitropack upload was attempted but
 rejected by the GitHub integration (403); nothing was published there.
-The pending website patch in publication/website-source-credits/ targets this
-active recovery branch; it has not been deployed.
+The Source & credits section is now visible on https://mknitro.com/ with
+WiiLink attribution and links to this branch's server, patcher, client and status.
+A fresh public HTTP fetch confirmed those links after the operator deployed it.
+This verifies visibility, not completeness of the linked source offer.
+
+## Leaderboard parser verification
+
+A further 120 isolated released/source-built PowerPC parser executions passed
+across 30 synthetic fixtures at two bases. Original v5 leaderboard/JSON source
+files are preserved separately from the repaired candidate. See
+client/docs/leaderboard-parser-followup-2026-10-16.md for exact scope and the
+network-lifecycle differences that remain unverified. No game binary changed.
