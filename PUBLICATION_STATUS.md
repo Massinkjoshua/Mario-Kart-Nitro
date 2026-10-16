@@ -18,6 +18,11 @@ the running NitroWFC service are not changed by this pull request.
 - Two recovered NitroWFC source snapshots; repaired candidate builds and passes
   race tests. Its public /api/source route needs the actual deployed source URL.
 
+- Operator-exported live NitroWFC source (134 files) and running executable hash;
+  manifest verified, source compiles and race tests pass with inherited vet
+  warnings disabled. Exact binary correspondence is not yet established.
+  See server/docs/live-export-2026-10-16.md for missing runtime/payload inputs.
+
 ## Still unverified
 
 - Full preferred-source correspondence for the latest client core and the older

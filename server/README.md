@@ -5,6 +5,14 @@ WFC. This archive restores the GNU AGPLv3 licence and explicit attribution,
 retains recovered source and supplies a separately labelled repaired candidate.
 It is not confirmation that these files match the server currently running.
 
+## Live export now received
+
+`Live-Export-2026-10-16/` preserves 134 files exported from the running
+server working directory, plus its executable-hash manifest. Its source builds
+and passes race tests with vet disabled for inherited formatting warnings.
+The source-to-running-binary match and payload source remain unverified. See
+[the live export review](docs/live-export-2026-10-16.md) for exact scope and gaps.
+
 ## Contents
 
 - `Archived-October-11/`: recovered active-source archive, excluding a clearly
@@ -85,4 +93,4 @@ The client handoff now includes an independently rebuilt released loader, named
 client source repairs and the verified public 1.0 binary hashes. The public 1.0
 client differs from the latest upload. See docs/public/ and NEXT_STEPS.txt.
 This server package remains a recovery candidate until its live source/executable
-and separately built payload have been matched. GitHub publication is pending.
+and separately built payload have been matched. The recovery branch and draft pull request are public; this is still an incomplete source offer.
