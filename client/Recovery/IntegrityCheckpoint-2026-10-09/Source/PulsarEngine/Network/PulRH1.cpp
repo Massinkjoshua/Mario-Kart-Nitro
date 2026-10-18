@@ -1,0 +1,174 @@
+#include <kamek.hpp>
+#include <MarioKartWii/RKNet/RKNetController.hpp>
+#include <MarioKartWii/RKNet/RH1.hpp>
+#include <MarioKartWii/GlobalFunctions.hpp>
+#include <SlotExpansion/CupsConfig.hpp>
+#include <PulsarSystem.hpp>
+#include <Gamemodes/BattleRoyale/BattleRoyale.hpp>
+#include <Network/Network.hpp>
+#include <Network/PacketExpansion.hpp>
+
+namespace Pulsar {
+namespace Network {
+
+static bool IsFriendRoom() {
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    if (!controller) return false;
+    return (controller->roomType == RKNet::ROOMTYPE_FROOM_HOST ||
+            controller->roomType == RKNet::ROOMTYPE_FROOM_NONHOST);
+}
+
+// Fixes for spectating
+void BeforeRH1Send(RKNet::PacketHolder<PulRH1> &packetHolder, PulRH1 *packet, u32 len) {
+    packetHolder.Copy(packet, len);
+
+    const System *system = System::sInstance;
+
+    const bool inFriendRoom = IsFriendRoom();
+    const bool battleRoyaleEnabled = inFriendRoom && system->IsContext(PULSAR_MODE_BATTLEROYALE);
+    const bool eliminationSyncEnabled = inFriendRoom && (system->IsContext(PULSAR_MODE_LAPKO) || battleRoyaleEnabled);
+    const u32 targetSize = battleRoyaleEnabled ? PulRH1SizeFull : (eliminationSyncEnabled ? PulRH1SizeLapKo : PulRH1SizeBase);
+    if (eliminationSyncEnabled || battleRoyaleEnabled) packetHolder.packetSize = targetSize;
+
+    if (system->IsContext(PULSAR_CT)) {
+        packetHolder.packetSize = targetSize;
+        packetHolder.packet->pulsarTrackId = static_cast<u16>(CupsConfig::sInstance->GetWinning());
+        packetHolder.packet->variantIdx = CupsConfig::sInstance->GetCurVariantIdx();
+    }
+
+    if (!system->IsContext(PULSAR_MODE_KO)) {
+        packetHolder.packet->timeInDanger = 0;
+        packetHolder.packet->almostKOdCounter = 0;
+        packetHolder.packet->finalPercentageSum = 0;
+    }
+
+    if (!eliminationSyncEnabled) {
+        packetHolder.packet->lapKoSeq = 0;
+        packetHolder.packet->lapKoRoundIndex = 0;
+        packetHolder.packet->lapKoActiveCount = 0;
+        packetHolder.packet->lapKoElimCount = 0;
+        memset(packetHolder.packet->lapKoElims, 0xFF, sizeof(packetHolder.packet->lapKoElims));
+    }
+
+    if (battleRoyaleEnabled) {
+        BattleRoyale::WriteRH1Packet(*packetHolder.packet);
+    } else {
+        packetHolder.packet->battleRoyaleLossSeq = 0;
+        packetHolder.packet->battleRoyaleLossPlayerId = 0xFF;
+        packetHolder.packet->battleRoyaleBalloonCounts = 0xFF;
+        packetHolder.packet->battleRoyaleFinishMask = 0;
+        packetHolder.packet->battleRoyaleFinishMinutes[0] = 0;
+        packetHolder.packet->battleRoyaleFinishMinutes[1] = 0;
+        packetHolder.packet->battleRoyaleFinishSeconds[0] = 0;
+        packetHolder.packet->battleRoyaleFinishSeconds[1] = 0;
+        packetHolder.packet->battleRoyaleFinishMilliseconds[0] = 0;
+        packetHolder.packet->battleRoyaleFinishMilliseconds[1] = 0;
+    }
+}
+kmCall(0x80655458, BeforeRH1Send);
+kmCall(0x806550e4, BeforeRH1Send);
+
+static void AfterRH1Reception(register u8 *aidArrDest, const RKNet::PacketHolder<PulRH1> &holder, u32 len) {
+    register RKNet::RH1Data *data;
+    register u8 senderAid;
+    asm(subi data, aidArrDest, 0x20;);  // offset of the array in data
+    asm(mr senderAid, r29;);  // r29 contains the current AID being processed in the loop
+
+    const PulRH1 *packet = holder.packet;
+    const u32 packetSize = holder.packetSize;
+    CourseId track;
+    if (packetSize >= PulRH1SizeBase)
+        track = static_cast<CourseId>(packet->pulsarTrackId);
+    else
+        track = static_cast<CourseId>(packet->trackId);
+    data->trackId = track;
+
+    for (u32 i = 0; i < 12; ++i) {
+        const u8 mappedAid = packet->aidsBelongingToPlayerIds[i];
+        aidArrDest[i] = mappedAid < 12 ? mappedAid : 0xFF;
+    }
+    for (u32 i = 0; i < 2; ++i) {
+        if (packet->kartAndCharacter[i] == 0xFFFF) continue;
+
+        if (static_cast<u32>(data->kartIds[i]) > PHANTOM ||
+            static_cast<u32>(data->charIds[i]) > ROSALINA_BIKER) {
+            data->kartIds[i] = STANDARD_KART_M;
+            data->charIds[i] = MARIO;
+        }
+    }
+}
+kmCall(0x806652d0, AfterRH1Reception);
+
+static bool GetValidReceivedTrackId(CourseId receivedTrack, PulsarId &id) {
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    const RKNet::Controller *controller = RKNet::Controller::sInstance;
+    if (cupsConfig == nullptr || controller == nullptr || receivedTrack == COURSEID_NONE) return false;
+
+    const RKNet::RoomType roomType = controller->roomType;
+    if (roomType != RKNet::ROOMTYPE_VS_REGIONAL && roomType != RKNet::ROOMTYPE_JOINING_REGIONAL &&
+        roomType != RKNet::ROOMTYPE_BT_REGIONAL)
+        id = CupsConfig::ConvertTrack_RealIdToPulsarId(receivedTrack);
+    else
+        id = static_cast<PulsarId>(receivedTrack);
+    return cupsConfig->IsValidTrack(id);
+}
+
+CourseId ReturnCorrectId(const RKNet::RH1Handler &rh1Handler) {
+    CupsConfig *cupsConfig = CupsConfig::sInstance;
+    const System *system = System::sInstance;
+    for (int aid = 0; aid < 12; ++aid) {
+        const RKNet::RH1Data &cur = rh1Handler.rh1Data[aid];
+        const CourseId curTrack = cur.trackId;
+        PulsarId id;
+        if (cur.timer != 0 && GetValidReceivedTrackId(curTrack, id)) {
+            u8 variantIdx = 0;
+            const RKNet::Controller *controller = RKNet::Controller::sInstance;
+            const RKNet::RoomType roomType = controller->roomType;  // only ever called when joining (this is used to correct liveview), therefore simply checkings roomtype is enough
+
+            if (roomType == RKNet::ROOMTYPE_VS_REGIONAL || roomType == RKNet::ROOMTYPE_JOINING_REGIONAL || roomType == RKNet::ROOMTYPE_BT_REGIONAL) {
+                const u32 lastBufferUsed = controller->lastReceivedBufferUsed[aid][RKNet::PACKET_RACEHEADER1];
+                if (lastBufferUsed < 2 && controller->splitReceivedRACEPackets[lastBufferUsed][aid] != nullptr) {
+                    const RKNet::PacketHolder<Network::PulRH1> *holder = controller->splitReceivedRACEPackets[lastBufferUsed][aid]->GetPacketHolder<Network::PulRH1>();
+                    if (holder != nullptr && holder->packet != nullptr && holder->packetSize >= PulRH1SizeBase)
+                        variantIdx = holder->packet->variantIdx;
+                }
+            }
+            cupsConfig->SetWinning(id, variantIdx);
+            return cupsConfig->GetCorrectTrackSlot();
+        }
+    }
+    return COURSEID_NONE;
+}
+kmBranch(0x80664560, ReturnCorrectId);
+
+const u8 *GetRH1aidArray(const RKNet::RH1Handler &rh1) {
+    for (int i = 0; i < 12; ++i) {
+        const RKNet::RH1Data &cur = rh1.rh1Data[i];
+        PulsarId id;
+        if (GetValidReceivedTrackId(cur.trackId, id)) return &cur.aidsBelongingToPlayer[0];
+    }
+    return nullptr;
+}
+kmBranch(0x80664b34, GetRH1aidArray);
+
+static bool IsThereAValidId() {
+    const RKNet::RH1Handler *rh1 = RKNet::RH1Handler::sInstance;
+    bool isValid = false;
+    for (int i = 0; i < 12; ++i) {
+        const RKNet::RH1Data &cur = rh1->rh1Data[i];
+        PulsarId id;
+        if (GetValidReceivedTrackId(cur.trackId, id)) {
+            isValid = true;
+            break;
+        }
+    }
+    return isValid;
+}
+kmCall(0x806643a4, IsThereAValidId);
+kmCall(0x80664080, IsThereAValidId);
+kmWrite32(0x80664084, 0x2C030000);  // change comparison from r0 to r3
+
+kmWrite32(0x8066529c, 0x60000000);  // preserve packetholder in r4
+
+}  // namespace Network
+}  // namespace Pulsar

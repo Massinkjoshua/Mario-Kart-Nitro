@@ -99,3 +99,20 @@ OnDeactivate, StartFetch and OnLeaderboardReceived. See
 client/docs/leaderboard-network-emulation.json and the recovery README for
 controlled-call boundaries, historical behavior and remaining integration gaps.
 The full latest core source correspondence and older release coverage remain open.
+
+## Verified 9 October source checkpoint — 18 October follow-up
+
+The newly supplied Updated checkpoint is now preserved under
+client/Recovery/IntegrityCheckpoint-2026-10-09/. Its 1,136 selected original
+source/test files restore a complete source build of the included experimental
+AUDIT CANDIDATE. An explicit 187-object order reproduces all three regional
+modules and the linker map byte-for-byte without a precompiled core input.
+The verified code hash is 8155c33e2798ed75c45c35161c93e98156869f873d84cda7aab351ea6f76a9d4.
+Compiler/toolchain binaries, compiled references and unrelated historical audit
+records are omitted and listed. Original licences and notices are retained.
+
+This candidate differs from Code(10), which the upload stores as a reference,
+and from the latest released Code.pul. It predates the 11 October changes in the
+active candidate, so its reproducibility does not close the released-core gap.
+No default engine code, enforcement mode, server or released game pack changed.
+

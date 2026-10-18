@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source_files_verified": 1136,
+  "explicit_object_order_count": 187,
+  "code_sha256": "8155c33e2798ed75c45c35161c93e98156869f873d84cda7aab351ea6f76a9d4",
+  "map_sha256": "63c7114f84dd01fc80e64496d8ddc805d37b4f9128eabdbe2af83ff62be18b40",
+  "compiler_sha256": "0515a708c5f3e51cab79ed3a16f1d712569ef2e19dcee6f4c14ef6dccd213e3f",
+  "assembler_sha256": "a94c1c70db9169aacb7eb23fce0b630c570a7baba040b35b49258a0cb61c19e9",
+  "linker_sha256": "2b66c42dc2b0be62fe89f41c82a9315274c64b94f23e0c369fd9ea452c8b5c0a",
+  "compiled_reference_used_as_build_input": false,
+  "audit_mode": true,
+  "scope": "Uploaded experimental checkpoint only; not Code(10) or latest release"
+}

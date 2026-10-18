@@ -1,9 +1,10 @@
-# Source status — 16 October 2026, recovery revision 3
+# Source status — 18 October 2026, recovery revision 4
 
 The editable client and C++ loader build; Pack Creator also compiles. Named
 post-checkpoint patches have now been reconstructed and checked against released
 PowerPC functions. **Complete Corresponding Source for every existing release
-has not yet been established, and nothing was deployed or published.**
+has not yet been established. Recovered source is public on the draft recovery
+branch; no gameplay candidate or server change was deployed by that draft.**
 
 | Area | Verified result |
 | --- | --- |
@@ -16,15 +17,20 @@ has not yet been established, and nothing was deployed or published.**
 | Pack Creator | Release WPF build passed using .NET SDK 10.0.402 with Windows targeting; zero errors and nine warnings. Target framework remains net7.0-windows. GUI was not run. Embedded runtime references are preserved. |
 | Current assets/configs | All 2,885 received non-save files preserved. Working odd-cup padding fixed separately; three original config/RT differences retained. Missing Tracks/CTBRSTM/ghosts were not invented. |
 | Exact final-PAL recipe | Latest Code.pul is reproduced exactly by editable final patch source plus a precompiled October core. This is useful patch evidence, not a clean source rebuild of that core. |
+| Original supplied v5 source | Recovery/V5SourceSnapshot restores all 1,097 supplied original files with exact hash/path checks. The v5 binary correspondence audit remains separate. |
+| Additional PAL checks | 352 isolated ghost/local-player/Dolphin executions, 120 leaderboard parser executions and 252 recovered request-flow executions passed. Each report states intercepted/native boundaries; none is a game boot. |
+| Uploaded 9 October candidate | Recovery/IntegrityCheckpoint-2026-10-09 reproduces the uploaded experimental audit candidate and its linker map exactly from 1,136 original source/test files with a fixed 187-object order. This is a different binary from Code(10) and the latest release. |
 | Core correspondence | Full correspondence of every existing compiled client function to preferred source still requires completion. Passing tests and a matching hook list are not proof of full implementation parity. |
 | Public release history | GitHub 1.0 (5 October) verified by bounded ZIP reads. Its Code.pul differs from the latest upload; its loader matches the reconstructed v15 loader. No source archive is currently attached to that release. Other launcher/Discord releases are not exhaustively verified. |
-| Server/payload | Recovered AGPL server and repaired candidate build; candidate race tests pass. Running server source/executable and the separately built payload remain unverified. |
-| Runtime/publication | No Dolphin/Wii boot, live online test, GitHub upload or server activation performed. GitHub connection is pending. Asset redistribution permissions still need creator records. |
+| Server/payload | The 134-file live NitroWFC export is published. An operator rebuild on the original host exactly matched the running executable hash. Matching patcher source and pinned devkitPPC instructions reproduced stage1 and all four RMC on-disk payloads. Actual HTTP-served response bytes were not independently fetched. See ../server/docs/live-export-2026-10-16.md and ../patcher/VERIFICATION.json. |
+| Runtime/publication | Source is public for review in draft PR #3 on Massinkjoshua/Mario-Kart-Nitro-Releases. The website Source & credits links are live. No Wii/Dolphin boot or live online candidate test was performed. The draft was not merged or deployed. Asset permission/editable-source records remain open. |
 
-Normal builds write isolated candidates. CurrentPack, editor reference resources
-and public release references stay byte-preserved. No new anti-cheat enforcement,
+Normal builds write isolated candidates. The source-only publication omits the
+CurrentPack/runtime assets, editor binary resources and precompiled references;
+historical local handoff records describe those separately preserved inputs. No new anti-cheat enforcement,
 bans, online policy changes or canceled website-label edits were activated.
 
 See NEXT_STEPS.txt, docs/recovered-source-followup.md, docs/public/ and the
 separate server handoff. Preserve this status when sharing the recovery package;
 do not describe it as a completed licence cure.
+
