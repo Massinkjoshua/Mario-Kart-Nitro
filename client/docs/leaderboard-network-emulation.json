@@ -68,7 +68,7 @@
     "start:5:success"
   ],
   "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
-  "recovered_profile_sha256": "c63f99586223be97bd8fd437ddec07b56b6fe8ba14257b736409aa297c4057a6",
+  "recovered_profile_sha256": "5ea566c7f141f923b21d80f07f14c99f8835b2dcdd1f3ac15c3e992f01539a26",
   "functions": [
     "OnActivate",
     "OnDeactivate",
@@ -76,15 +76,16 @@
     "OnLeaderboardReceived"
   ],
   "source_sha256": {
-    "Recovery/ReleasedLeaderboard/PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp": "ed7bf83ee90d3b46b8afddbd1836777f41878dc3f08de0d9f319b55ca98b9608",
-    "Recovery/ReleasedLeaderboard/PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp": "de64b10d161e30a3c41322b4fcd163a7dddc509110523398823819a9fc5c308c"
+    "Recovery/ReleasedLeaderboard/PulsarEngine/Network/NHTTPPool.cpp": "cc4a1f929b11d1c6a3df8ae5e74302cd8ba700ff9e3639db54a8c9c8014d195b",
+    "Recovery/ReleasedLeaderboard/PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp": "cb0d5b13512d14966e33b96865fe31d688c46e0b0d0fcae1899e029c103efafc",
+    "Recovery/ReleasedLeaderboard/PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp": "a153057cd2101060c7c42906304a20bd3f815565b385f3c22d0748b1a7d4a1cb"
   },
   "limits": [
     "PAL isolated functions; synthetic responses and controlled native/callee boundaries",
-    "Request creation boundary abstracts the released MEM2 wrapper and candidate native creator; their internal parity is not established here",
+    "This request-flow harness intercepts the released and reconstructed creators; their logic is compared separately in leaderboard-display-emulation.json",
     "Allocation, request bookkeeping, own-Mii override, UI reset and sound are intercepted",
     "Original historical request ordering is preserved; this does not make it concurrency-safe",
-    "Other functions in the recovery module are historical v5 source, not certified latest-release equivalents",
+    "Only named functions are tested here; separate UI/update reports cover additional methods",
     "Not a complete current client source build or deployable game release"
   ]
 }

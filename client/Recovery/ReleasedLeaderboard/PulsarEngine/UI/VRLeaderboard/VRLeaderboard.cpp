@@ -2,6 +2,7 @@
 #include <UI/VRLeaderboard/VRLeaderboard.hpp>
 #include <Network/Json.hpp>
 #include <Network/NHTTPHelper.hpp>
+#include <Network/NHTTPPool.hpp>
 #include <UI/UI.hpp>
 #include <MarioKartWii/Archive/ArchiveMgr.hpp>
 #include <MarioKartWii/Audio/RSARPlayer.hpp>
@@ -18,6 +19,7 @@
 #include <core/rvl/NHTTP/NHTTP.hpp>
 #include <core/rvl/DWC/NHTTP.hpp>
 #include <core/rvl/OS/OS.hpp>
+#include <core/rvl/RFL/RFL.hpp>
 #include <core/nw4r/lyt/TextBox.hpp>
 #include <include/c_stdio.h>
 #include <include/c_string.h>
@@ -34,8 +36,50 @@ static void NHTTPConfigureHttpsForRequest(void *request) {
     (reinterpret_cast<Fn>(&NHTTPSetVerifyOption))(request, 1);
 }
 
+// Recovered native work-state accessor. Kamek remaps this PAL symbol for E/J.
+extern "C" void *NitroRecoveryNHTTPState();
+namespace Pulsar { namespace Network {
+u32 GetReleasedNHTTPFailureKind();
+u32 GetReleasedNHTTPFailureBytes();
+} }
+
 namespace Pulsar {
 namespace UI {
+
+static const wchar_t *s_releasedCreateError = L"Failed: create";
+
+const wchar_t *GetReleasedLeaderboardError(u32 state) {
+    static const wchar_t *messages[] = {
+        L"Failed: timeout", L"Failed: entries", L"Failed: context",
+        L"Failed: startup", L"Failed: workbuf", L"Failed: create",
+        L"Failed: send", L"Failed: response", L"Failed: entries",
+        L"Failed: HTTP", L"Failed: body", L"Failed: copybuf", L"Failed: JSON"
+    };
+    u32 index = state - 3;
+    if (index > 12) index = 0;
+    return index == 5 ? s_releasedCreateError : messages[index];
+}
+
+void *CreateReleasedLeaderboardRequest(const char *url, int method, void *buffer,
+                                       u32 length, void *callback, void *userdata) {
+    Network::ClearNHTTPAllocationError();
+    void *request = NHTTPCreateRequest(url, method, buffer, length, callback, userdata);
+    if (request != nullptr) return request;
+    const s32 error = *reinterpret_cast<s32 *>(reinterpret_cast<u8 *>(NitroRecoveryNHTTPState()) + 0x7d8);
+    const wchar_t *message = L"Failed: create";
+    if (error == 1) {
+        const u32 failure = Network::GetReleasedNHTTPFailureKind();
+        if (failure == 0) message = L"Mem: other allocator";
+        else if (failure == 1) message = L"Mem: size or align";
+        else if (failure == 2) message = L"Mem: tracking full";
+        else if (failure == 3) message = L"Mem: pool missing";
+        else message = Network::GetReleasedNHTTPFailureBytes() == 32864
+            ? L"Mem: pool full 32K" : L"Mem: pool full";
+    } else if (error == 4) message = L"Create: URL";
+    s_releasedCreateError = message;
+    return request;
+}
+
 
 struct VRLeaderboardText {
     const wchar_t *loading;
@@ -159,6 +203,22 @@ static void ClearLeaderboardRow(LayoutUIControl &row, wchar_t *nameText) {
     SetLeaderboardRowTextColor(row, nw4r::ut::Color(255, 255, 255, 255));
     SetPaneVisibleIfPresent(row, "chara_icon", false);
     SetPaneVisibleIfPresent(row, "chara_icon_sha", false);
+}
+
+static BOOL s_releasedRowMiiValid = 0;
+
+void LoadReleasedLeaderboardMii(MiiGroup *group, u8 index, RFL::StoreData *data) {
+    s_releasedRowMiiValid = RFL::CheckValidRaw(data);
+    if (s_releasedRowMiiValid != 0) group->LoadMii(index, data);
+}
+
+void SetReleasedLeaderboardMiiPane(LayoutUIControl *row, const char *pane,
+                                  const MiiGroup &group, u32 index, u8 texMap) {
+    if (s_releasedRowMiiValid != 0) row->SetMiiPane(pane, group, index, texMap);
+}
+
+void SetReleasedLeaderboardMiiVisible(LayoutUIControl *row, const char *pane, bool /*visible*/) {
+    SetPaneVisibleIfPresent(*row, pane, s_releasedRowMiiValid != 0);
 }
 
 static unsigned char ParseJsonEscape(const char *&p) {
@@ -611,11 +671,11 @@ void VRLeaderboardPage::ApplyResults() {
 
         SetLeaderboardRowTextColor(*rows[i], textColor);
 
-        miiGroup->LoadMii(i, &s_entries[idx].miiData);
-        rows[i]->SetMiiPane("chara_icon", *miiGroup, i, 2);
-        rows[i]->SetMiiPane("chara_icon_sha", *miiGroup, i, 2);
-        SetPaneVisibleIfPresent(*rows[i], "chara_icon", true);
-        SetPaneVisibleIfPresent(*rows[i], "chara_icon_sha", true);
+        LoadReleasedLeaderboardMii(miiGroup, i, &s_entries[idx].miiData);
+        SetReleasedLeaderboardMiiPane(rows[i], "chara_icon", *miiGroup, i, 2);
+        SetReleasedLeaderboardMiiPane(rows[i], "chara_icon_sha", *miiGroup, i, 2);
+        SetReleasedLeaderboardMiiVisible(rows[i], "chara_icon", true);
+        SetReleasedLeaderboardMiiVisible(rows[i], "chara_icon_sha", true);
     }
 
     wchar_t pageText[16];
@@ -628,7 +688,7 @@ void VRLeaderboardPage::ApplyResults() {
 
 void VRLeaderboardPage::ApplyError() {
     Text::Info bottomInfo;
-    bottomInfo.strings[0] = const_cast<wchar_t *>(GetVRLeaderboardText().error);
+    bottomInfo.strings[0] = const_cast<wchar_t *>(GetReleasedLeaderboardError(s_fetchState));
     bottomText->SetMessage(UI::BMG_TEXT, &bottomInfo);
 
     for (int i = 0; i < kRowsPerPage; ++i) {
@@ -677,7 +737,7 @@ void VRLeaderboardPage::StartFetch(VRLeaderboardPage *page) {
 
     snprintf(s_requestUrl, sizeof(s_requestUrl), "http://play.mknitro.com/api/leaderboard/in-game?page=%u", apiPage);
 
-    void *request = NHTTPCreateRequest(s_requestUrl, 0, s_requestWorkBuf, s_nhttpWorkBufSize,
+    void *request = CreateReleasedLeaderboardRequest(s_requestUrl, 0, s_requestWorkBuf, s_nhttpWorkBufSize,
                                        reinterpret_cast<void *>(&VRLeaderboardPage::OnLeaderboardReceived),
                                        ctx);
     if (request == nullptr) {
@@ -873,3 +933,4 @@ void VRLeaderboardPage::OverrideOwnMiiData(Entry *entries, int entryCount, u64 o
 
 }  // namespace UI
 }  // namespace Pulsar
+

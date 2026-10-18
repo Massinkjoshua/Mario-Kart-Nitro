@@ -116,3 +116,15 @@ and from the latest released Code.pul. It predates the 11 October changes in the
 active candidate, so its reproducibility does not close the released-core gap.
 No default engine code, enforcement mode, server or released game pack changed.
 
+
+## Released leaderboard diagnostics and display source — 18 October
+
+The optional client/Recovery/ReleasedLeaderboard C++ profile now implements the
+released creator/allocation diagnostics and Mii guard patches and connects them
+to the real UI methods. A further 1,828 isolated PPC executions passed for the
+new wrapper, UI and update checks; the earlier 252 request-flow executions also
+pass. Details and boundaries are in client/docs/leaderboard-source-progress-2026-10-18.md.
+This recovers another released-core source section. It does not establish the
+whole released core, actual Wii/Dolphin/online behavior or asset-source completeness.
+The default queued-callback candidate and existing game/server releases are unchanged.
+

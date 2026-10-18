@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "executions": 288,
+  "case_count": 72,
+  "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "source_profile_sha256": "5ea566c7f141f923b21d80f07f14c99f8835b2dcdd1f3ac15c3e992f01539a26",
+  "checked": [
+    "45000 ms boundary, including already-applied timeout reset",
+    "Ready/error states apply once and numbered errors dispatch",
+    "Row sound delay and ten-row completion boundary",
+    "Signed enum behavior for invalid state 0xffffffff"
+  ],
+  "limits": [
+    "PAL isolated OnUpdate, UI/audio and unsigned division controlled",
+    "Null SectionMgr bypasses controller navigation; navigation is not verified",
+    "No actual asynchronous scheduling or game boot"
+  ]
+}

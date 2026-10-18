@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "executions": 1328,
+  "diagnostic_cases": 40,
+  "creator_sequences": 44,
+  "mii_reuse_sequences": 32,
+  "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "source_profile_sha256": "5ea566c7f141f923b21d80f07f14c99f8835b2dcdd1f3ac15c3e992f01539a26",
+  "allocation_bases": [
+    "0x81000000",
+    "0x81200000"
+  ],
+  "functions": [
+    "GetReleasedLeaderboardError",
+    "CreateReleasedLeaderboardRequest",
+    "LoadReleasedLeaderboardMii",
+    "SetReleasedLeaderboardMiiPane",
+    "SetReleasedLeaderboardMiiVisible"
+  ],
+  "source_sha256": {
+    "Recovery/ReleasedLeaderboard/PulsarEngine/Network/NHTTPPool.cpp": "cc4a1f929b11d1c6a3df8ae5e74302cd8ba700ff9e3639db54a8c9c8014d195b",
+    "Recovery/ReleasedLeaderboard/PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp": "cb0d5b13512d14966e33b96865fe31d688c46e0b0d0fcae1899e029c103efafc",
+    "Recovery/ReleasedLeaderboard/PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp": "a153057cd2101060c7c42906304a20bd3f815565b385f3c22d0748b1a7d4a1cb"
+  },
+  "limits": [
+    "Isolated PAL functions; not full game or complete released-core reconstruction",
+    "Native creator/work-state and RFL/layout/rendering APIs intercepted",
+    "Actual pool allocator source executes only its clear/getter paths here; allocation outcomes are synthetic",
+    "Mii validity BOOL tested as canonical 0/1 only",
+    "Entire ApplyResults/ApplyError integration and UI rendering are not executed by this harness"
+  ]
+}

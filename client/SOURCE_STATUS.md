@@ -18,6 +18,7 @@ branch; no gameplay candidate or server change was deployed by that draft.**
 | Current assets/configs | All 2,885 received non-save files preserved. Working odd-cup padding fixed separately; three original config/RT differences retained. Missing Tracks/CTBRSTM/ghosts were not invented. |
 | Exact final-PAL recipe | Latest Code.pul is reproduced exactly by editable final patch source plus a precompiled October core. This is useful patch evidence, not a clean source rebuild of that core. |
 | Original supplied v5 source | Recovery/V5SourceSnapshot restores all 1,097 supplied original files with exact hash/path checks. The v5 binary correspondence audit remains separate. |
+| Expanded released leaderboard source | Editable diagnostics/creator/Mii guards are connected to ApplyError/ApplyResults/OnUpdate in the optional recovery profile. 1,828 additional isolated PPC executions pass (1,328 wrappers, 212 UI methods, 288 update state machine), plus the existing 252 request-flow regression executions. Native APIs remain controlled; see docs/leaderboard-source-progress-2026-10-18.md. |
 | Additional PAL checks | 352 isolated ghost/local-player/Dolphin executions, 120 leaderboard parser executions and 252 recovered request-flow executions passed. Each report states intercepted/native boundaries; none is a game boot. |
 | Uploaded 9 October candidate | Recovery/IntegrityCheckpoint-2026-10-09 reproduces the uploaded experimental audit candidate and its linker map exactly from 1,136 original source/test files with a fixed 187-object order. This is a different binary from Code(10) and the latest release. |
 | Core correspondence | Full correspondence of every existing compiled client function to preferred source still requires completion. Passing tests and a matching hook list are not proof of full implementation parity. |
@@ -33,4 +34,5 @@ bans, online policy changes or canceled website-label edits were activated.
 See NEXT_STEPS.txt, docs/recovered-source-followup.md, docs/public/ and the
 separate server handoff. Preserve this status when sharing the recovery package;
 do not describe it as a completed licence cure.
+
 
