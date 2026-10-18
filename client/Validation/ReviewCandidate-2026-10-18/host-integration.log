@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/e3480d3134d6/work/consolidated_oct18/Mario-Kart-Nitro-Releases-61735e0c91c1c332d0b698609045d589b66cc90f/client/scripts/test_integration.py", line 100, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/scratch/e3480d3134d6/work/consolidated_oct18/Mario-Kart-Nitro-Releases-61735e0c91c1c332d0b698609045d589b66cc90f/client/scripts/test_integration.py", line 16, in main
+    data=(pack/row['path']).read_bytes()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/e3480d3134d6/work/consolidated_oct18/Mario-Kart-Nitro-Releases-61735e0c91c1c332d0b698609045d589b66cc90f/client/CurrentPack/MarioKartNitro_Test/Characters/BaseAllKart/bk-allkart.szs'

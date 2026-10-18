@@ -1,0 +1,38 @@
+{
+  "kind": "source-built-review-candidate",
+  "build_id": "nitro-source-candidate-20261018",
+  "code_sha256": "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+  "loader_sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+  "loader_kind": "exact reconstructed released v15 assembly target",
+  "regions": [
+    {
+      "region": "P",
+      "code_bytes": 471272,
+      "commands": 10876
+    },
+    {
+      "region": "E",
+      "code_bytes": 471272,
+      "commands": 10868
+    },
+    {
+      "region": "J",
+      "code_bytes": 471272,
+      "commands": 10868
+    }
+  ],
+  "compiler_sha256": "0515a708c5f3e51cab79ed3a16f1d712569ef2e19dcee6f4c14ef6dccd213e3f",
+  "assembler_sha256": "a94c1c70db9169aacb7eb23fce0b630c570a7baba040b35b49258a0cb61c19e9",
+  "linker_sha256": "2b66c42dc2b0be62fe89f41c82a9315274c64b94f23e0c369fd9ea452c8b5c0a",
+  "runner_sha256": "13f86a2d618f0dbe67179d349625345eabf9b46450295cb4c904e49f6aff85af",
+  "keystone_version": "0.9.2",
+  "source_files_hashed": 1124,
+  "precompiled_core_used_as_build_input": false,
+  "private_runtime_assets_needed_for_build": false,
+  "source_manifest_sha256": "d62ae2b5ceac8eecf233ae84c6e145a3f18987d36735df20550626c60ff0ae9c",
+  "structural_checks_passed": true,
+  "historical_released_core_match": false,
+  "dolphin_or_wii_runtime_tested": false,
+  "server_hash_approved": false,
+  "deployed": false
+}

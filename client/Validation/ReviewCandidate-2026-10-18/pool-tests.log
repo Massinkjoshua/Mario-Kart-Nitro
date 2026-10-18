@@ -1,0 +1,1 @@
+PASS: actual MEM2 pool source; failed initialization cleanup, one-time reserve, size/alignment limits, 16-slot exhaustion/reuse, failure recovery and correct free ownership (native APIs mocked).

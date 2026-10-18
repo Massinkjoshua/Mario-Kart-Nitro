@@ -1,0 +1,31 @@
+{
+  "current_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "candidate_sha256": "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+  "reports": [
+    {
+      "region": "P",
+      "current_sites": 1196,
+      "rebuilt_sites": 1196,
+      "missing": {},
+      "extra": {},
+      "different_fixed_value_or_opcode": {}
+    },
+    {
+      "region": "E",
+      "current_sites": 1188,
+      "rebuilt_sites": 1188,
+      "missing": {},
+      "extra": {},
+      "different_fixed_value_or_opcode": {}
+    },
+    {
+      "region": "J",
+      "current_sites": 1188,
+      "rebuilt_sites": 1188,
+      "missing": {},
+      "extra": {},
+      "different_fixed_value_or_opcode": {}
+    }
+  ],
+  "scope": "Native addresses/fixed values only; not implementation parity or runtime validation."
+}

@@ -128,3 +128,10 @@ This recovers another released-core source section. It does not establish the
 whole released core, actual Wii/Dolphin/online behavior or asset-source completeness.
 The default queued-callback candidate and existing game/server releases are unchanged.
 
+
+
+## Consolidated review candidate — 18 October 2026
+
+A new source-built candidate (`nitro-source-candidate-20261018`) now has an isolated build recipe and matching 1,124-file source manifest. Three builds are byte-identical; 11,176 isolated PowerPC executions and the documented host checks passed. See client/Validation/ReviewCandidate-2026-10-18/README.md for hashes, scope, rebuilding and team testing.
+
+This candidate is not deployed or server-approved. Dolphin/Wii and controlled online testing remain pending; the complete runtime manifest test is blocked by 2,777 omitted pack assets. Complete matching source for older distributed engines and asset-rights review remain unresolved. This publication does not establish that the licence notice is cured.
