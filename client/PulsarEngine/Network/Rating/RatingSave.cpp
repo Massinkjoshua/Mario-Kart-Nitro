@@ -153,7 +153,10 @@ static void Load() {
             u8 pad[32];
         } eBuf __attribute__((aligned(32))) = {};
         if (io->Read(sizeof(PackedEntry), &eBuf.e) != (s32)sizeof(PackedEntry)) break;
-        if ((eBuf.e.flags & 1) && IsUsableProfileId(eBuf.e.profileId)) {
+        // Both comparisons must succeed: NaN and infinities are rejected too.
+        const bool validVr = eBuf.e.vr >= (float)MIN_RATING && eBuf.e.vr <= (float)MAX_RATING;
+        const bool validBr = eBuf.e.br >= (float)MIN_RATING && eBuf.e.br <= (float)MAX_RATING;
+        if ((eBuf.e.flags & 1) && IsUsableProfileId(eBuf.e.profileId) && validVr && validBr) {
             sProfiles[i].profileId = eBuf.e.profileId;
             sProfiles[i].vr = eBuf.e.vr;
             sProfiles[i].br = eBuf.e.br;
@@ -190,12 +193,12 @@ static void Save() {
 }
 
 static u16 ClampU16(float v) {
-    return (v < (float)MIN_RATING) ? MIN_RATING : (v > (float)MAX_RATING) ? MAX_RATING
+    return (!(v >= (float)MIN_RATING)) ? MIN_RATING : (v > (float)MAX_RATING) ? MAX_RATING
                                                                           : (u16)v;
 }
 
 static float ClampF(float v) {
-    return (v < (float)MIN_RATING) ? (float)MIN_RATING : (v > (float)MAX_RATING) ? (float)MAX_RATING
+    return (!(v >= (float)MIN_RATING)) ? (float)MIN_RATING : (v > (float)MAX_RATING) ? (float)MAX_RATING
                                                                                  : v;
 }
 

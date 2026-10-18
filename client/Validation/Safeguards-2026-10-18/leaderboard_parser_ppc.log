@@ -1,0 +1,3 @@
+PASS parser fixtures at 0x81000000
+PASS parser fixtures at 0x81200000
+PASS: 120 released/source-built PowerPC parser executions

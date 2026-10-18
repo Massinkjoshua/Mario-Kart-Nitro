@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "executions": 120,
+  "fixture_count": 30,
+  "fixtures": [
+    "null_json",
+    "null_output",
+    "zero_capacity",
+    "negative_capacity",
+    "empty",
+    "no_array",
+    "truncated",
+    "missing_name",
+    "empty_name",
+    "fields",
+    "numeric_friend_code",
+    "alternate_friend_code",
+    "priority_friend_code",
+    "invalid_numbers",
+    "maximum_u32",
+    "escaped_quotes_and_braces",
+    "escaped_controls",
+    "unicode_escape_historical_fallback",
+    "utf8_historical_fallback",
+    "long_name",
+    "skip_nameless",
+    "complete_before_truncation",
+    "entries_1_cap_1",
+    "entries_2_cap_1",
+    "entries_10_cap_10",
+    "entries_50_cap_50",
+    "entries_51_cap_50",
+    "entries_51_cap_3",
+    "synthetic_mii_name_preferred",
+    "empty_mii_fallback"
+  ],
+  "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "candidate_sha256": "3fb4e2e441a04eaffa9a39d7857feb289e25a75c0330e198f1819957561d3067",
+  "release_offset": "0x4a2e0",
+  "candidate_offset": "0x655d4",
+  "allocation_bases": [
+    "0x81000000",
+    "0x81200000"
+  ],
+  "checked": [
+    "Return counts and independently expected names, VR, ranks and friend codes",
+    "Full initialized output buffer equality, including Mii data",
+    "Output capacity canaries",
+    "Compiled internal JSON, base64 and Mii-name helpers execute without interception"
+  ],
+  "limits": [
+    "Only isolated PAL response parsing; libc intercepted",
+    "Synthetic StoreData tests name extraction, not RFL validity or real player data",
+    "Historical non-ASCII JSON fallback intentionally preserved",
+    "No NHTTP lifecycle, pagination UI, concurrency, full game or complete source claim"
+  ],
+  "source_sha256": {
+    "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp": "48cae33744ea9b41169749acd7a8666790fb6cc26fbc640be2071c8745e54650",
+    "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp": "20e96fb4a1f470ba85827131374bfb13cecd07eae031bce2399477c745c990d9",
+    "PulsarEngine/Network/Json.cpp": "35ea70922a187874064a3de0a2cd894d7fa9c6454e55cda904c344ba94dae998"
+  }
+}

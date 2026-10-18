@@ -7,6 +7,7 @@
 #include <core/RK/RKSystem.hpp>
 #include <core/rvl/DWC/NHTTP.hpp>
 #include <core/rvl/NHTTP/NHTTP.hpp>
+#include <core/rvl/OS/OS.hpp>
 #include <Network/GPReport.hpp>
 #include <Network/Json.hpp>
 #include <Network/NHTTPHelper.hpp>
@@ -21,8 +22,6 @@ namespace PointRating {
 static bool s_syncReportingSuppressed = false;
 static const u32 s_nhttpWorkBufSize = 0x1000;
 static u32 s_requestGeneration = 0;
-static float s_requestStartVr = 0.0f;
-static float s_requestStartBr = 0.0f;
 static void *s_requestWorkBuf = nullptr;
 static char s_requestUrl[160];
 static s32 s_pendingInitialReportProfileId = 0;
@@ -36,9 +35,19 @@ struct RequestCtx {
     u32 generation;
     s32 profileId;
     u32 licenseId;
+    float startVr;
+    float startBr;
 };
 
 static RequestCtx s_requestCtx;
+static volatile bool s_requestActive = false;
+static volatile bool s_completionReady = false;
+static RequestCtx s_completedCtx;
+static char s_completedJson[256];
+static bool s_completedBodyValid = false;
+static bool s_downloadQueued = false;
+static s32 s_queuedProfileId = 0;
+static u32 s_queuedLicenseId = 0;
 
 static int ClampRatingForSync(float rating) {
     int scaled = (int)(rating * 100.0f + 0.5f);
@@ -56,24 +65,28 @@ static bool ParseJsonScaledValue(const char *json, const char *key, int &out) {
     const char *colon = strchr(pos, ':');
     if (colon == nullptr) return false;
 
+    const char *valueStart = Network::Json::SkipWhitespace(colon + 1);
     char *end = nullptr;
-    long value = strtol(Network::Json::SkipWhitespace(colon + 1), &end, 10);
-    if (end == nullptr || end == colon + 1) return false;
+    const long value = strtol(valueStart, &end, 10);
+    if (end == nullptr || end == valueStart || value < 1 || value > 1000000) return false;
+    const char *tail = Network::Json::SkipWhitespace(end);
+    if (*tail != ',' && *tail != '}') return false;
     out = (int)value;
     return true;
 }
 
-static bool ParseJsonFoundFlag(const char *json) {
+static bool ParseJsonFoundFlag(const char *json, bool &found) {
     if (json == nullptr) return false;
-
     const char *pos = strstr(json, "\"found\"");
     if (pos == nullptr) return false;
-
     const char *colon = strchr(pos, ':');
     if (colon == nullptr) return false;
-
-    colon = Network::Json::SkipWhitespace(colon + 1);
-    return colon != nullptr && *colon == '1';
+    const char *value = Network::Json::SkipWhitespace(colon + 1);
+    if (*value != '0' && *value != '1') return false;
+    const char *tail = Network::Json::SkipWhitespace(value + 1);
+    if (*tail != ',' && *tail != '}') return false;
+    found = *value == '1';
+    return true;
 }
 
 void SetSyncReportingSuppressed(bool suppress) {
@@ -103,55 +116,63 @@ static bool IsRequestStillRelevant(const RequestCtx &ctx) {
 
     const float currentVr = GetUserVR(ctx.licenseId);
     const float currentBr = GetUserBR(ctx.licenseId);
-    if (currentVr != s_requestStartVr || currentBr != s_requestStartBr) return false;
+    if (currentVr != ctx.startVr || currentBr != ctx.startBr) return false;
 
     return true;
 }
 
 static void OnRatingsDownloaded(s32 result, void *response, void *userdata) {
+    // The callback only copies a bounded result. Save IO and report generation
+    // run on the frame thread, not inside the HTTP worker.
+    const RequestCtx *ctx = reinterpret_cast<const RequestCtx *>(userdata);
+    RequestCtx completed = {};
+    if (ctx != nullptr) completed = *ctx;
+    char json[256] = {};
+    bool valid = false;
+    if (ctx != nullptr && response != nullptr && result == 0) {
+        char *body = nullptr;
+        const int length = NHTTP::GetBodyAll(reinterpret_cast<NHTTP::Res *>(response), &body);
+        if (body != nullptr && length > 0 && length < (int)sizeof(json)) {
+            memcpy(json, body, length);
+            json[length] = '\0';
+            valid = true;
+        }
+    }
+    if (response != nullptr) NHTTPDestroyResponse(response);
     Network::FinishNHTTPRequest();
-    RequestCtx *ctx = reinterpret_cast<RequestCtx *>(userdata);
-    if (ctx == nullptr || response == nullptr) return;
+    const s32 interrupts = OS::DisableInterrupts();
+    s_completedCtx = completed;
+    memcpy(s_completedJson, json, sizeof(json));
+    s_completedBodyValid = valid;
+    s_completionReady = true;
+    s_requestActive = false;
+    OS::RestoreInterrupts(interrupts);
+}
 
-    if (ctx->generation != s_requestGeneration) {
-        NHTTPDestroyResponse(response);
-        return;
-    }
-
-    if (result != 0) {
-        NHTTPDestroyResponse(response);
-        return;
-    }
-
-    char *body = nullptr;
-    const int bodyLen = NHTTP::GetBodyAll(reinterpret_cast<NHTTP::Res *>(response), &body);
-    if (body == nullptr || bodyLen <= 0) {
-        NHTTPDestroyResponse(response);
-        return;
-    }
-
-    const int maxLen = bodyLen < 255 ? bodyLen : 255;
+static void ProcessCompletedRatingDownload() {
+    if (!s_completionReady) return;
+    RequestCtx completed;
     char json[256];
-    memcpy(json, body, maxLen);
-    json[maxLen] = '\0';
-
-    NHTTPDestroyResponse(response);
-
-    if (!IsRequestStillRelevant(*ctx)) return;
-
-    if (!ParseJsonFoundFlag(json)) {
-        ReportCurrentRatings(ctx->licenseId);
+    const s32 interrupts = OS::DisableInterrupts();
+    completed = s_completedCtx;
+    memcpy(json, s_completedJson, sizeof(json));
+    const bool valid = s_completedBodyValid;
+    s_completionReady = false;
+    OS::RestoreInterrupts(interrupts);
+    if (!valid || !IsRequestStillRelevant(completed)) return;
+    bool found = false;
+    if (!ParseJsonFoundFlag(json, found)) return;
+    if (!found) {
+        ReportCurrentRatings(completed.licenseId);
         return;
     }
-
     int vrScaled = 0;
     int brScaled = 0;
-    if (!ParseJsonScaledValue(json, "\"vr\"", vrScaled)) return;
-    if (!ParseJsonScaledValue(json, "\"br\"", brScaled)) return;
-
+    if (!ParseJsonScaledValue(json, "\"vr\"", vrScaled) ||
+        !ParseJsonScaledValue(json, "\"br\"", brScaled)) return;
     SetSyncReportingSuppressed(true);
-    SaveProfileVR(ctx->profileId, (float)vrScaled / 100.0f);
-    SaveProfileBR(ctx->profileId, (float)brScaled / 100.0f);
+    SaveProfileVR(completed.profileId, (float)vrScaled / 100.0f);
+    SaveProfileBR(completed.profileId, (float)brScaled / 100.0f);
     SetSyncReportingSuppressed(false);
 }
 
@@ -160,8 +181,17 @@ void BeginLoginRatingDownload(s32 profileId, u32 licenseId) {
 
     RKSYS::Mgr *rksys = RKSYS::Mgr::sInstance;
     if (rksys == nullptr || licenseId >= 4) return;
+    if ((s32)rksys->licenses[licenseId].dwcAccUserData.gsProfileId != profileId) return;
+    if (s_requestActive || s_completionReady) {
+        // Invalidate an obsolete result without changing its still-owned
+        // context or buffer. The latest requested profile is queued for a frame.
+        ++s_requestGeneration;
+        s_downloadQueued = true;
+        s_queuedProfileId = profileId;
+        s_queuedLicenseId = licenseId;
+        return;
+    }
     BindLicenseProfileId(licenseId, profileId);
-
     if (!Network::PrepareNHTTPRequest()) return;
 
     if (s_requestWorkBuf == nullptr) {
@@ -171,12 +201,11 @@ void BeginLoginRatingDownload(s32 profileId, u32 licenseId) {
     memset(s_requestWorkBuf, 0, s_nhttpWorkBufSize);
 
     ++s_requestGeneration;
-    s_requestStartVr = GetUserVR(licenseId);
-    s_requestStartBr = GetUserBR(licenseId);
-
     s_requestCtx.generation = s_requestGeneration;
     s_requestCtx.profileId = profileId;
     s_requestCtx.licenseId = licenseId;
+    s_requestCtx.startVr = GetUserVR(licenseId);
+    s_requestCtx.startBr = GetUserBR(licenseId);
 
     if (snprintf(s_requestUrl, sizeof(s_requestUrl), "http://nas.%s/api/mkw_rr_ratings?pid=%ld",
                  WWFC_DOMAIN, (long)profileId) < 0) {
@@ -188,12 +217,15 @@ void BeginLoginRatingDownload(s32 profileId, u32 licenseId) {
                                        reinterpret_cast<void *>(&s_requestCtx));
     if (request == nullptr) return;
 
-    const s32 sendRet = NHTTPSendRequestAsync(request);
-    if (sendRet < 0) {
-        ++s_requestGeneration;
-        return;
-    }
+    // Count before dispatch: even an immediate callback must balance it.
     Network::MarkNHTTPRequestActive();
+    s_requestActive = true;
+    const s32 sendRet = NHTTPSendRequestAsync(request);
+    if (sendRet < 0 && s_requestActive) {
+        Network::FinishNHTTPRequest();
+        s_requestActive = false;
+        ++s_requestGeneration;
+    }
 }
 
 static bool CanStartLoginRatingDownload() {
@@ -235,7 +267,18 @@ static void TryStartPendingLoginRatingDownload() {
     BeginLoginRatingDownload(profileId, licenseId);
 }
 
-static FrameLoadHook startPendingLoginRatingDownload(TryStartPendingLoginRatingDownload);
+// One frame-thread entry point owns completion application and queue dispatch.
+void ProcessLoginRatingDownloads() {
+    ProcessCompletedRatingDownload();
+    if (!s_requestActive && !s_completionReady && s_downloadQueued) {
+        const s32 profileId = s_queuedProfileId;
+        const u32 licenseId = s_queuedLicenseId;
+        s_downloadQueued = false;
+        BeginLoginRatingDownload(profileId, licenseId);
+    }
+    TryStartPendingLoginRatingDownload();
+}
+static FrameLoadHook startPendingLoginRatingDownload(ProcessLoginRatingDownloads);
 
 void StartLoginRatingDownload(s32 profileId, u32 licenseId) {
     if (profileId <= 0) return;

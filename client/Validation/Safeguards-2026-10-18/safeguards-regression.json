@@ -1,0 +1,1835 @@
+{
+  "passed": true,
+  "candidate_sha256": "3fb4e2e441a04eaffa9a39d7857feb289e25a75c0330e198f1819957561d3067",
+  "scenario_records": 284,
+  "records": [
+    {
+      "case": "single",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": [
+        [
+          "VR",
+          101,
+          120.0
+        ],
+        [
+          "BR",
+          101,
+          90.0
+        ]
+      ]
+    },
+    {
+      "case": "overlap",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 2,
+      "save_calls": [
+        [
+          "VR",
+          202,
+          340.0
+        ],
+        [
+          "BR",
+          202,
+          120.0
+        ]
+      ]
+    },
+    {
+      "case": "same_profile_overlap",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 2,
+      "save_calls": [
+        [
+          "VR",
+          101,
+          340.0
+        ],
+        [
+          "BR",
+          101,
+          120.0
+        ]
+      ]
+    },
+    {
+      "case": "local_rating_changed",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "licence_changed",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "send_failure",
+      "base": "0x81000000",
+      "passed": true
+    },
+    {
+      "case": "response_failure",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "missing_found",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "invalid_found",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "invalid_vr",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "negative_vr",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "oversized_vr",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "trailing_junk",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "oversized_body",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "not_found",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "null_response",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "queued_after_failure",
+      "base": "0x81000000",
+      "passed": true,
+      "requests": 2,
+      "save_calls": [
+        [
+          "VR",
+          202,
+          340.0
+        ],
+        [
+          "BR",
+          202,
+          120.0
+        ]
+      ]
+    },
+    {
+      "case": "save_valid",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_minimum",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 1.0
+    },
+    {
+      "case": "save_maximum",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 10000.0
+    },
+    {
+      "case": "save_negative",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_above_max",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_nan",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_infinity",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_invalid_br",
+      "base": "0x81000000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "packet_valid_header",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_valid_sections",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_padding",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_capacity",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_header_size",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_short0",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_short8",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_short15",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_oversize",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_crc",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_buffer_index",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_null_split",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_null_holder",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_aid11",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_aid12",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_null_controller",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_0",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_0",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_1",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_1",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_2",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_2",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_3",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_3",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_4",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_4",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_5",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_5",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_6",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_6",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_7",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_7",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_8",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_8",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_9",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_9",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_10",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_10",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_11",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_11",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_12",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_12",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_13",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_13",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_14",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_14",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_15",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_15",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_16",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_16",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_17",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_17",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_18",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_18",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_19",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_19",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_20",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_20",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_21",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_21",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_22",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_22",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_23",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_23",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_24",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_24",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_25",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_25",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_26",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_26",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_27",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_27",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_28",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_28",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_29",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_29",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_30",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_30",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_31",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_31",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_32",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_32",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_33",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_33",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_34",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_34",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_35",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_35",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_36",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_36",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_37",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_37",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_38",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_38",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_39",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_39",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_40",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_40",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_41",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_41",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_42",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_42",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_43",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_43",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_44",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_44",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_45",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_45",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_46",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_46",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_47",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_47",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_48",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_48",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_49",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_49",
+      "base": "0x81000000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "single",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": [
+        [
+          "VR",
+          101,
+          120.0
+        ],
+        [
+          "BR",
+          101,
+          90.0
+        ]
+      ]
+    },
+    {
+      "case": "overlap",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 2,
+      "save_calls": [
+        [
+          "VR",
+          202,
+          340.0
+        ],
+        [
+          "BR",
+          202,
+          120.0
+        ]
+      ]
+    },
+    {
+      "case": "same_profile_overlap",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 2,
+      "save_calls": [
+        [
+          "VR",
+          101,
+          340.0
+        ],
+        [
+          "BR",
+          101,
+          120.0
+        ]
+      ]
+    },
+    {
+      "case": "local_rating_changed",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "licence_changed",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "send_failure",
+      "base": "0x81200000",
+      "passed": true
+    },
+    {
+      "case": "response_failure",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "missing_found",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "invalid_found",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "invalid_vr",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "negative_vr",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "oversized_vr",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "trailing_junk",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "oversized_body",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "not_found",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "null_response",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 1,
+      "save_calls": []
+    },
+    {
+      "case": "queued_after_failure",
+      "base": "0x81200000",
+      "passed": true,
+      "requests": 2,
+      "save_calls": [
+        [
+          "VR",
+          202,
+          340.0
+        ],
+        [
+          "BR",
+          202,
+          120.0
+        ]
+      ]
+    },
+    {
+      "case": "save_valid",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_minimum",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 1.0
+    },
+    {
+      "case": "save_maximum",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 10000.0
+    },
+    {
+      "case": "save_negative",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_above_max",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_nan",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_infinity",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "save_invalid_br",
+      "base": "0x81200000",
+      "passed": true,
+      "returned": 50.0
+    },
+    {
+      "case": "packet_valid_header",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_valid_sections",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_padding",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_capacity",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_header_size",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_short0",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_short8",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_short15",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_oversize",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_crc",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_bad_buffer_index",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_null_split",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_null_holder",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_aid11",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_aid12",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_null_controller",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_0",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_0",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_1",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_1",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_2",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_2",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_3",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_3",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_4",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_4",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_5",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_5",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_6",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_6",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_7",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_7",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_8",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_8",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_9",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_9",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_10",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_10",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_11",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_11",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_12",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_12",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_13",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_13",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_14",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_14",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_15",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_15",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_16",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_16",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_17",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_17",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_18",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_18",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_19",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_19",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_20",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_20",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_21",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_21",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_22",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_22",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_23",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_23",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_24",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_24",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_25",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_25",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_26",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_26",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_27",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_27",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_28",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_28",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_29",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_29",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_30",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_30",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_31",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_31",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_32",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_32",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_33",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_33",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_34",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_34",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_35",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_35",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_36",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_36",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_37",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_37",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_38",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_38",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_39",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_39",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_40",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_40",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_41",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_41",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_42",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_42",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_43",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_43",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_44",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_44",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_45",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_45",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_46",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_46",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_47",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_47",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_48",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_48",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    },
+    {
+      "case": "packet_valid_random_49",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": true
+    },
+    {
+      "case": "packet_truncated_random_49",
+      "base": "0x81200000",
+      "passed": true,
+      "forwarded": false
+    }
+  ],
+  "limits": [
+    "PAL isolated compiled routines; native HTTP, IO, libc and rating accessors controlled",
+    "No full Dolphin/Wii/online session or live server changes",
+    "Packet downstream processing intercepted; does not prove immunity to every malformed packet",
+    "Server rating-sync handlers remain unresolved; leaderboard issues unchanged"
+  ]
+}

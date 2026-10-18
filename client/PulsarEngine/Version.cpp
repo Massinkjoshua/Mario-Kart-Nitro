@@ -1,3 +1,3 @@
 #include "Version.hpp"
 
-wchar_t *GIT_COMMIT = L"nitro-source-candidate-20261018";
+wchar_t *GIT_COMMIT = L"nitro-safeguards-20261018";

@@ -45,32 +45,45 @@ kmCall(0x8065607c, ProperRecvBuffersClear);
 void CheckPacket(CustomRKNetController *controller, RKNet::RACEPacketHeader &packet, u32 size, u32 sizeUnused, u32 aid) {
     using namespace RKNet;
 
-    const u32 recvCRC = packet.crc32;
-    packet.crc32 = 0;
-    const u32 calcCRC = OS::CalcCRC32(&packet, size);
-    packet.crc32 = recvCRC;
-    bool disconnect = false;
-    if (recvCRC != calcCRC)
-        disconnect = true;
-    else {
-        u32 *lastUsedBufferAid = &controller->lastReceivedBufferUsed[aid][0];
-        SplitRACEPointers *recv = controller->splitReceivedRACEPackets[lastUsedBufferAid[0]][aid];
-        PacketHolder<void> **holderRecv = &recv->packetHolders[0];
-        const u8 *sizes = &packet.sizes[0];
-
-        for (int i = 0; i < 8; ++i) {
-            const PacketHolder<void> *curHolder = holderRecv[i];  // starts at header etc...
-
-            const u8 curSize = sizes[i];  // transmitted in packet
-            if (curSize != 0) {
-                if (curHolder->bufferSize < curSize) disconnect = true;
+    // Validate the envelope before reading even the CRC/header fields. DWC
+    // supplies a byte count; a correct checksum alone does not prove lengths.
+    if (controller == nullptr || aid >= 12) return;
+    bool disconnect = size < sizeof(RACEPacketHeader) || size > totalRACESize;
+    if (!disconnect) {
+        disconnect = packet.sizes[0] != sizeof(RACEPacketHeader);
+        u32 remaining = size;
+        for (u32 i = 0; i < 8 && !disconnect; ++i) {
+            const u32 sectionSize = packet.sizes[i];
+            if (sectionSize > remaining) disconnect = true;
+            else remaining -= sectionSize;
+        }
+        // Do not reject harmless trailing padding; no declared section may
+        // reach beyond the received bytes. Native section semantics stay intact.
+    }
+    if (!disconnect) {
+        const u32 recvCRC = packet.crc32;
+        packet.crc32 = 0;
+        const u32 calcCRC = OS::CalcCRC32(&packet, size);
+        packet.crc32 = recvCRC;
+        disconnect = recvCRC != calcCRC;
+    }
+    if (!disconnect) {
+        const u32 bufferIndex = controller->lastReceivedBufferUsed[aid][0];
+        SplitRACEPointers *recv = bufferIndex < 2
+            ? controller->splitReceivedRACEPackets[bufferIndex][aid] : static_cast<SplitRACEPointers *>(nullptr);
+        if (recv == nullptr) disconnect = true;
+        else {
+            for (u32 i = 0; i < 8; ++i) {
+                const PacketHolder<void> *holder = recv->packetHolders[i];
+                if (packet.sizes[i] != 0 &&
+                    (holder == nullptr || holder->bufferSize < packet.sizes[i])) {
+                    disconnect = true;
+                }
             }
         }
     }
-    if (disconnect)
-        controller->toDisconnectAids |= 1 << aid;
-    else
-        reinterpret_cast<RKNet::Controller *>(controller)->ProcessRACEPacket(aid, packet, size);
+    if (disconnect) controller->toDisconnectAids |= 1u << aid;
+    else reinterpret_cast<RKNet::Controller *>(controller)->ProcessRACEPacket(aid, packet, size);
 }
 kmBranch(0x80658608, CheckPacket);
 

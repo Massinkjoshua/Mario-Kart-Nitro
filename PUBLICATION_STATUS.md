@@ -1,3 +1,7 @@
+## New safeguards candidate (18 October 2026)
+
+Packet envelope checks, serialized frame-applied rating downloads, and invalid-save rejection are implemented in the new 3fb4 candidate. 284 focused checks and 11,176 existing regression executions passed. Runtime testing and deployment remain pending. [Details and remaining work](client/docs/safeguards-update-2026-10-18.md). Earlier candidate records below remain historical.
+
 # Source publication status — 16 October 2026
 
 This branch publishes the recovered editable source for team review. It does
