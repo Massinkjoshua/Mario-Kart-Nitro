@@ -1,0 +1,145 @@
+{
+  "candidate_sha256": "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+  "reproduced": true,
+  "records": [
+    {
+      "base": "0x81000000",
+      "case": "ready_left_control",
+      "page_after": 4,
+      "calls": [
+        [
+          "controller_type"
+        ],
+        [
+          "page_sound"
+        ],
+        [
+          "loading"
+        ],
+        [
+          "start_fetch"
+        ]
+      ]
+    },
+    {
+      "base": "0x81000000",
+      "case": "error_blocks_left",
+      "page_after": 5,
+      "calls": []
+    },
+    {
+      "base": "0x81000000",
+      "case": "valid_empty_response_becomes_error",
+      "state_after": 3,
+      "calls": [
+        [
+          "apply_error"
+        ]
+      ]
+    },
+    {
+      "base": "0x81000000",
+      "case": "page_50_ceiling",
+      "page_after": 49,
+      "calls": [
+        [
+          "controller_type"
+        ]
+      ]
+    },
+    {
+      "base": "0x81000000",
+      "case": "waiting_has_no_timeout_or_retry_while_request_pending",
+      "updates": 120,
+      "state_after": 4
+    },
+    {
+      "base": "0x81000000",
+      "case": "higher_room_cap_uses_wrong_display_scale",
+      "player_internal_rating": 50,
+      "player_displayed_vr": 5000,
+      "near_room_vr": 5000,
+      "far_room_vr": 700000,
+      "removed_rooms": [],
+      "retained_room_vr": [
+        5000,
+        700000
+      ],
+      "actual_threshold": 4005000,
+      "documented_40000_displayed_vr_threshold": 45000,
+      "control_nearest_room_still_sorts_first": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "ready_left_control",
+      "page_after": 4,
+      "calls": [
+        [
+          "controller_type"
+        ],
+        [
+          "page_sound"
+        ],
+        [
+          "loading"
+        ],
+        [
+          "start_fetch"
+        ]
+      ]
+    },
+    {
+      "base": "0x81200000",
+      "case": "error_blocks_left",
+      "page_after": 5,
+      "calls": []
+    },
+    {
+      "base": "0x81200000",
+      "case": "valid_empty_response_becomes_error",
+      "state_after": 3,
+      "calls": [
+        [
+          "apply_error"
+        ]
+      ]
+    },
+    {
+      "base": "0x81200000",
+      "case": "page_50_ceiling",
+      "page_after": 49,
+      "calls": [
+        [
+          "controller_type"
+        ]
+      ]
+    },
+    {
+      "base": "0x81200000",
+      "case": "waiting_has_no_timeout_or_retry_while_request_pending",
+      "updates": 120,
+      "state_after": 4
+    },
+    {
+      "base": "0x81200000",
+      "case": "higher_room_cap_uses_wrong_display_scale",
+      "player_internal_rating": 50,
+      "player_displayed_vr": 5000,
+      "near_room_vr": 5000,
+      "far_room_vr": 700000,
+      "removed_rooms": [],
+      "retained_room_vr": [
+        5000,
+        700000
+      ],
+      "actual_threshold": 4005000,
+      "documented_40000_displayed_vr_threshold": 45000,
+      "control_nearest_room_still_sorts_first": true
+    }
+  ],
+  "limits": [
+    "PAL isolated compiled functions; game/native/controller/server APIs mocked",
+    "WAITING finding assumes an old callback remains pending; actual native timeout behavior is not established",
+    "No assertion that the user experienced any of these cases; no live server changed"
+  ]
+}
