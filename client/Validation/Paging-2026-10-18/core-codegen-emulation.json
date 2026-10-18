@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "executions": 352,
+  "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "candidate_sha256": "25071c02e4a24e99432627165c87d5be212491f931c0d68e36b9e71d11b54dba",
+  "allocation_bases": [
+    "0x81000000",
+    "0x81200000"
+  ],
+  "functions": [
+    "OnChallengeGhostPress__Q36Pulsar2UI14ExpGhostSelectFR10PushButtonUi",
+    "OnWatchReplayPress__Q36Pulsar2UI14ExpGhostSelectFR10PushButtonUi",
+    "PatchIsLocalCheck__6PulsarFRCQ24Kart6Player",
+    "IsEmulator__7DolphinFv"
+  ],
+  "checked": [
+    "native callback occurs before reading updated ghost page/list",
+    "ghost entry index and EnableGhost arguments",
+    "ghost-viewer section boundaries and local-check forwarding",
+    "Dolphin cache and simulated open results"
+  ],
+  "limits": [
+    "Four isolated PAL functions only",
+    "Native APIs, EnableGhost and OpenDolphin intercepted; their internals not validated",
+    "No invalid-pointer/page-index fuzzing or full-game test",
+    "Does not establish complete client Corresponding Source"
+  ],
+  "source_files_sha256": {
+    "PulsarEngine/Ghost/UI/ExpGhostSelect.cpp": "6fec96996afc306ec1d7d2f7fb8a1614b585d4b2b3d0f0157a41ea96de9c05cc",
+    "PulsarEngine/Ghost/UI/EnhancedReplay.cpp": "46c78676327734b2f28532e3a50b3fc2ccfbfbe1fd44f03fbc41806cd093079c",
+    "PulsarEngine/Dolphin/DolphinIOS.cpp": "e6db76e435ac49d424f292e62489872765f3bc20c623ecc16ef42fb8190fcdd0"
+  }
+}

@@ -1,0 +1,721 @@
+{
+  "candidate_sha256": "25071c02e4a24e99432627165c87d5be212491f931c0d68e36b9e71d11b54dba",
+  "passed": true,
+  "executions": 142,
+  "records": [
+    {
+      "base": "0x81000000",
+      "case": "left_from_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "left_from_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "error_retry_same_page",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "advance_49",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "advance_255",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "advance_256",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "advance_999",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "advance_4999998",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "api_upper_bound",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_0_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_0_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_0_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_0_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_0_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_1_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_1_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_1_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_1_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_1_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_9_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_9_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_9_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_9_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_9_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_10_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_10_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_10_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_10_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_10_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_11_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_11_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_11_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_11_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_11_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_49_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_49_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_49_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_49_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_49_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_50_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_50_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_50_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_50_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "batch_count_50_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "left_first_page",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_empty",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_empty_whitespace",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_failure",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_missing_success",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_missing_players",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_truncated",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_malformed_bool",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_nonarray",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_junk_suffix",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "response_nonempty",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "timeout_state_1",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "timeout_state_4",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "waiting_preserves_context",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "failed_fetch_invalidates_cache",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "url_page_49",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "url_page_50",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "url_page_255",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "url_page_256",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "url_page_4999999",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_boundary",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_far_fallback",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_only_far_rooms",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_battle_unfiltered",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_infinite_near_small",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_full_room_excluded",
+      "passed": true
+    },
+    {
+      "base": "0x81000000",
+      "case": "rooms_high_player",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "left_from_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "left_from_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "error_retry_same_page",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "advance_49",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "advance_255",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "advance_256",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "advance_999",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "advance_4999998",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "api_upper_bound",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_0_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_0_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_0_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_0_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_0_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_1_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_1_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_1_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_1_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_1_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_9_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_9_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_9_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_9_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_9_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_10_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_10_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_10_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_10_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_10_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_11_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_11_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_11_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_11_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_11_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_49_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_49_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_49_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_49_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_49_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_50_page_0",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_50_page_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_50_page_2",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_50_page_3",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "batch_count_50_page_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "left_first_page",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_empty",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_empty_whitespace",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_failure",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_missing_success",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_missing_players",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_truncated",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_malformed_bool",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_nonarray",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_junk_suffix",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "response_nonempty",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "timeout_state_1",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "timeout_state_4",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "waiting_preserves_context",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "failed_fetch_invalidates_cache",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "url_page_49",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "url_page_50",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "url_page_255",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "url_page_256",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "url_page_4999999",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_boundary",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_far_fallback",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_only_far_rooms",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_battle_unfiltered",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_infinite_near_small",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_full_room_excluded",
+      "passed": true
+    },
+    {
+      "base": "0x81200000",
+      "case": "rooms_high_player",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "PAL compiled functions with controlled native calls; not Dolphin/Wii or live HTTP",
+    "API page bound is 1,000,000 batches, 50 rows each; no server or website changes"
+  ]
+}

@@ -19,7 +19,8 @@ public:
 
     static const int kRowsPerPage = 10;
     static const int kPagesPerAPIFetch = 5;
-    static const int kPageCount = 50;
+    // Match the exported API bound; discover pages using each 50-row response.
+    static const u32 kMaxAPIPage = 1000000;
     static const int kMaxEntries = kRowsPerPage * kPagesPerAPIFetch;
 
     VRLeaderboardPage();
@@ -77,7 +78,7 @@ private:
 
     PageId nextPageId;
 
-    u8 curPage;
+    u32 curPage;
 };
 
 }  // namespace UI

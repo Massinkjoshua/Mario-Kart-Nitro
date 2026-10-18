@@ -1,3 +1,7 @@
+## New paging and matchmaking candidate (18 October 2026)
+
+The new 2507 candidate fixes the in-game leaderboard ceiling/navigation, adds a safe waiting-screen timeout, and corrects the VR room-filter scale. 142 new scenarios, 284 safeguard scenarios and 11,176 existing regression executions passed. Runtime testing remains pending. [Details](client/docs/paging-update-2026-10-18.md). Earlier records below describe previous candidates.
+
 ## New safeguards candidate (18 October 2026)
 
 Packet envelope checks, serialized frame-applied rating downloads, and invalid-save rejection are implemented in the new 3fb4 candidate. 284 focused checks and 11,176 existing regression executions passed. Runtime testing and deployment remain pending. [Details and remaining work](client/docs/safeguards-update-2026-10-18.md). Earlier candidate records below remain historical.

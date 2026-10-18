@@ -132,6 +132,14 @@ static u32 GetAPIPageForInGamePage(u32 inGamePage) {
     return inGamePage / VRLeaderboardPage::kPagesPerAPIFetch + 1;
 }
 
+// Page discovery keeps memory bounded to one API batch, with no 500-player cap.
+static bool CanAdvanceLeaderboardPage(u32 page, u32 loadedAPIPage, s32 entries) {
+    if (page >= VRLeaderboardPage::kMaxAPIPage * VRLeaderboardPage::kPagesPerAPIFetch - 1 ||
+        loadedAPIPage != GetAPIPageForInGamePage(page)) return false;
+    const u32 nextRow = (page % VRLeaderboardPage::kPagesPerAPIFetch + 1) * VRLeaderboardPage::kRowsPerPage;
+    return entries > (s32)nextRow || entries == VRLeaderboardPage::kMaxEntries;
+}
+
 static void SetLeaderboardRowTextColor(LayoutUIControl &row, const nw4r::ut::Color &textColor) {
     const char *textBoxNames[] = {"player_name", "position", "total_score", "total_point"};
     for (int j = 0; j < 4; ++j) {
@@ -463,6 +471,30 @@ void VRLeaderboardPage::BeforeEntranceAnimations() {
     backButton->SelectInitial(0);
 }
 
+// Empty results are legitimate only for a complete successful API envelope.
+// Do not turn a missing array, failed response or truncated JSON into success.
+static bool IsEmptyLeaderboardResponse(const char *json) {
+    const char *root = Network::Json::SkipWhitespace(json);
+    if (root == nullptr || *root != '{') return false;
+    const char *end = FindMatchingObjectEnd(root);
+    if (end == nullptr || *Network::Json::SkipWhitespace(end + 1) != '\0') return false;
+    const char *players = FindStrInRange(root, end, "\"players\"");
+    const char *success = FindStrInRange(root, end, "\"success\"");
+    if (players == nullptr || success == nullptr) return false;
+    players = Network::Json::SkipWhitespace(players + 9);
+    success = Network::Json::SkipWhitespace(success + 9);
+    if (*players != ':' || *success != ':') return false;
+    players = Network::Json::SkipWhitespace(players + 1);
+    success = Network::Json::SkipWhitespace(success + 1);
+    if (*players != '[' || strncmp(success, "true", 4) != 0) return false;
+    const char *successTail = Network::Json::SkipWhitespace(success + 4);
+    if (*successTail != ',' && *successTail != '}') return false;
+    players = Network::Json::SkipWhitespace(players + 1);
+    if (*players != ']') return false;
+    const char *playersTail = Network::Json::SkipWhitespace(players + 1);
+    return *playersTail == ',' || *playersTail == '}';
+}
+
 void VRLeaderboardPage::OnUpdate() {
     if (s_fetchState == FETCH_WAITING && !s_requestInFlight) StartFetch(this);
     if (s_responseReady) {
@@ -471,7 +503,7 @@ void VRLeaderboardPage::OnUpdate() {
             s_fetchError = s_responseError;
             const int parsed = s_responseError == nullptr
                 ? ParseResponse(s_receivedBody, s_entries, kMaxEntries) : 0;
-            if (parsed > 0) {
+            if (parsed > 0 || (s_responseError == nullptr && IsEmptyLeaderboardResponse(s_receivedBody))) {
                 OverrideOwnMiiData(s_entries, parsed, s_currentUserFriendCode);
                 s_loadedAPIPage = s_responseAPIPage;
                 s_loadedEntryCount = parsed;
@@ -484,7 +516,7 @@ void VRLeaderboardPage::OnUpdate() {
             s_hasApplied = false;
         }
     }
-    if (s_fetchState == FETCH_REQUESTING) {
+    if (s_fetchState == FETCH_REQUESTING || s_fetchState == FETCH_WAITING) {
         const u64 now = OS::GetTime();
         const u32 elapsedMs = OS::TicksToMilliseconds(now - s_requestStartTime);
         if (elapsedMs > s_requestTimeoutMs) {
@@ -512,7 +544,7 @@ void VRLeaderboardPage::OnUpdate() {
         }
     }
 
-    if (s_fetchState != FETCH_READY || !s_hasApplied) return;
+    if ((s_fetchState != FETCH_READY && s_fetchState != FETCH_ERROR) || !s_hasApplied) return;
     if (SectionMgr::sInstance == nullptr) return;
 
     const Input::RealControllerHolder *controllerHolder = SectionMgr::sInstance->pad.padInfos[0].controllerHolder;
@@ -542,7 +574,12 @@ void VRLeaderboardPage::OnUpdate() {
     if ((newInputs & leftButton) != 0 && curPage > 0) {
         --curPage;
         pageWentLeft = true;
-    } else if ((newInputs & rightButton) != 0 && curPage + 1 < kPageCount) {
+    } else if ((newInputs & rightButton) != 0 && s_fetchState == FETCH_ERROR) {
+        ResetRowsToLoading();
+        StartFetch(this); // Retry this page without skipping any players.
+        return;
+    } else if ((newInputs & rightButton) != 0 &&
+               CanAdvanceLeaderboardPage(curPage, s_loadedAPIPage, s_loadedEntryCount)) {
         ++curPage;
         pageWentLeft = false;
     } else {
@@ -551,6 +588,8 @@ void VRLeaderboardPage::OnUpdate() {
 
     this->PlaySound(pageWentLeft ? SOUND_ID_LEFT_ARROW_PRESS : SOUND_ID_RIGHT_ARROW_PRESS, -1);
     if (GetAPIPageForInGamePage(curPage) == s_loadedAPIPage) {
+        s_fetchState = FETCH_READY;
+        s_hasApplied = true;
         ApplyResults();
     } else {
         ResetRowsToLoading();
@@ -594,7 +633,7 @@ void VRLeaderboardPage::ApplyResults() {
         }
 
         const u32 rank = s_entries[idx].rank != 0 ? s_entries[idx].rank : static_cast<u32>(curPage) * kRowsPerPage + i + 1;
-        wchar_t positionText[8];
+        wchar_t positionText[16];
         swprintf(positionText, sizeof(positionText) / sizeof(positionText[0]), L"#%u", rank);
 
         Text::Info nameInfo;
@@ -653,9 +692,10 @@ void VRLeaderboardPage::ApplyResults() {
         SetPaneVisibleIfPresent(*rows[i], "chara_icon_sha", validMii);
     }
 
-    wchar_t pageText[16];
-    swprintf(pageText, sizeof(pageText) / sizeof(pageText[0]), L"< %d/%d >", static_cast<int>(curPage) + 1,
-             kPageCount);
+    wchar_t pageText[32];
+    swprintf(pageText, sizeof(pageText) / sizeof(pageText[0]),
+             CanAdvanceLeaderboardPage(curPage, s_loadedAPIPage, s_loadedEntryCount)
+                 ? L"< %u >" : L"< %u", curPage + 1);
     Text::Info info;
     info.strings[0] = pageText;
     bottomText->SetMessage(UI::BMG_TEXT, &info);
@@ -663,7 +703,10 @@ void VRLeaderboardPage::ApplyResults() {
 
 void VRLeaderboardPage::ApplyError() {
     Text::Info bottomInfo;
-    bottomInfo.strings[0] = const_cast<wchar_t *>(s_fetchError == nullptr ? GetVRLeaderboardText().error : s_fetchError);
+    wchar_t errorText[96];
+    swprintf(errorText, sizeof(errorText) / sizeof(errorText[0]), L"%ls  < Back | Retry >",
+             s_fetchError == nullptr ? GetVRLeaderboardText().error : s_fetchError);
+    bottomInfo.strings[0] = errorText;
     bottomText->SetMessage(UI::BMG_TEXT, &bottomInfo);
 
     for (int i = 0; i < kRowsPerPage; ++i) {
@@ -674,6 +717,7 @@ void VRLeaderboardPage::ApplyError() {
 void VRLeaderboardPage::StartFetch(VRLeaderboardPage *page) {
     if (s_fetchState == FETCH_REQUESTING) return;
     if (s_requestInFlight) {
+        s_requestStartTime = OS::GetTime();
         s_fetchState = FETCH_WAITING;
         s_hasApplied = false;
         return;
@@ -699,6 +743,8 @@ void VRLeaderboardPage::StartFetch(VRLeaderboardPage *page) {
         s_currentUserFriendCode = DWC::CreateFriendKey(&license.dwcAccUserData);
     }
 
+    s_loadedAPIPage = 0; // Cleared entries must never be reused as a cached batch.
+    s_loadedEntryCount = 0;
     memset(s_entries, 0, sizeof(Entry) * kMaxEntries);
 
     if (!Network::PreparePersistentNHTTPRequest(s_nhttpStarted)) {
