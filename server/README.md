@@ -5,6 +5,10 @@ WFC. This archive restores the GNU AGPLv3 licence and explicit attribution,
 retains recovered source and supplies a separately labelled repaired candidate.
 The live export and historical candidates are kept separate below.
 
+## Current deployed version — 21 October 2026
+
+[Server-Fixes-2026-10-21](Server-Fixes-2026-10-21/) is the operator-deployed source, pinned to commit `8f0ca79513102480c0d8a53a723d7e902c98c5ca`. Host tests and focused race checks passed; live API pagination and the published website were verified through operator screenshots. Online play and VR reconnect behavior were operator-reported working. See the [deployment record](docs/deployment-2026-10-21.md) for build settings, evidence and remaining verification limits. The historical export below describes the earlier server.
+
 ## Live export now received
 
 `Live-Export-2026-10-16/` preserves 134 files exported from the running
@@ -59,9 +63,9 @@ See [the runtime input checklist](docs/runtime-inputs.md), the separately prepar
 collector in scripts/export_public_inputs.py. These additions do not alter the
 verified source snapshots or deployed service.
 
-## Public source offer
+## Public source offer (October-12 candidate only)
 
-The candidate adds a public `GET /api/source` route. After publishing the complete
+The separately archived October-12-Security-Candidate adds a public `GET /api/source` route. Do not assume that route exists in the deployed Server-Fixes-2026-10-21 tree. After publishing the complete
 source for the version actually deployed, add its permanent public URL to the
 existing private config, within its root element:
 

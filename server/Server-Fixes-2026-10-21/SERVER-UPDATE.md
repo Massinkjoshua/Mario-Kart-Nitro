@@ -1,4 +1,6 @@
-# NitroWFC server candidate — 21 October 2026
+# NitroWFC server update — 21 October 2026
+
+**Deployment status:** the operator deployed this source from commit `8f0ca79513102480c0d8a53a723d7e902c98c5ca` on 21 October. Host tests, race checks, schema compatibility and public pagination checks passed. Website v42 was published by its owning account and navigation verified by operator screenshots. See [the deployment record](../docs/deployment-2026-10-21.md). The original preparation and rollout notes below retain their historical scope; remaining ratings integration checks are listed in that record.
 
 This candidate is based on server/Live-Export-2026-10-16 from source commit 46dbe695c693b5c427701c8510eba63bd508b637. The historical export is preserved. Game Code.pul, Loader.pul, configs, tracks and launcher are not changed.
 
@@ -26,9 +28,9 @@ go build -trimpath -buildvcs=false -o NitroWFC-linux-amd64 .
 
 Logs and source/binary hashes are in the adjacent Validation folder in the GitHub project and Reports in the handoff. Unit tests mock database calls and cover valid/invalid values, session identity, error/not-found distinction, client response size, paging boundaries and concurrent startup. They do not exercise a real PostgreSQL migration, native game HTTP, current reverse proxies or a live VPS. Those remain staging checks.
 
-## Website integration still required
+## Website integration instructions (pre-deployment record)
 
-The current website belongs to another account and was not edited or deployed. On 18 October the connected account returned no editable Sites. The available v32 snapshot is older than the live site and must not replace it wholesale.
+At candidate preparation, the website belonged to another account and had not yet been edited or deployed. Its owning account subsequently reported publishing v42; see the deployment record. On 18 October the connected account returned no editable Sites. The available v32 snapshot is older than the live site and must not replace it wholesale.
 
 In the current website's Worker, forward `page`, `limit` and `q` to the updated endpoint. In the UI, fetch each requested page (for example limit=10), show Previous for page>1 and Next only when `has_more` is true. Reset page to 1 when search changes. Ignore stale responses after a new request, keep navigation usable on errors, and do not fetch the entire leaderboard at once. Preserve room listings, friend codes, styling and existing Site identity. This requires the latest website source or access through its owning account.
 
@@ -42,4 +44,4 @@ In the current website's Worker, forward `page`, `limit` and `q` to the updated 
 6. Deploy the server after staging passes, then update the current website to use pagination. Keep the tested game binary and its matching published source identified separately.
 7. For rollback, restore the previous server executable and website version. The new table can remain unused; do not drop it or restore a whole production database merely to roll back this code.
 
-No server process was started, no production database changed, no launcher updated and no online build hash approved here.
+At candidate preparation, no server process was started and no production database changed. The operator subsequently deployed the server as recorded above. No launcher update or online build-hash approval is recorded in this server task.

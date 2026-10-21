@@ -1,6 +1,6 @@
-## Server candidate and uploaded core review — 21 October 2026
+## Server deployment and uploaded core review — 21 October 2026
 
-`server/Server-Fixes-2026-10-21` adds website API paging and client rating-sync handlers. Go tests, focused race checks and Linux amd64 build passed. PostgreSQL/live integration and current website edits remain pending; nothing was deployed. See `server/Server-Fixes-2026-10-21/SERVER-UPDATE.md`.
+`server/Server-Fixes-2026-10-21` adds website API paging and client rating-sync handlers. Go tests, focused race checks and Linux amd64 build passed. The operator built and deployed this source from commit `8f0ca79513102480c0d8a53a723d7e902c98c5ca`; host tests/race checks and a rolled-back PostgreSQL schema check passed. Public API pages returned ranks 1–10 and 11–20. The owning account reported publishing website v42, and operator screenshots confirmed navigation beyond 100 players and back. Room friend codes and game/VR reconnect smoke checks were operator-reported working. Exact running-binary hash verification and real ratings report/readback integration remain unrecorded. See [the deployment record](server/docs/deployment-2026-10-21.md) for evidence and limits.
 
 The newly uploaded Code.pul matches the historical 58de core, not the latest 2507 candidate. See `client/docs/uploaded-code-review-2026-10-21.md`; the active game file should be verified before assigning runtime test results.
 
