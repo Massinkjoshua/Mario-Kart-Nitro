@@ -5,6 +5,12 @@ Pack Creator source, editable config inputs, original notices, build scripts,
 recovery assembly/data and validation records. Read ../PUBLICATION_STATUS.md
 and SOURCE_STATUS.md before treating it as existing-release Corresponding Source.
 
+## Current review build
+
+The latest review build is `nitro-paging-20261018`. Use its [build and test instructions](docs/paging-update-2026-10-18.md), [source manifest](Validation/Paging-2026-10-18/compiled-source-manifest.json) and [validation records](Validation/Paging-2026-10-18/) to reproduce that version. The general build below is not a substitute for its versioned recipe.
+
+The historical Code.pul supplied on 21 October differs from this review build. See the [file comparison](docs/uploaded-code-review-2026-10-21.md). Full released-version mapping remains open.
+
 ## Build the Wii engine and C++ loader on Linux x86_64
 
 Use make, Python, an authorised CodeWarrior 4.3 build 224 compiler/assembler and

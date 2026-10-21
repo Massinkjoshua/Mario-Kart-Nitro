@@ -1,113 +1,60 @@
-# NitroWFC source recovery — 16 October 2026
+# NitroWFC
 
-NitroWFC is derived from Retro Rewind's `wfc-server`, itself a fork of WiiLink
-WFC. This archive restores the GNU AGPLv3 licence and explicit attribution,
-retains recovered source and supplies a separately labelled repaired candidate.
-The live export and historical candidates are kept separate below.
+NitroWFC provides Mario Kart Nitro's online services. It is derived from the Retro Rewind Team's [wfc-server](https://github.com/Retro-Rewind-Team/wfc-server), based on [WiiLink WFC](https://github.com/WiiLink24/wfc-server), and is published under the GNU AGPLv3.
 
-## Current deployed version — 21 October 2026
+## Deployed version
 
-[Server-Fixes-2026-10-21](Server-Fixes-2026-10-21/) is the operator-deployed source, pinned to commit `8f0ca79513102480c0d8a53a723d7e902c98c5ca`. Host tests and focused race checks passed; live API pagination and the published website were verified through operator screenshots. Online play and VR reconnect behavior were operator-reported working. See the [deployment record](docs/deployment-2026-10-21.md) for build settings, evidence and remaining verification limits. The historical export below describes the earlier server.
+[Server-Fixes-2026-10-21](Server-Fixes-2026-10-21/) is the source used for the 21 October deployment, from commit `8f0ca79513102480c0d8a53a723d7e902c98c5ca`.
 
-## Live export now received
+The running server, staged executable and a second build on the same host produced the same SHA-256:
 
-`Live-Export-2026-10-16/` preserves 134 files exported from the running
-server working directory, plus its executable-hash manifest. Its source builds
-and passes race tests with vet disabled for inherited formatting warnings.
-An operator rebuild on the original host matched the running executable exactly.
-Matching stage1 and four RMC payload sources are in [../patcher](../patcher/README.md). See
-[the live export review](docs/live-export-2026-10-16.md) for exact scope and gaps.
+```text
+9e4dda5664349cfe985662ed4a2086b87a3fa04b09aed01338e838cc3fc572ed
+```
 
-## Contents
+Tests and focused race checks passed. Public API pages returned distinct ordered results, and the published website was checked beyond rank 100 and back. Online racing, room friend codes and VR after reconnecting were reported working by the operator.
 
-- `Live-Inputs-2026-10-16/`: reviewed game list, original Lua translation
-  generator/helpers and the separate live multiplier setting, with manifests.
-
-- `Archived-October-11/`: recovered active-source archive, excluding a clearly
-  named unrelated backup directory. Its Go files are preserved byte for byte.
-- `October-12-Security-Candidate/`: recovered 12 October source plus the matching
-  archived `go.mod`/`go.sum`, formatting-check repairs and a new public source
-  offer route. This is a local candidate, not a deployed server.
-- `docs/`: source hashes, differences, upstream notice provenance and build/test
-  records. `docs/upstream/schema.sql` is an upstream reference, not an export of
-  your live database or proof of its schema version.
-- `scripts/export_running_source.py`: a read-only exporter for obtaining the
-  actual server source and the hash of its running executable. No credentials,
-  live database, keys or player records are needed for this verification.
+The [deployment record](docs/deployment-2026-10-21.md) includes the build settings, rollout checks and remaining integration work. The [update notes](Server-Fixes-2026-10-21/SERVER-UPDATE.md) describe the pagination and ratings changes.
 
 ## Build and test
 
-Use Go 1.25.5 or a compatible version, and a native C compiler for race checks:
+From the repository root, use Go 1.25.5 and a native C compiler for the race checks:
 
 ```sh
-cd October-12-Security-Candidate
-go test -buildvcs=false -race ./...
-go build -buildvcs=false -o ../build/nitrowfc .
+cd server/Server-Fixes-2026-10-21
+export GOTOOLCHAIN=go1.25.5
+go test ./...
+go test -race ./api ./database ./gpcm
+go build -trimpath -buildvcs=false -o NitroWFC-linux-amd64 .
 ```
 
-Both archived and candidate runtime modules compiled in this review. The repaired
-candidate passes its complete test suite with race detection. The unchanged
-October archive fails Go's newer formatting checks at two inherited source
-areas; those files are preserved as historical evidence.
+The deployed build used Linux amd64, GOAMD64=v1 and CGO_ENABLED=1. An exact binary comparison requires the same build environment. The earlier handoff binary has a different hash; its records are retained in [Validation/Server-Fixes-2026-10-21](Validation/Server-Fixes-2026-10-21/).
 
-Building does not connect to a database, change the live server or restart a
-service. Running the server also requires a PostgreSQL database, your private
-configuration, and the matching WiiLink/Retro Rewind payload. The separately verified
-payload source, build recipe and original notices are in ../patcher/. No compiled
-payload or private signing key is included here.
+Building does not start the service. Running it requires PostgreSQL, a private configuration and the connection payloads. See the [configuration example](examples/config_example.xml), [runtime-input checklist](docs/runtime-inputs.md) and [payload build instructions](../patcher/README.md). Keep credentials, player records and signing keys private.
 
-## Safe configuration and remaining runtime inputs
+## Source layout
 
-See [the runtime input checklist](docs/runtime-inputs.md), the separately prepared
-[configuration example](examples/config_example.xml), and the fixed-allowlist
-collector in scripts/export_public_inputs.py. These additions do not alter the
-verified source snapshots or deployed service.
+| Directory | Purpose |
+| --- | --- |
+| [Server-Fixes-2026-10-21/](Server-Fixes-2026-10-21/) | Current deployed server source. |
+| [Live-Export-2026-10-16/](Live-Export-2026-10-16/) | Earlier host export, with its original manifest. |
+| [Live-Inputs-2026-10-16/](Live-Inputs-2026-10-16/) | Reviewed game list, translation scripts and multiplier setting. |
+| [October-12-Security-Candidate/](October-12-Security-Candidate/) | Earlier, undeployed candidate with a separate source-offer implementation. |
+| [Archived-October-11/](Archived-October-11/) | Historical source snapshot. |
+| [docs/](docs/) and [Validation/](Validation/) | Deployment records, provenance, manifests and test results. |
 
-## Public source offer (October-12 candidate only)
+The earlier export and candidates remain unchanged as historical records. The [live-export review](docs/live-export-2026-10-16.md) covers the previous executable.
 
-The separately archived October-12-Security-Candidate adds a public `GET /api/source` route. Do not assume that route exists in the deployed Server-Fixes-2026-10-21 tree. After publishing the complete
-source for the version actually deployed, add its permanent public URL to the
-existing private config, within its root element:
+## Source access and remaining checks
 
-```xml
-<sourceUrl>YOUR_PUBLIC_SOURCE_ARCHIVE_OR_REPOSITORY_URL</sourceUrl>
-```
+The current source is public on this branch. Review the player-facing source link against the precise deployed version. The `/api/source` route belongs to the separate October-12 candidate and must not be assumed available in the deployed tree.
 
-The route requires no API secret and returns only the public URL, licence and
-upstream attribution. It returns HTTP 503 if no valid public URL is configured.
-It does not upload or host source automatically. A route, placeholder, link to
-this incomplete recovery bundle, or unpublished repository is insufficient.
-Place a visible source link on the player-facing NitroWFC website and source
-information in the game's online credits/help or message of the day as well.
+The database schema check succeeded and was rolled back. Full ratings report/readback, banned-report rejection and outage behavior still need recorded integration tests. Ratings remain client-reported; the server does not calculate race results or prevent an authenticated client from submitting false in-range values.
 
-Before using this candidate, compare it with the source of the actual deployed
-executable. Publishing a new candidate alone does not address missing source
-for an older deployed version. This candidate has not been activated; source is published on the recovery branch.
+## Credits and licence
 
-## Attribution and licence
+Original notices remain in the individual modules and [LICENSE](LICENSE). The restored licence's upstream provenance is recorded in [upstream-notice-provenance.json](docs/upstream-notice-provenance.json); it does not identify the base commit of every recovered file. Earlier recovery changes are listed in [changes.json](docs/changes.json).
 
-Original upstream: https://github.com/Retro-Rewind-Team/wfc-server
-WiiLink WFC: https://github.com/WiiLink24/wfc-server
-Matching client payload: https://github.com/Retro-Rewind-Team/wfc-patcher-wii
+Connection-payload source and notices are under [patcher/](../patcher/README.md). Online communications credit to [WiiLink WFC](https://wfc.wiilink24.com).
 
-The complete GNU AGPLv3 text is retained in `LICENSE` and each module. The restored
-copy came from the pinned upstream commit recorded in
-`docs/upstream-notice-provenance.json`; that reference is not asserted to be the
-base commit of the recovered Nitro source. Existing per-file notices remain.
-Nitro changes and recovery repairs are dated and listed in `docs/changes.json`.
-This is an independent Mario Kart Nitro project, not an endorsed Retro Rewind
-release. Assets and other projects retain their own licences.
-
-Online communications credit to WiiLink WFC - https://wfc.wiilink24.com
-
-The original payload licence is retained in docs/upstream/wfc-patcher-wii-LICENSE.
-
-## Current follow-up
-
-The client handoff now includes an independently rebuilt released loader, named
-client source repairs and the verified public 1.0 binary hashes. The public 1.0
-client differs from the latest upload. See docs/public/ and NEXT_STEPS.txt.
-The live executable rebuild and five payload rebuilds matched their reference
-hashes. Required safe runtime inputs and the player-facing source offer remain
-open. The recovery branch and draft pull request are public; this is still an
-incomplete source offer.
+NitroWFC is an independent Mario Kart Nitro service and is not endorsed by Retro Rewind or WiiLink.

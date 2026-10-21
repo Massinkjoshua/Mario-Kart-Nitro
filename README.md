@@ -1,42 +1,33 @@
 # Mario Kart Nitro
 
-Official releases of Mario Kart Nitro, with recovered client and NitroWFC source
-prepared for review on the source-recovery branch.
+Mario Kart Nitro is a custom Mario Kart Wii modpack for Wii and Dolphin, with seasonal track selections and online racing through NitroWFC.
 
-**This is a source-recovery draft. It is not yet verified as complete
-Corresponding Source for every distributed version and all required inputs.**
-See [PUBLICATION_STATUS.md](PUBLICATION_STATUS.md) for the precise limits.
+[Website](https://mknitro.com/) · [Downloads](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/releases) · [Source code](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/tree/source-recovery-2026-10-16) · [Source review](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/SOURCE_REVIEW.md)
 
-- [Client source and build instructions](client/README.md): Pulsar C++/assembly,
-  game headers, Pack Creator C#/XAML, editable configs and recovery scripts.
-- [NitroWFC server source](server/README.md): archived October source and the
-  verified live export and separately repaired AGPL candidate.
-- [Verified patcher source](patcher/README.md): stage1 and four RMC payloads,
-  pinned build environment and matching hashes.
-- [Team next steps](client/NEXT_STEPS.txt) and [validation evidence](client/docs/).
-- [Existing game downloads](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/releases).
+## Source code
 
-The published source tree excludes runtime pack assets, precompiled client
-references and proprietary compiler executables. The omitted-input manifest
-records resource names and hashes needed for the fuller editor/integration work.
-The source ZIP handoff remains a separate recovery snapshot.
+The `source-recovery-2026-10-16` branch contains the client, server and connection-payload source, along with build instructions, original notices and verification records.
+
+| Component | Source and build instructions | Current status |
+| --- | --- | --- |
+| Game client and Pack Creator | [client/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/client/README.md) | Source-built review candidate; released-version mapping remains open. |
+| NitroWFC server | [server/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/server/README.md) | Deployed on 21 October 2026; an on-host rebuild matches the running executable. |
+| Connection payloads | [patcher/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/patcher/README.md) | Stage1 and all four RMC payload rebuilds match the recorded deployment references. |
+
+For a technical review, start with the [review guide](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/SOURCE_REVIEW.md). It identifies the deployed server source, client versions, build records and remaining work. The [publication status](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/PUBLICATION_STATUS.md) lists what has and has not been verified.
+
+The source publication is still being completed. It has not been verified as complete Corresponding Source for every distributed version. Runtime pack assets and some editor resources are outside this source tree; the [omitted-input manifest](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/publication/omitted-client-inputs.json) records the missing client inputs.
 
 ## Credits and licences
 
-Mario Kart Nitro uses Retro Rewind's rr-pulsar source, with Pulsar, MKW-SP,
-WiiLink WFC and other credited contributions. Original notices are retained in
-[client/CREDITS.txt](client/CREDITS.txt), [client/THIRD_PARTY_NOTICES.md](client/THIRD_PARTY_NOTICES.md)
-and the individual sources. New recovery changes are dated 16 October 2026.
+Mario Kart Nitro uses work from the Retro Rewind Team and the projects credited in the source:
 
-The client is under [GPLv3](LICENSE-GPL-3.0.txt), with original component licences
-retained. NitroWFC server source is under [AGPLv3](LICENSE-AGPL-3.0.txt).
-Original upstream repositories:
+- [Retro Rewind rr-pulsar](https://github.com/Retro-Rewind-Team/rr-pulsar), with Pulsar, MKW-SP and other credited contributions.
+- [Retro Rewind wfc-server](https://github.com/Retro-Rewind-Team/wfc-server), based on [WiiLink WFC](https://github.com/WiiLink24/wfc-server).
+- [Retro Rewind wfc-patcher-wii](https://github.com/Retro-Rewind-Team/wfc-patcher-wii).
 
-- https://github.com/Retro-Rewind-Team/rr-pulsar
-- https://github.com/Retro-Rewind-Team/wfc-server
-- https://github.com/Retro-Rewind-Team/wfc-patcher-wii
+The client is published under [GPLv3](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/LICENSE-GPL-3.0.txt) and the server under [AGPLv3](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/LICENSE-AGPL-3.0.txt). Component licences, copyright notices and attribution are retained. See [client credits](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/client/CREDITS.txt), [third-party notices](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/client/THIRD_PARTY_NOTICES.md) and the [patcher notice](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/patcher/NOTICE.md).
 
-Online communications credit to WiiLink WFC - https://wfc.wiilink24.com
+Online communications credit to [WiiLink WFC](https://wfc.wiilink24.com). Tracks, music, artwork and tools retain their respective rights and licences.
 
-Assets and tools retain their own rights. This independent project is not
-endorsed by Nintendo, Retro Rewind or WiiLink.
+Mario Kart Nitro is an independent fan project, unaffiliated with Nintendo, Retro Rewind or WiiLink.
