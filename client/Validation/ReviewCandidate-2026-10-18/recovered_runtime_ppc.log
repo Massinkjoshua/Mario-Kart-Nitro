@@ -1,0 +1,1 @@
+PASS: 460 isolated PowerPC executions match the released hook behavior at two allocation bases.

@@ -1,0 +1,10 @@
+{
+  "bytes": 4192,
+  "sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+  "recorded_release_sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+  "matches_recorded_release": true,
+  "original_binary_required": false,
+  "source": "678 editable PowerPC instructions plus typed diagnostics/API tables/jump table/state",
+  "original_cpp_source_recovered": false,
+  "full_gameplay_tested": false
+}

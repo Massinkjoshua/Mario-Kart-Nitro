@@ -1,0 +1,29 @@
+MARIO KART NITRO — TEAM HANDOFF (16 OCTOBER 2026)
+
+LOCAL WORK COMPLETED
+Client + C++ loader compile for PAL/USA/Japan; Pack Creator Release compiles.
+Named client patches reconstructed; 10,704 isolated PowerPC executions pass.
+Native hook addresses/fixed writes match in all three supported regions.
+Released Loader v15 independently rebuilds byte for byte from assembly + data.
+Server candidate builds and passes race tests; public source-link route included.
+Original credits/licences and supplied pack snapshot retained.
+
+STILL NEEDED TO FINISH
+1. Finish source correspondence for the entire current client core and the
+   older public 1.0 Code.pul. The recovery ZIP is not yet verified complete
+   Corresponding Source for those binaries. Keep SOURCE_STATUS.md with it.
+2. Obtain the actual running NitroWFC source and executable hash. Run the
+   included scripts/export_running_source.py on the VPS with the real source
+   root and process PID. Export outside the source folder. No keys/config/database
+   are required; review the export before sharing.
+3. Supply the source, build recipe and revision for the served WiiLink payload
+   and stage1.bin. Keep private signing keys private.
+4. Test the isolated source-built candidate in Dolphin/on Wii and online. Include
+   your Tracks, CTBRSTM and ghosts, which were not in the received snapshot.
+5. Once matching source is complete, publish version-specific source alongside
+   each distributed binary; add a visible NitroWFC source link and configure
+   sourceUrl on the matching server. GitHub is not connected here yet.
+6. Verify permission/credits for Retro Rewind UI/art and other creator assets.
+   A GPL licence on code does not supply asset redistribution permission.
+
+Nothing in this handoff has been installed to the live pack or published.

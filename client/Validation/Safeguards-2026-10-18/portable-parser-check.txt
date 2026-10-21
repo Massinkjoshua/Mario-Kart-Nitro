@@ -1,0 +1,3 @@
+PASS: P/E/J containers: 10887 / 10879 / 10879 complete commands.
+PASS: malformed headers, lengths, addresses, operands and relative bounds.
+ASan/UBSan parser-check, ASAN_OPTIONS=detect_leaks=0.

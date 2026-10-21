@@ -1,0 +1,22 @@
+{
+  "input_sha256": "a481877eb00be623dcdb7bda31c447e2178cd271e9ed97721bee2993a3c74dba",
+  "output_sha256": "15a5ef71158140e61db1a3377fd3d1413d87a89c0eb391392741ee14a72637f2",
+  "helpers": [
+    {
+      "native": 2154179968,
+      "getter": 364144,
+      "offset": 794312,
+      "field": 192,
+      "size": 88
+    },
+    {
+      "native": 2154180036,
+      "getter": 364252,
+      "offset": 794400,
+      "field": 194,
+      "size": 88
+    }
+  ],
+  "region": "PAL",
+  "preview_changed": false
+}

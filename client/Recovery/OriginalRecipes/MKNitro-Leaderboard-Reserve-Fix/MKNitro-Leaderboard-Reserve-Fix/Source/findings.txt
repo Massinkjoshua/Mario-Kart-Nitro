@@ -1,0 +1,34 @@
+Evidence from the user-supplied PAL main.dol (not redistributed)
+SHA256: 80d18895b39c63bd80f457398bfcbb91b7d16ac116a41a88967e954080155b05
+
+0x801d8ff8: NHTTPCreateRequest entry.
+0x801d8a44..54: requests 0x8060 bytes (32,864), alignment 32.
+0x801d8a60..74: on allocation failure sets native error 1 and returns null.
+0x801d4070: inner creation validates method, allocates request/response,
+             validates URL and stores response buffer and callback data.
+Observed successful creation allocations: 32864, 596, 1084, 55, 17 bytes.
+Native snprintf generated the expected play.mknitro.com leaderboard URL.
+
+0x801d9e94: returns native NHTTP context, initializes it if absent.
+0x801d3004..24: startup overwrites callbacks and resets state.
+0x801d3054..60: startup requests a fresh 0x2000-byte worker stack.
+0x801d3118: startup sets context+0x7cc to 1.
+0x801d31b8: cleanup clears context+0x7cc.
+0x801d8d90..a4: public startup returns 0 on success, -1 on failure.
+
+Patch specification and exact emitted PowerPC source:
+Verification/build.py (no external PowerPC compiler required).
+Input: previous Static-Fix Game/Code.pul, supplied as Game/Code-previous.pul.
+Output: Game/Code.pul and Game/Code.json (labels/hashes).
+
+Reserve: 64 blocks of 8192 bytes; first-fit contiguous allocation.
+Metadata: 64 u32 entries, 0 free, run length at head, 0xffffffff continuation.
+Allocation alignment up to 32 is supported by the fallback (native requests
+need at most 32); the original heap is attempted first for all sizes/alignments.
+Zero-size or oversized fallback requests fail safely. The reserve is bounded.
+Interrupt state is preserved across metadata updates. Native cleanup returns
+failed request allocations to the reserve. Successful response cleanup uses
+the same free callback. The original game/mod allocator hooks are retained.
+
+Unverified: real network response, Dolphin execution, and racing VR persistence.
+Website room UI integration is a separate outstanding task.

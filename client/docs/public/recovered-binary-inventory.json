@@ -1,0 +1,188 @@
+{
+  "scope": "Recovered local archives; public-release provenance requires separate matching.",
+  "unique_binaries": 16,
+  "binaries": [
+    {
+      "archive": "work/source_recovery/archives/MKNitro-Leaderboard-Reserve-Fix.zip",
+      "member": "MKNitro-Leaderboard-Reserve-Fix/Game/Code.pul",
+      "bytes": 3203380,
+      "sha256": "76c74f9475978dfeef416896c53057dfd167adea0ba3f2c7d6e36576b31708d6",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-Save-And-MyStuff-Fix.zip",
+      "member": "MarioKartNitro_Test/Binaries/Code.pul",
+      "bytes": 2660656,
+      "sha256": "6406e1b552555f5428283d5e33985bd81af4fc10f569854a3c7f5e568308ea84",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-Itembox-UI-Colour-Fix.zip",
+      "member": "MarioKartNitro_Test/Binaries/Code.pul",
+      "bytes": 2659112,
+      "sha256": "1455c1a47d8dee1b369d719298cc59dcc528324566f1ae04c390f8cc4368351b",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro_Pulsar_NitroIntegrity_Source_Checkpoint.zip",
+      "member": "MKNitro_Pulsar_NitroIntegrity_Source_Checkpoint/Experimental/Code.pul",
+      "bytes": 1662964,
+      "sha256": "beceda094fd778725390fe16759981fdbb35676e51776c5697f2ad709eadc1be",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-PAL-Online-Rating-Test-Fix.zip",
+      "member": "Binaries/Code.pul",
+      "bytes": 2660500,
+      "sha256": "15a5ef71158140e61db1a3377fd3d1413d87a89c0eb391392741ee14a72637f2",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MarioKartNitro_Online_Active_Patch.zip",
+      "member": "Binaries/Code.pul",
+      "bytes": 1635592,
+      "sha256": "f16b1c279db599eb975a757b3076eadeb5e6328584a930b28035f1f46ec9cb33",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-Online-TT-Track-Fix.zip",
+      "member": "MKNitro-Online-TT-Track-Fix/Game/Code.pul",
+      "bytes": 2680200,
+      "sha256": "0f542baa4328bb75d75f5e05fcec2348ccb0817c1ff2107cfa3f6af2eab1cd68",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-VR-Profile-ID-Fix.zip",
+      "member": "MKNitro-VR-Profile-ID-Fix/Game/Code.pul",
+      "bytes": 2680200,
+      "sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-MEM2-Pool-Fix.zip",
+      "member": "MKNitro-MEM2-Pool-Fix/Game/Code.pul",
+      "bytes": 2679828,
+      "sha256": "add73ccd21c2d0232cb5592c29799a196d8022be96c158b8bddf2b12402403a8",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-Launcher-Developer-Handoff.zip",
+      "member": "MKNitro-Launcher-Developer-Handoff/PackRoot/MarioKartNitro_Test/Binaries/Code.pul",
+      "bytes": 2680200,
+      "sha256": "0f542baa4328bb75d75f5e05fcec2348ccb0817c1ff2107cfa3f6af2eab1cd68",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-Launcher-Developer-Handoff.zip",
+      "member": "MKNitro-Launcher-Developer-Handoff/PackRoot/MarioKartNitro_Test/Binaries/Loader.pul",
+      "bytes": 4192,
+      "sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "work/source_recovery/archives/MKNitro-PAL-Voting-Preview-Test-Fix-v2.zip",
+      "member": "Binaries/Code.pul",
+      "bytes": 2660656,
+      "sha256": "6b555d7a0b71ff5e1ff2a65f8fd2955e15dce8a5983757f66d757cdcbafdfd53",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/Binaries(2).zip",
+      "member": "Binaries/Code.pul",
+      "bytes": 2688428,
+      "sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/Binaries(2).zip",
+      "member": "Binaries/Loader.pul",
+      "bytes": 4192,
+      "sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/CurrentPack/Binaries/Code.pul",
+      "bytes": 814428,
+      "sha256": "19a108b8caff533e8ee7baa876fff3bedbf2d8ae723d647fd71b0805f665b2e7",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/CurrentPack/Binaries/Loader.pul",
+      "bytes": 2780,
+      "sha256": "869bb7ab9c5c4b7e581b08152478df744fe02a4b8ec66aff566fdef033051766",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/OriginalMKNitroRuntime/Binaries/Code.pul",
+      "bytes": 814428,
+      "sha256": "19a108b8caff533e8ee7baa876fff3bedbf2d8ae723d647fd71b0805f665b2e7",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/OriginalMKNitroRuntime/Binaries/Loader.pul",
+      "bytes": 2780,
+      "sha256": "869bb7ab9c5c4b7e581b08152478df744fe02a4b8ec66aff566fdef033051766",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/ReferenceRetroRewind/Binaries/Code.pul",
+      "bytes": 1704868,
+      "sha256": "88cd25ff08121f7c4ddb40538703f40c270f414f2dbc55a6b4b6767e62db7253",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/ReferenceRetroRewind/Binaries/Loader.pul",
+      "bytes": 2988,
+      "sha256": "a0dddb8e064595fa7c689d724dcac5ca6624776c304424f48e72a55192d6c7ac",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/PulsarPackCreator/Resources/Code.pul",
+      "bytes": 814428,
+      "sha256": "19a108b8caff533e8ee7baa876fff3bedbf2d8ae723d647fd71b0805f665b2e7",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNitro_RR_Build_Kit(1).zip",
+      "member": "MKNitro_RR_Build_Kit/PulsarPackCreator/Resources/Loader.pul",
+      "bytes": 2780,
+      "sha256": "869bb7ab9c5c4b7e581b08152478df744fe02a4b8ec66aff566fdef033051766",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNITRO-Pulsar-Source-play.mknitro.com (1) (1)(2).zip",
+      "member": "MKNITRO-Pulsar-Source/CurrentPack/Binaries/Code.pul",
+      "bytes": 814428,
+      "sha256": "19a108b8caff533e8ee7baa876fff3bedbf2d8ae723d647fd71b0805f665b2e7",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNITRO-Pulsar-Source-play.mknitro.com (1) (1)(2).zip",
+      "member": "MKNITRO-Pulsar-Source/CurrentPack/Binaries/Loader.pul",
+      "bytes": 2780,
+      "sha256": "869bb7ab9c5c4b7e581b08152478df744fe02a4b8ec66aff566fdef033051766",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNITRO-Pulsar-Source-play.mknitro.com (1) (1)(2).zip",
+      "member": "MKNITRO-Pulsar-Source/PulsarPackCreator/Resources/Code.pul",
+      "bytes": 814428,
+      "sha256": "19a108b8caff533e8ee7baa876fff3bedbf2d8ae723d647fd71b0805f665b2e7",
+      "public_distribution_verified": false
+    },
+    {
+      "archive": "upload/MKNITRO-Pulsar-Source-play.mknitro.com (1) (1)(2).zip",
+      "member": "MKNITRO-Pulsar-Source/PulsarPackCreator/Resources/Loader.pul",
+      "bytes": 2780,
+      "sha256": "869bb7ab9c5c4b7e581b08152478df744fe02a4b8ec66aff566fdef033051766",
+      "public_distribution_verified": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "build_id": "nitro-source-candidate-20261018",
+  "base_source_commit": "61735e0c91c1c332d0b698609045d589b66cc90f",
+  "builds": 3,
+  "compiled_source_manifest_sha256": "d62ae2b5ceac8eecf233ae84c6e145a3f18987d36735df20550626c60ff0ae9c",
+  "comparisons": [
+    {
+      "file": "Code.pul",
+      "three_isolated_builds_sha256": [
+        "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+        "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+        "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075"
+      ],
+      "identical": true
+    },
+    {
+      "file": "Loader.pul",
+      "three_isolated_builds_sha256": [
+        "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+        "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+        "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb"
+      ],
+      "identical": true
+    }
+  ],
+  "note": "Final source manifest excludes Python cache files; all three builds produced identical candidate binary bytes."
+}

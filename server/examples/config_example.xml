@@ -1,0 +1,108 @@
+<!-- Nitro example adapted from docs/upstream/config_example.xml, 16 October 2026.
+     Placeholders only; not exported production settings. Review before running.
+     Local bindings are intentional. No sourceUrl: the verified live source
+     does not implement that field or the candidate source-offer route. -->
+<Config>
+    <serverName>NitroWFC</serverName>
+    <!-- The address the GameSpy services will bind to -->
+    <gsAddress>127.0.0.1</gsAddress>
+
+    <!-- The address the frontend RPC server will bind to -->
+    <frontendAddress>127.0.0.1:29998</frontendAddress>
+
+    <!-- The address the frontend can reach the backend from -->
+    <frontendBackendAddress>127.0.0.1:29999</frontendBackendAddress>
+
+    <!-- The address the backend RPC server will bind to -->
+    <backendAddress>127.0.0.1:29999</backendAddress>
+
+    <!-- The address the backend can reach the frontend from -->
+    <backendFrontendAddress>127.0.0.1:29998</backendFrontendAddress>
+
+    <!-- The address the NAS HTTP server will bind to -->
+    <nasAddress>127.0.0.1</nasAddress>
+    <nasPort>80</nasPort>
+
+    <!-- The address the NAS HTTPS proxy server will bind to -->
+    <nasAddressHttps>127.0.0.1</nasAddressHttps>
+    <nasPortHttps>443</nasPortHttps>
+    <enableHttps>false</enableHttps>
+    <enableHttpsExploitWii>false</enableHttpsExploitWii>
+    <enableHttpsExploitDS>false</enableHttpsExploitDS>
+
+    <!-- The address the payload server will be located at, leave blank to use legacy integrated payload server -->
+    <payloadServerAddress></payloadServerAddress>
+
+    <!-- Path to the certificate and key used for modern web browser requests -->
+    <certPath>fullchain.pem</certPath>
+    <keyPath>privkey.pem</keyPath>
+
+    <!-- Path to the certificate and key used for the Wii DNS exploit -->
+    <certDerPathWii>naswii-cert.der</certDerPathWii>
+    <keyPathWii>naswii-key.pem</keyPathWii>
+
+    <!-- Path to the certificate, Wii client certificate and key used for the DS DNS exploit -->
+    <certDerPathDS>nas-cert.der</certDerPathDS>
+    <wiiCertDerPathDS>nwc.der</wiiCertDerPathDS>
+    <keyPathDS>nas-key.pem</keyPathDS>
+
+    <!-- Allow default Dolphin device keys to be used -->
+    <allowDefaultDolphinKeys>true</allowDefaultDolphinKeys>
+
+    <!-- Allow multiple device IDs to access the same profile
+        always: Do not verify device IDs
+        SameIPAddress: Allow multiple deviceIDs only if the deviceID is registered with the most recent IP
+    -->
+    <allowMultipleDeviceIDs>SameIPAddress</allowMultipleDeviceIDs>
+
+
+    <!-- Allow multiple console serial numbers to access the same profile
+        always: Do not verify csnums
+        SameIPAddress: Allow multiple csnums only if the csnums is registered with the most recent IP
+    -->
+    <allowMultipleCsnums>SameIPAddress</allowMultipleCsnums>
+
+    <!-- Require hashes to be submitted to log in -->
+    <enableHashCheck>true</enableHashCheck>
+
+    <!-- Number of seconds between refreshing total player count -->
+    <pcountRefreshInterval>600</pcountRefreshInterval>
+
+    <!-- Database Credentials -->
+    <username>YOUR_DATABASE_USER</username>
+    <password>YOUR_DATABASE_PASSWORD</password>
+
+    <!-- Database information -->
+    <databaseAddress>127.0.0.1</databaseAddress>
+    <databaseName>wwfc</databaseName>
+
+    <!-- Logging configuration -->
+    <!-- Log verbosity
+         0: No messages are logged.
+         1: General messages are logged.
+         2: General and error messages are logged.
+         3: General, error, and warning messages are logged.
+         4: General, error, warning, and informational messages are logged.
+    -->
+    <logLevel>4</logLevel>
+    <!-- Log output
+         None         : Messages are discarded.
+         StdOut       : Messages are written to standard output.
+         StdOutAndFile: Messages are written to both standard output and a file.
+    -->
+    <logOutput>StdOutAndFile</logOutput>
+
+    <!-- FriendBot PID -->
+    <friendBotPID></friendBotPID>
+
+    <!-- API secret -->
+    <apiSecret>GENERATE_YOUR_OWN_RANDOM_API_SECRET</apiSecret>
+    <!-- Optional VPN service disabled; use your private environment/file if enabling. -->
+    <vpnFilter>
+        <enabled>false</enabled>
+        <apiKey></apiKey>
+        <apiKeyFile></apiKeyFile>
+        <failClosed>false</failClosed>
+        <blockUncertain>false</blockUncertain>
+    </vpnFilter>
+</Config>

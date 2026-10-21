@@ -1,0 +1,43 @@
+{
+  "build_id": "nitro-source-candidate-20261018",
+  "base_source_commit": "61735e0c91c1c332d0b698609045d589b66cc90f",
+  "precompiled_engine_required": false,
+  "precompiled_loader_required": false,
+  "three_source_builds_identical": true,
+  "new_candidate_code_sha256": "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+  "loader_sha256": "ffa108e11f4c0b925f736bdb28681bf83e997b81de9fca9b2e2d6dd7ea6c9dbb",
+  "default_candidate_ppc_executions_passed": 11176,
+  "ppc_breakdown": {
+    "runtime": 460,
+    "remaining": 10244,
+    "core_codegen": 352,
+    "leaderboard_parser": 120
+  },
+  "host_checks_passed": [
+    "MEM2 pool with ASan/UBSan and mocked native calls",
+    "portable loader parser P/E/J and malformed inputs with ASan/UBSan",
+    "cup sorting/permutation with ASan/UBSan"
+  ],
+  "native_installation_matches_recorded_release": {
+    "PAL_sites": 1196,
+    "USA_sites": 1188,
+    "Japan_sites": 1188,
+    "missing": 0,
+    "extra": 0,
+    "different_fixed_values_or_opcodes": 0
+  },
+  "runtime_integrity_suite": {
+    "status": "blocked",
+    "missing_files": 2777,
+    "manifest_files": 2885,
+    "reason": "Large runtime pack assets were omitted from source handoff."
+  },
+  "not_validated": [
+    "Real Dolphin/Wii boot and play",
+    "Controlled online session and server approval",
+    "Fresh WPF/Pack Creator GUI build",
+    "Complete matching source for every older distributed core",
+    "All asset permissions and preferred editable inputs"
+  ],
+  "deployed": false
+}

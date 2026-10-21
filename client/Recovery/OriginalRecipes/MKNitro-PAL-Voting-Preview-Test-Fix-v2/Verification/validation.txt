@@ -1,0 +1,1 @@
+16 native-helper scenarios passed with allocation/render calls mocked; existing controller reused and missing controller creation preceded by existing heap-unlock helper. Both MenuUpdate calls disabled; voting pose runs before CalcMain instead. No live Dolphin verification.

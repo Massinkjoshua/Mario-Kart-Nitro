@@ -1,0 +1,2 @@
+PASS: 1052 actual PowerPC checks at load addresses 0x803992e0 and 0x81000000.
+Live in-game validation pending.

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "executions": 10244,
+  "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "candidate_sha256": "1f7b8ac51517463814071360dfce91356f0e622198811c383bb9776e1c2d3f62",
+  "allocation_bases": [
+    "0x81000000",
+    "0x81200000"
+  ],
+  "scope": "Real released/rebuilt PowerPC functions; native APIs intercepted.",
+  "checked": [
+    "all 2448 RGB palette entries at both bases",
+    "drift whitening, ownership and table bounds",
+    "online guard, failures, completion, cancellation and 100-poll timeout",
+    "region v16 system creation and login fields",
+    "course/cup matrix, scale, driver animation state and selected-kart visibility",
+    "REL virtual-table initial installation and restoration"
+  ],
+  "full_gameplay_tested": false
+}

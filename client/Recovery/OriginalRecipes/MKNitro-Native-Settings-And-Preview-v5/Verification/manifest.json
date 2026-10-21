@@ -1,0 +1,31 @@
+{
+  "original_sha256": "5fe4083a44008ac5536e727b87999c03cea8597fb5d8da4120b45a66b60b2342",
+  "output_sha256": "7946a60dbaf01bfc77c99d89ce11fcd92c5b0f5f677358087535030a170ffb4a",
+  "region": "PAL",
+  "old_code": 449976,
+  "old_bss": 333304,
+  "new_code": 784632,
+  "layout_wrapper": 783296,
+  "table": 783544,
+  "native_reset_group": 2153523804,
+  "hooks": {
+    "visibility": {
+      "site": 2153727768,
+      "offset": 784440,
+      "size": 64
+    },
+    "state_check": {
+      "site": 2153727836,
+      "offset": 784504,
+      "size": 64
+    },
+    "state_switch": {
+      "site": 2153727944,
+      "offset": 784568,
+      "size": 64
+    }
+  },
+  "native_visibility": 2153732524,
+  "native_switch": 2156067704,
+  "unchanged_NTSC_regions": true
+}

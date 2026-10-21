@@ -1,0 +1,28 @@
+Validation performed 2026-10-08
+
+Inputs: Code(10).pul, main(3).dol, StaticR(2).rel.
+Read-only PAL verifier passed both existing original item-event call instructions.
+All 11,067 PAL Kamek commands parsed; no writes overlap 0x8065B760 or 0x8065C000.
+Manifest generation: 47 target records, 23 unique instruction audit candidates, 24 exclusions.
+
+bash tests/run.sh:
+- Five Python manifest/parser test cases passed.
+- C++98 policy test passed with -Wall -Wextra -Werror, ASan and UBSan.
+- Every bit of both synthetic watched instructions was changed and detected.
+- Mock game-adapter audit-mode and enforcement-mode tests passed with ASan/UBSan.
+- Verified no REL reads at boot, no PAL memory reads on another region, bounded manager counts,
+  support for both local players, and no sanction for unchanged inventory or high observed speed.
+- LeakSanitizer disabled for sandbox compatibility; address/undefined-behavior sanitizers active.
+
+git apply --check integration/WiiLink.patch:
+Passed against the retrieved release-candidate WiiLink.cpp. This is a patch compatibility check,
+not endorsement of rebuilding that older, incompatible full project.
+
+Not performed:
+- CodeWarrior/PowerPC compilation or Kamek linking.
+- Installation into the supplied Code(10).pul.
+- Dolphin, Wii, online payload or multiplayer tests.
+- Server changes, remote deployment, bans, or rating changes.
+
+Default: audit only. Runtime manifest review is false; enabling enforcement without review
+fails closed for online entry. This package is not a released anti-cheat binary.

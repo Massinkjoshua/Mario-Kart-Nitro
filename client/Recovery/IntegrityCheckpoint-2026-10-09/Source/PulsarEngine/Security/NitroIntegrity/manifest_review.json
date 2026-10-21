@@ -1,0 +1,529 @@
+{
+  "status": "UNVERIFIED RUNTIME BASELINE; AUDIT ONLY",
+  "inputs": {
+    "dol_sha256": "80d18895b39c63bd80f457398bfcbb91b7d16ac116a41a88967e954080155b05",
+    "rel_sha256": "16d9d146112541fefea701ecb5bc1a496f9d50e4a752fbb5b6778e7c6399f67d",
+    "code_sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc",
+    "versions_sha256": "eb50d7a50cef7cd47c8c8bdeadc471d96e781c854224c95a36b6eac6c07ebd34"
+  },
+  "pal_kamek_commands": 11067,
+  "checks": [
+    {
+      "address": "0x800ed018",
+      "expected": "0x80c30004",
+      "phase": 0,
+      "purpose": "network_identity_b"
+    },
+    {
+      "address": "0x801d0e50",
+      "expected": "0x38a00006",
+      "phase": 0,
+      "purpose": "network_identity_a"
+    },
+    {
+      "address": "0x805334b0",
+      "expected": "0x38000001",
+      "phase": 1,
+      "purpose": "start_countdown_a"
+    },
+    {
+      "address": "0x80533510",
+      "expected": "0x2c000002",
+      "phase": 1,
+      "purpose": "start_countdown_b"
+    },
+    {
+      "address": "0x80534a00",
+      "expected": "0xb0a30024",
+      "phase": 1,
+      "purpose": "checkpoint_progress"
+    },
+    {
+      "address": "0x80535c74",
+      "expected": "0x807d0048",
+      "phase": 1,
+      "purpose": "race_clock_value"
+    },
+    {
+      "address": "0x80535c78",
+      "expected": "0x38030001",
+      "phase": 1,
+      "purpose": "race_clock_increment"
+    },
+    {
+      "address": "0x80567e6c",
+      "expected": "0xc05f0004",
+      "phase": 1,
+      "purpose": "hit_response_b"
+    },
+    {
+      "address": "0x8057ac2c",
+      "expected": "0xd01d0020",
+      "phase": 1,
+      "purpose": "engine_speed_write"
+    },
+    {
+      "address": "0x8057c438",
+      "expected": "0xd00300b8",
+      "phase": 1,
+      "purpose": "terrain_penalty_a"
+    },
+    {
+      "address": "0x8057c4b4",
+      "expected": "0xd01f00b8",
+      "phase": 1,
+      "purpose": "terrain_penalty_b"
+    },
+    {
+      "address": "0x8057c510",
+      "expected": "0xd01f00b8",
+      "phase": 1,
+      "purpose": "terrain_penalty_c"
+    },
+    {
+      "address": "0x8058187c",
+      "expected": "0x90030008",
+      "phase": 1,
+      "purpose": "damage_immunity"
+    },
+    {
+      "address": "0x80581aa8",
+      "expected": "0x4082005c",
+      "phase": 1,
+      "purpose": "ink_effect"
+    },
+    {
+      "address": "0x805872d8",
+      "expected": "0x38630001",
+      "phase": 1,
+      "purpose": "drafting_charge"
+    },
+    {
+      "address": "0x805884e4",
+      "expected": "0x38840001",
+      "phase": 1,
+      "purpose": "wheelie_duration"
+    },
+    {
+      "address": "0x805b5628",
+      "expected": "0xd03e0068",
+      "phase": 1,
+      "purpose": "position_x_write"
+    },
+    {
+      "address": "0x805b5634",
+      "expected": "0xd33e006c",
+      "phase": 1,
+      "purpose": "position_y_write"
+    },
+    {
+      "address": "0x805b5640",
+      "expected": "0xd2fe0070",
+      "phase": 1,
+      "purpose": "position_z_write"
+    },
+    {
+      "address": "0x807a4ac8",
+      "expected": "0x3800005a",
+      "phase": 1,
+      "purpose": "bomb_timer_b"
+    },
+    {
+      "address": "0x807a5bf4",
+      "expected": "0x38a0012c",
+      "phase": 1,
+      "purpose": "bomb_timer_a"
+    },
+    {
+      "address": "0x807b1dd0",
+      "expected": "0x3800009f",
+      "phase": 1,
+      "purpose": "pow_delay"
+    },
+    {
+      "address": "0x807b5e58",
+      "expected": "0x901a01c8",
+      "phase": 1,
+      "purpose": "projectile_lifetime"
+    }
+  ],
+  "decisions": [
+    {
+      "region": "E",
+      "address": "0x8052feb8",
+      "purpose": "checkpoint_progress",
+      "pal_word": "0x80534a00",
+      "status": "instruction audit candidate",
+      "expected": "0xb0a30024",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8057b018",
+      "purpose": "damage_immunity",
+      "pal_word": "0x8058187c",
+      "status": "instruction audit candidate",
+      "expected": "0x90030008",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x807a73f8",
+      "purpose": "projectile_lifetime",
+      "pal_word": "0x807b5e58",
+      "status": "instruction audit candidate",
+      "expected": "0x901a01c8",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x80575bd4",
+      "purpose": "terrain_penalty_a",
+      "pal_word": "0x8057c438",
+      "status": "instruction audit candidate",
+      "expected": "0xd00300b8",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x80575c50",
+      "purpose": "terrain_penalty_b",
+      "pal_word": "0x8057c4b4",
+      "status": "instruction audit candidate",
+      "expected": "0xd01f00b8",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x80575cac",
+      "purpose": "terrain_penalty_c",
+      "pal_word": "0x8057c510",
+      "status": "instruction audit candidate",
+      "expected": "0xd01f00b8",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x807e1ae0",
+      "purpose": "hit_response_a",
+      "pal_word": "0x807eb38c",
+      "status": "excluded: owned by supplied Nitro PUL"
+    },
+    {
+      "region": "E",
+      "address": "0x80563aec",
+      "purpose": "hit_response_b",
+      "pal_word": "0x80567e6c",
+      "status": "instruction audit candidate",
+      "expected": "0xc05f0004",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x807adee8",
+      "purpose": "item_selection",
+      "pal_word": "0x807bc948",
+      "status": "excluded: changed by REL relocation"
+    },
+    {
+      "region": "E",
+      "address": "0x808b1c80",
+      "purpose": "gravity_parameter",
+      "status": "excluded: ambiguous or absent region mapping"
+    },
+    {
+      "region": "E",
+      "address": "0x8088d550",
+      "purpose": "reverse_speed_parameter",
+      "pal_word": "0x80891a68",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x8088d530",
+      "purpose": "steering_parameter",
+      "pal_word": "0x80891a48",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x8079cbea",
+      "width": 2,
+      "purpose": "bomb_timer_a",
+      "pal_word": "0x807a5bf4",
+      "status": "instruction audit candidate",
+      "expected": "0x38a0012c",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8079babe",
+      "width": 2,
+      "purpose": "bomb_timer_b",
+      "pal_word": "0x807a4ac8",
+      "status": "instruction audit candidate",
+      "expected": "0x3800005a",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x807d9824",
+      "purpose": "pow_delay",
+      "pal_word": "0x807b1dd0",
+      "status": "instruction audit candidate",
+      "expected": "0x3800009f",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8088d250",
+      "purpose": "collision_parameter",
+      "status": "excluded: ambiguous or absent region mapping"
+    },
+    {
+      "region": "E",
+      "address": "0x801978c2",
+      "purpose": "rapid_input_unverified_address",
+      "status": "excluded: unaligned source address"
+    },
+    {
+      "region": "E",
+      "address": "0x808a0b04",
+      "purpose": "bomb_visual_scale",
+      "pal_word": "0x808a54c4",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808a0b40",
+      "purpose": "bomb_collision_scale",
+      "pal_word": "0x808a5500",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808a0b7c",
+      "purpose": "bomb_vertical_motion",
+      "pal_word": "0x808a553c",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x805aa700",
+      "purpose": "position_x_write",
+      "pal_word": "0x805b5628",
+      "status": "instruction audit candidate",
+      "expected": "0xd03e0068",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x805aa718",
+      "purpose": "position_z_write",
+      "pal_word": "0x805b5640",
+      "status": "instruction audit candidate",
+      "expected": "0xd2fe0070",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x805aa70c",
+      "purpose": "position_y_write",
+      "pal_word": "0x805b5634",
+      "status": "instruction audit candidate",
+      "expected": "0xd33e006c",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8052e968",
+      "purpose": "start_countdown_a",
+      "pal_word": "0x805334b0",
+      "status": "instruction audit candidate",
+      "expected": "0x38000001",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8052e9c8",
+      "purpose": "start_countdown_b",
+      "pal_word": "0x80533510",
+      "status": "instruction audit candidate",
+      "expected": "0x2c000002",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x808a0fd8",
+      "purpose": "red_projectile_speed",
+      "pal_word": "0x808a5ab0",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808a12e8",
+      "purpose": "green_projectile_speed",
+      "pal_word": "0x808a5dc0",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808a10ee",
+      "purpose": "blue_projectile_unverified_address",
+      "status": "excluded: unaligned source address"
+    },
+    {
+      "region": "E",
+      "address": "0x808b1400",
+      "purpose": "turbo_charge_parameter_a",
+      "pal_word": "0x808b5cc0",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808b1404",
+      "purpose": "turbo_charge_parameter_b",
+      "pal_word": "0x808b5cc4",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808b1408",
+      "purpose": "turbo_charge_parameter_c",
+      "pal_word": "0x808b5cc8",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x808b1278",
+      "purpose": "stationary_turbo_parameter",
+      "pal_word": "0x808b5b38",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x801d0db0",
+      "purpose": "network_identity_a",
+      "pal_word": "0x801d0e50",
+      "status": "instruction audit candidate",
+      "expected": "0x38a00006",
+      "phase": "DOL"
+    },
+    {
+      "region": "E",
+      "address": "0x800ecf78",
+      "purpose": "network_identity_b",
+      "pal_word": "0x800ed018",
+      "status": "instruction audit candidate",
+      "expected": "0x80c30004",
+      "phase": "DOL"
+    },
+    {
+      "region": "E",
+      "address": "0x807e4ca0",
+      "purpose": "shared_player_state_helper",
+      "pal_word": "0x807eefb0",
+      "status": "excluded: changed by REL relocation"
+    },
+    {
+      "region": "E",
+      "address": "0x808b1138",
+      "purpose": "bullet_speed_parameter",
+      "pal_word": "0x808b59f8",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x8066b755",
+      "purpose": "identity_unverified_address",
+      "status": "excluded: unaligned source address"
+    },
+    {
+      "region": "E",
+      "address": "0x807e4c9a",
+      "purpose": "position_copy_unverified_address",
+      "status": "excluded: unaligned source address"
+    },
+    {
+      "region": "E",
+      "address": "0x80531130",
+      "purpose": "race_clock_increment",
+      "pal_word": "0x80535c78",
+      "status": "instruction audit candidate",
+      "expected": "0x38030001",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8053112c",
+      "purpose": "race_clock_value",
+      "pal_word": "0x80535c74",
+      "status": "instruction audit candidate",
+      "expected": "0x807d0048",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x808a11b8",
+      "purpose": "blue_explosion_parameter",
+      "pal_word": "0x808a5c90",
+      "status": "excluded: not an executable word"
+    },
+    {
+      "region": "E",
+      "address": "0x80581cc0",
+      "purpose": "wheelie_duration",
+      "pal_word": "0x805884e4",
+      "status": "instruction audit candidate",
+      "expected": "0x38840001",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x805743c8",
+      "purpose": "engine_speed_write",
+      "pal_word": "0x8057ac2c",
+      "status": "instruction audit candidate",
+      "expected": "0xd01d0020",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x8057b244",
+      "purpose": "ink_effect",
+      "pal_word": "0x80581aa8",
+      "status": "instruction audit candidate",
+      "expected": "0x4082005c",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x80580ab4",
+      "purpose": "drafting_charge",
+      "pal_word": "0x805872d8",
+      "status": "instruction audit candidate",
+      "expected": "0x38630001",
+      "phase": "REL"
+    },
+    {
+      "region": "E",
+      "address": "0x807e4ddc",
+      "purpose": "inventory_pointer_helper",
+      "pal_word": "0x807ef0ec",
+      "status": "excluded: changed by REL relocation"
+    },
+    {
+      "region": "P",
+      "address": "0x807ef0ec",
+      "purpose": "standalone_item_cheat_helper",
+      "pal_word": "0x807ef0ec",
+      "status": "excluded: changed by REL relocation"
+    }
+  ],
+  "limitations": [
+    "Only selected code words; no full-file/runtime attestation.",
+    "Region mapping is a candidate port, not semantic validation of every cheat.",
+    "Online payloads and runtime patches require clean-session verification.",
+    "Excluded addresses are coverage gaps, not proof that Nitro prevents cheating."
+  ]
+}

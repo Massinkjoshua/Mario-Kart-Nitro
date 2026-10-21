@@ -1,0 +1,155 @@
+{
+  "passed_cases": 164,
+  "native_routines_executed": [
+    "UIControl::ResetPosition (0x8063d3cc)",
+    "ControlGroup::ResetControlsPosition (0x805c2a5c)",
+    "NoteModelControl visibility/state path",
+    "MenuDriverModel::SwitchState",
+    "MenuModelMgr visibility functions",
+    "MenuKartModelMgr::ToggleVisible"
+  ],
+  "stubbed_boundaries": [
+    "Original custom SettingsPanel message/controller initialization",
+    "Resource loads",
+    "Graphics mesh visibility and animation service calls"
+  ],
+  "not_tested": "Dolphin rendering, full game boot, actual model assets, race-to-menu transition",
+  "settings_pages": [
+    {
+      "page": 0,
+      "radio_rows": 5,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 1,
+      "radio_rows": 5,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 2,
+      "radio_rows": 2,
+      "scroller_rows": 2,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 3,
+      "radio_rows": 4,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 4,
+      "radio_rows": 5,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 5,
+      "radio_rows": 2,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 6,
+      "radio_rows": 5,
+      "scroller_rows": 3,
+      "spacing": 32.0,
+      "scale": 0.8,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 7,
+      "radio_rows": 7,
+      "scroller_rows": 0,
+      "spacing": 37.333333333333336,
+      "scale": 0.9333333333333333,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 8,
+      "radio_rows": 4,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 9,
+      "radio_rows": 4,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 10,
+      "radio_rows": 3,
+      "scroller_rows": 4,
+      "spacing": 37.333333333333336,
+      "scale": 0.9333333333333333,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 11,
+      "radio_rows": 2,
+      "scroller_rows": 2,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 12,
+      "radio_rows": 2,
+      "scroller_rows": 1,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 13,
+      "radio_rows": 1,
+      "scroller_rows": 1,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 14,
+      "radio_rows": 0,
+      "scroller_rows": 0,
+      "spacing": 40.0,
+      "scale": 1.0,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 15,
+      "radio_rows": 7,
+      "scroller_rows": 1,
+      "spacing": 32.0,
+      "scale": 0.8,
+      "native_parent_child_transforms": "pass"
+    },
+    {
+      "page": 16,
+      "radio_rows": 7,
+      "scroller_rows": 1,
+      "spacing": 32.0,
+      "scale": 0.8,
+      "native_parent_child_transforms": "pass"
+    }
+  ]
+}

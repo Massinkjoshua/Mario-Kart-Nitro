@@ -1,0 +1,144 @@
+[
+  {
+    "name": "default",
+    "flags": [],
+    "functions": 22,
+    "size_matches": 15,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "schedule_off",
+    "flags": [
+      "-schedule",
+      "off"
+    ],
+    "functions": 22,
+    "size_matches": 14,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "no_peephole",
+    "flags": [
+      "-opt",
+      "nopeephole"
+    ],
+    "functions": 22,
+    "size_matches": 11,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "level3",
+    "flags": [
+      "-opt",
+      "level=3"
+    ],
+    "functions": 22,
+    "size_matches": 15,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "level4_only",
+    "flags": [
+      "-opt",
+      "off",
+      "-opt",
+      "level=4"
+    ],
+    "functions": 22,
+    "size_matches": 11,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "pool_off",
+    "flags": [
+      "-pool",
+      "off"
+    ],
+    "functions": 22,
+    "size_matches": 13,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "lmw",
+    "flags": [
+      "-use_lmw_stmw",
+      "on"
+    ],
+    "functions": 22,
+    "size_matches": 15,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "exceptions_off",
+    "flags": [
+      "-Cpp_exceptions",
+      "off"
+    ],
+    "functions": 22,
+    "size_matches": 15,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "proc750",
+    "flags": [
+      "-proc",
+      "750"
+    ],
+    "functions": 22,
+    "size_matches": 14,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "proc603e",
+    "flags": [
+      "-proc",
+      "603e"
+    ],
+    "functions": 22,
+    "size_matches": 14,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "proc604e",
+    "flags": [
+      "-proc",
+      "604e"
+    ],
+    "functions": 22,
+    "size_matches": 14,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "alias_by_type",
+    "flags": [
+      "-opt",
+      "alias_by_type"
+    ],
+    "functions": 22,
+    "size_matches": 15,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  },
+  {
+    "name": "fp_contract",
+    "flags": [
+      "-fp_contract",
+      "on"
+    ],
+    "functions": 22,
+    "size_matches": 15,
+    "challenge_press_size": 80,
+    "reference_challenge_press_size": 76
+  }
+]

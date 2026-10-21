@@ -1,0 +1,81 @@
+{
+  "PAL_code_only": true,
+  "original_code_preserved": true,
+  "old_commands_preserved": true,
+  "other_regions_preserved": true,
+  "positions": {
+    "Rumble": [
+      0.0,
+      70.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0,
+      70.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "Network": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "ChannelInstall": [
+      -5000.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -5000.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Settings": [
+      0.0,
+      -70.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0,
+      -70.0,
+      0.0,
+      1.0,
+      1.0
+    ]
+  },
+  "hook_offset": 793696,
+  "hook_bytes": 92,
+  "native_patch_sites": [
+    "0x805fd854",
+    "0x805fd8e8"
+  ],
+  "full_game_rendering_tested": false,
+  "Channel": {
+    "changed_files": [
+      "bg/blyt/obi_bottom.brlyt",
+      "bg/blyt/obi_top.brlyt",
+      "bg/blyt/option_bg.brlyt",
+      "bg/blyt/option_obi_top.brlyt",
+      "bg/timg/tt_nitro_backrooms_bg.tpl"
+    ],
+    "all_other_files_preserved": true,
+    "archive_roundtrip": true
+  },
+  "UIAssets": {
+    "changed_files": [
+      "button/ctrl/SettingsButton.brctr"
+    ],
+    "all_other_files_preserved": true,
+    "archive_roundtrip": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "baseline": "v10 Channel.szs",
+  "changed_files": [
+    "bg/blyt/obi_bottom_message.brlyt"
+  ],
+  "removed_pictures": [
+    "obi_base_l",
+    "obi_base_r",
+    "obi_base_c",
+    "check"
+  ],
+  "text_preserved": true,
+  "all_other_members_preserved": true,
+  "archive_roundtrip": true,
+  "full_game_rendering_tested": false
+}

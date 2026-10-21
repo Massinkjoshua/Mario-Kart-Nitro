@@ -1,0 +1,17 @@
+{
+  "scope": "Published 16 October server export, not a live proxy/server probe",
+  "go_files_searched": 126,
+  "client_rating_download_route": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=...",
+  "download_route_present_in_export": false,
+  "client_report_key": "wl:mkw_vrbr",
+  "report_handler_present_in_export": false,
+  "nas_unknown_path_behavior": "404 after generic API router returns false",
+  "gpcm_unknown_report_behavior": "log Unknown record; no rating persistence",
+  "external_proxy_or_separate_service_checked": false,
+  "source_sha256": {
+    "client/PulsarEngine/Network/Rating/RatingSync.cpp": "12c267be5716539cf5bcf32dd87141264c731d193decfd3b2c77888bf76dafb4",
+    "server/Live-Export-2026-10-16/nas/main.go": "0c98307c1b77b98bb9b729dc43d1b385336a679130d1a885cae0e1a5bb614a01",
+    "server/Live-Export-2026-10-16/api/main.go": "44c1ad54cca7ebf2b72e9976904d3613d73403e0fcd82338734be0647436328e",
+    "server/Live-Export-2026-10-16/gpcm/report.go": "79a90900e89a00d347a55bb9be57ef7d4ec24a1e9209fc9889f94dcfd380fd44"
+  }
+}

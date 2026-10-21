@@ -1,0 +1,4 @@
+PASS: 724 checks. Native MEM2 heap creation/allocation/free and NHTTP request creation executed; old allocation failure reproduced; new request reaches send; allocation ownership, OOM, tracking exhaustion, cleanup/reuse, registers and interrupt state checked.
+Non-PAL blocks and HTTP startup helper unchanged. Test includes actual logged mod load address 0x803992e0.
+OS scheduling/locks and network sending simulated; normal heap constrained. Live Dolphin/network test still required.
+DOL SHA256: 80d18895b39c63bd80f457398bfcbb91b7d16ac116a41a88967e954080155b05

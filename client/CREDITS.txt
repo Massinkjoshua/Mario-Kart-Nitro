@@ -1,0 +1,14 @@
+Mario Kart Nitro is based on Retro Rewind's rr-pulsar and Pulsar.
+Retro Rewind Team: https://github.com/Retro-Rewind-Team/rr-pulsar
+Pulsar and MKW-SP contributors are credited in the retained licence files and source headers.
+
+Online communications credit to WiiLink WFC - https://wfc.wiilink24.com
+Retro Rewind's modified client payload: https://github.com/Retro-Rewind-Team/wfc-patcher-wii
+Original WiiLink copyright and licence: docs/upstream/wfc-patcher-wii-LICENSE
+
+NitroWFC is derived from Retro Rewind's wfc-server, a fork of WiiLink WFC.
+https://github.com/Retro-Rewind-Team/wfc-server
+
+Mario Kart Nitro modifications and source recovery are independent changes.
+This project is not endorsed by Retro Rewind or WiiLink.
+Individual tracks, music, artwork and character assets retain their own creator credits and permissions.

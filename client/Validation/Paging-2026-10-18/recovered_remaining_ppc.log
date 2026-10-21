@@ -1,0 +1,5 @@
+palette passed at 0x81000000
+online worker passed at 0x81000000
+palette passed at 0x81200000
+online worker passed at 0x81200000
+PASS: 10244 PowerPC executions match.

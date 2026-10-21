@@ -1,0 +1,4 @@
+PASS: region 0, 10894 complete commands
+PASS: region 1, 10886 complete commands
+PASS: region 2, 10886 complete commands
+PASS: malformed headers, lengths, addresses, operands and relative bounds

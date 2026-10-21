@@ -1,0 +1,17 @@
+{
+  "activation_states_checked": [
+    0,
+    1,
+    2
+  ],
+  "channel_hidden": true,
+  "inaccessible_argument_forwarded_by_existing_wrapper": true,
+  "native_next_page_reset_preserved": true,
+  "native_initial_selection_preserved": true,
+  "stack_and_r31_preserved": true,
+  "full_game_rendering_tested": false,
+  "intercepted_boundaries": [
+    "SelectInitial",
+    "PushButton::Load"
+  ]
+}

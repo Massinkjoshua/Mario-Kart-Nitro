@@ -1,0 +1,2 @@
+PASS: 932 checks; native old failure/new success, native error cleanup, pool exhaustion/reuse, register and interrupt preservation, mixed heap routing, non-PAL unchanged.
+DOL SHA256: 80d18895b39c63bd80f457398bfcbb91b7d16ac116a41a88967e954080155b05

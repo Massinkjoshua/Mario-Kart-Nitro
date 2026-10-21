@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "restored_files": 1097,
+  "restored_bytes": 4025213,
+  "all_paths_and_bytes_match_original": true,
+  "existing_output_rejected": true,
+  "scope": "Exact restoration of supplied v5 source tree, not proof that its compiled binary equals a release"
+}

@@ -1,0 +1,245 @@
+{
+  "candidate_sha256": "71af89931375f4fc46782401e54c243bee8fc657b8fb44d4fe6f52e627ac3075",
+  "records": [
+    {
+      "base": "0x81000000",
+      "case": "single_login_targets_correct_profile",
+      "requests": [
+        {
+          "url_at_creation": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=101",
+          "buffer": 2170748928,
+          "callback": 2164481432,
+          "ctx": 2164864292,
+          "ctx_at_creation": "000000010000006500000000"
+        }
+      ],
+      "reply_belongs_to_profile": 101,
+      "saves_called": [
+        [
+          "VR",
+          101,
+          120.0
+        ],
+        [
+          "BR",
+          101,
+          90.0
+        ]
+      ]
+    },
+    {
+      "base": "0x81000000",
+      "case": "overlapping_login_reply_targets_new_profile",
+      "requests": [
+        {
+          "url_at_creation": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=101",
+          "buffer": 2170748928,
+          "callback": 2164481432,
+          "ctx": 2164864292,
+          "ctx_at_creation": "000000010000006500000000"
+        },
+        {
+          "url_at_creation": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=202",
+          "buffer": 2170748928,
+          "callback": 2164481432,
+          "ctx": 2164864292,
+          "ctx_at_creation": "00000002000000ca00000001"
+        }
+      ],
+      "reply_belongs_to_profile": 101,
+      "saves_called": [
+        [
+          "VR",
+          202,
+          120.0
+        ],
+        [
+          "BR",
+          202,
+          90.0
+        ]
+      ]
+    },
+    {
+      "base": "0x81000000",
+      "case": "rating_file_valid",
+      "returned_rating": "50.0",
+      "invalid_value_rejected": null
+    },
+    {
+      "base": "0x81000000",
+      "case": "rating_file_negative",
+      "returned_rating": "-5.0",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "rating_file_above_max",
+      "returned_rating": "10001.0",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "rating_file_nan",
+      "returned_rating": "nan",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "rating_file_infinity",
+      "returned_rating": "inf",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "packet_valid_header",
+      "forwarded_to_native": true,
+      "disconnect_mask": 0,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "packet_section_exceeds_received_length",
+      "forwarded_to_native": true,
+      "disconnect_mask": 0,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "packet_individual_size_exceeds_capacity",
+      "forwarded_to_native": false,
+      "disconnect_mask": 1,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81000000",
+      "case": "packet_bad_crc",
+      "forwarded_to_native": false,
+      "disconnect_mask": 1,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "single_login_targets_correct_profile",
+      "requests": [
+        {
+          "url_at_creation": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=101",
+          "buffer": 2170748928,
+          "callback": 2166578584,
+          "ctx": 2166961444,
+          "ctx_at_creation": "000000010000006500000000"
+        }
+      ],
+      "reply_belongs_to_profile": 101,
+      "saves_called": [
+        [
+          "VR",
+          101,
+          120.0
+        ],
+        [
+          "BR",
+          101,
+          90.0
+        ]
+      ]
+    },
+    {
+      "base": "0x81200000",
+      "case": "overlapping_login_reply_targets_new_profile",
+      "requests": [
+        {
+          "url_at_creation": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=101",
+          "buffer": 2170748928,
+          "callback": 2166578584,
+          "ctx": 2166961444,
+          "ctx_at_creation": "000000010000006500000000"
+        },
+        {
+          "url_at_creation": "http://nas.play.mknitro.com/api/mkw_rr_ratings?pid=202",
+          "buffer": 2170748928,
+          "callback": 2166578584,
+          "ctx": 2166961444,
+          "ctx_at_creation": "00000002000000ca00000001"
+        }
+      ],
+      "reply_belongs_to_profile": 101,
+      "saves_called": [
+        [
+          "VR",
+          202,
+          120.0
+        ],
+        [
+          "BR",
+          202,
+          90.0
+        ]
+      ]
+    },
+    {
+      "base": "0x81200000",
+      "case": "rating_file_valid",
+      "returned_rating": "50.0",
+      "invalid_value_rejected": null
+    },
+    {
+      "base": "0x81200000",
+      "case": "rating_file_negative",
+      "returned_rating": "-5.0",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "rating_file_above_max",
+      "returned_rating": "10001.0",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "rating_file_nan",
+      "returned_rating": "nan",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "rating_file_infinity",
+      "returned_rating": "inf",
+      "invalid_value_rejected": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "packet_valid_header",
+      "forwarded_to_native": true,
+      "disconnect_mask": 0,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "packet_section_exceeds_received_length",
+      "forwarded_to_native": true,
+      "disconnect_mask": 0,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "packet_individual_size_exceeds_capacity",
+      "forwarded_to_native": false,
+      "disconnect_mask": 1,
+      "native_parser_executed": false
+    },
+    {
+      "base": "0x81200000",
+      "case": "packet_bad_crc",
+      "forwarded_to_native": false,
+      "disconnect_mask": 1,
+      "native_parser_executed": false
+    }
+  ],
+  "limits": [
+    "Compiled PAL functions at two bases; IO, NHTTP, libc and selected accessors controlled",
+    "No actual save file modified or live network used",
+    "Overlap test assumes a second login request begins before the first callback completes",
+    "Packet guard forwarding does not prove a downstream crash; native parser not executed"
+  ]
+}

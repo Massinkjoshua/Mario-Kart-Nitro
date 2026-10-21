@@ -1,0 +1,28 @@
+{
+  "archive_sha256": "4a97f03043d78f45918e58a6b38de1ac102bfa1e69602855ac6ef899253808e0",
+  "all_manifest_sizes_and_sha256_match": true,
+  "upstream_repository": "https://github.com/Retro-Rewind-Team/wfc-server",
+  "upstream_git_tree": "6592a03887011c00c532b46306ddb3773a6c3842",
+  "upstream_identical_files": {
+    "server/game_list.tsv": "b893cc2be9730f7366d7b87ec9c1f9c8a82cb2cf",
+    "server/translations/gen_translations.lua": "20b4b200de1ad4ac63f06082f2e943073a4e233a",
+    "server/translations/utils.lua": "eeb4796c48f0e5f3e0036094226087cb2d77d526"
+  },
+  "game_list_validation": {
+    "rows": 4720,
+    "all_rows_six_columns": true,
+    "mariokartwii_game_id": 1687
+  },
+  "multiplier_text": "2\n",
+  "missing": [
+    "server/motd.txt",
+    "server/profanity.txt",
+    "multiplier/multiplierBeta.txt"
+  ],
+  "limits": [
+    "No service changes or runtime tests",
+    "Translation generator fetches a remote spreadsheet; historical sheet contents have not been recovered",
+    "Supplemental collection does not revalidate original Go source files after export",
+    "SBCM payload path availability remains unverified"
+  ]
+}

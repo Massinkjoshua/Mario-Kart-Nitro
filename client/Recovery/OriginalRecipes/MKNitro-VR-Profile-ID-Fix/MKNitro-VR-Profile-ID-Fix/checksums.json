@@ -1,0 +1,20 @@
+{
+  "input_sha256": "e0998f60ddaaa328c204dfac53282dbdcb69ff2492842897120215a28051ae9d",
+  "output_sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc",
+  "PAL_predicate_offset": "0x586b0",
+  "old_reserved_profile_id": 1000000000,
+  "new_reserved_profile_id": 2000000000,
+  "changed_file_offsets": [
+    362210,
+    362211,
+    362218
+  ],
+  "approval": {
+    "pack_id": 10,
+    "version": 6124,
+    "hash_pal": "ad021832c56776088e65d5377fa5bed7ca7de7f8",
+    "hash_ntscu": "86287a21eb2705e9ddd5f751cb65090e81f16277",
+    "hash_ntscj": "d579d6b796f7628506752baa1d484172ab2b18c0",
+    "hash_ntsck": ""
+  }
+}

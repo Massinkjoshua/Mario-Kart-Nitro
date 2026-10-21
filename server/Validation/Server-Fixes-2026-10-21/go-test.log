@@ -1,0 +1,35 @@
+go: downloading github.com/logrusorgru/aurora/v3 v3.0.0
+go: downloading github.com/jackc/pgx/v4 v4.18.3
+go: downloading github.com/jackc/pgconn v1.14.3
+go: downloading github.com/linkdata/deadlock v0.5.5
+go: downloading github.com/fsnotify/fsnotify v1.10.1
+go: downloading golang.org/x/net v0.40.0
+go: downloading gvisor.dev/gvisor v0.0.0-20250512220230-2268d0cbb0f5
+go: downloading github.com/petermattis/goid v0.0.0-20250813065127-a731cc31b4fe
+go: downloading github.com/jackc/chunkreader/v2 v2.0.1
+go: downloading github.com/jackc/pgio v1.0.0
+go: downloading github.com/jackc/pgpassfile v1.0.0
+go: downloading github.com/jackc/pgproto3/v2 v2.3.3
+go: downloading github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+go: downloading golang.org/x/crypto v0.38.0
+go: downloading golang.org/x/text v0.25.0
+go: downloading golang.org/x/sys v0.33.0
+go: downloading github.com/jackc/puddle v1.3.0
+go: downloading github.com/jackc/pgtype v1.14.4
+?   	wwfc	[no test files]
+ok  	wwfc/api	0.007s
+ok  	wwfc/common	0.006s
+ok  	wwfc/database	0.005s
+?   	wwfc/gamestats	[no test files]
+ok  	wwfc/gpcm	0.003s
+?   	wwfc/gpsp	[no test files]
+?   	wwfc/logging	[no test files]
+?   	wwfc/nas	[no test files]
+?   	wwfc/natneg	[no test files]
+ok  	wwfc/networkpolicy	0.011s
+?   	wwfc/nhttp	[no test files]
+?   	wwfc/qr2	[no test files]
+?   	wwfc/race	[no test files]
+?   	wwfc/sake	[no test files]
+ok  	wwfc/serverbrowser	0.003s
+?   	wwfc/serverbrowser/filter	[no test files]

@@ -1,0 +1,1 @@
+1296 actual PowerPC execution checks passed at two load addresses. Original ID 1000000002 rejected; patched license resolution and profile allocation succeed. Other region blocks and all relocation records identical. Live race/filesystem/network remain untested.

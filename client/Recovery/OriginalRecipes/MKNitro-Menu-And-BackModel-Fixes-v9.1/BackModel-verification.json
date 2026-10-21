@@ -1,0 +1,11 @@
+{
+  "patch_sites": [
+    "0x805fb7d4",
+    "0x8084db24",
+    "0x8084fad4"
+  ],
+  "native_request_tests": 9,
+  "hide_sentinel_preserved": true,
+  "previous_v9_bytes_preserved": true,
+  "full_game_render_tested": false
+}

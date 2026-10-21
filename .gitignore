@@ -1,0 +1,14 @@
+**/build/
+**/build-history/
+**/logs/
+**/bin/
+**/obj/
+**/__pycache__/
+**/.env
+**/config.xml
+**/private-key.pem
+client/CurrentPack/
+client/Experimental/
+client/tools/codewarrior/
+client/tools/linux/
+client/tools/kamek/

@@ -1,0 +1,274 @@
+{
+  "date": "2026-10-16",
+  "archive": "MKNitro_Pulsar_NitroIntegrity_Source_Checkpoint.zip",
+  "archive_sha256": "cb115f28339e3e3c4950d3e721eec53d952dd228bbebeca8ba50eae08a88b5ef",
+  "archive_library_id": "libfile_12e77c94254c8191947adcfdd306789c",
+  "changes": [
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacterMenu.cpp",
+      "recovered_sha256": "7ae312a457581164e31646e46971bce9fe61204fd44b6acad6dff162f60e0016",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacterAssets.cpp",
+      "recovered_sha256": "bb7b0f699e5c015a11276686c518e655ad7d83d3a638aabc0ce59e579c2a2feb",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacters.hpp",
+      "recovered_sha256": "4ba1bf7b17911897cfe90e59502db2a8aa32dafa01e7ff03f07fb68e2075ef98",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/CustomCharacters/CustomCharacterRaceAndNetwork.cpp",
+      "recovered_sha256": "2a871e56e1305adf89bb7b4f71e0337396a14181d1f8f5e88182f26b7dc204d5",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Settings/Settings.cpp",
+      "recovered_sha256": "8fb0c74f876c41fd44479315a0dabc62984e23d6024a5361fe096a126700bb51",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Settings/SettingsParam.cpp",
+      "recovered_sha256": "a03cab5349d5782c9b27d0745061340ec12707f756d9bb83636f49a8e8da82cb",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/UI/NitroMenuRepairs.cpp",
+      "recovered_sha256": "e05706db2af193128e3b5fd39c9e8f103e599c3742f3732ac1d197d4a9522c51",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/NHTTPPool.cpp",
+      "recovered_sha256": "bd0e4dc29d9b264f7622734728bc11662710f76e442c81984d98e308777faeb3",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/NHTTPPool.hpp",
+      "recovered_sha256": "df5631f4e72da304d278b3d4bd1fb354272c10eb0c3eeea5b9844517ded43505",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/NHTTPHelper.cpp",
+      "recovered_sha256": "e9bd86c76eeb19478024cb868e2275436eca82cb1a1e978b150c6849cae3d913",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/Ranking.cpp",
+      "recovered_sha256": "bf69274c6e8a6c0d0f47cb066f09b0cadfbb88e9f4463ecf0f00ba58b2cfde43",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Extra/Discord.cpp",
+      "recovered_sha256": "0418f29f04eac63c66e59c1b4978a82c4521ee6f35bab26465e28cb87e9679b1",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Race/MiscRace.cpp",
+      "recovered_sha256": "5d8a8d9bb7577132d1e60af4e109a8ba94d380ed7261450bbdd7144ce78339fd",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Settings/UI/SettingsPanel.cpp",
+      "recovered_sha256": "7be6df6e3964bb141c69a1b16aad1abb74bc4464e1b4f2b30e604fb95771a609",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Settings/UI/ExpWFCMainPage.cpp",
+      "recovered_sha256": "10f10e45cd844d584b16d5ccf62d21eeddac65c27bea073ed55988d64eb0fce3",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Settings/UI/ExpSinglePlayer.cpp",
+      "recovered_sha256": "d76b0713f3c6790c6bbddc97fa4a6192483df3e675b8da7920e1cb2839284248",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.hpp",
+      "recovered_sha256": "4759290ec7b773669d2636eca4e5f81ab2dd2c936b22923da8f79c0332b48aa4",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/UI/VRLeaderboard/VRLeaderboard.cpp",
+      "recovered_sha256": "2901a76a542ae9c98f54bb1e77cfafd01ccefb76c95530d01fd72aec1aed6c00",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/Rating/RatingMultiplier.cpp",
+      "recovered_sha256": "8462a5dabc6f394ccc2bd901e8506d485def57a84d7a8323926fbb04d12fa2c2",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/Rating/RatingSave.cpp",
+      "recovered_sha256": "f270e85c5b17356ab32a90334997ed9838c0600679b6d17557bb263b61565d79",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/Network/Rating/PlayerRating.cpp",
+      "recovered_sha256": "863d0ddab56ae17d7611c4b5c9e4455ffd98d32106e54191ac79a712826f2160",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "GameSource/symbols.txt",
+      "recovered_sha256": "b440f1e1cb048a4435c8a0ecb63a2cdb829bdb8cd1c15b9df13655c01b9f1000",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "GameSource/MarioKartWii/Archive/ArchiveMgr.hpp",
+      "recovered_sha256": "c9bd29f514423a6d1959c6ec527fc12c86636991b7944bb412ddcb2b6ac9647a",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "GameSource/MarioKartWii/UI/Ctrl/ModelControl.hpp",
+      "recovered_sha256": "ad7322a96b6eb310dce727ba4ba01e852f4d2f83adfcdabae8b6ea6c72f45c1e",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "GameSource/MarioKartWii/UI/Page/Other/BackModel.hpp",
+      "recovered_sha256": "85c98ecba66ead51659afef6bfc573c6f9f515e1ed2433f227bea044dfcac8fa",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "KamekInclude/kamek.cpp",
+      "recovered_sha256": "1ce3e8fd2b9263f4ec0705be5dfe416036cde886b5d806c12e0d0fba7529dcde",
+      "action": "recovered implementation integrated"
+    },
+    {
+      "path": "PulsarEngine/PulsarSystem.cpp",
+      "action": "selective merge preserving current safety/config integration",
+      "hunks": 3
+    },
+    {
+      "path": "PulsarEngine/SlotExpansion/CupsConfig.cpp",
+      "action": "selective merge preserving current safety/config integration",
+      "hunks": 5
+    }
+  ],
+  "original_recipe_files": [
+    "MKNitro-License-Visibility-Fix-v9.2/Verification.json",
+    "MKNitro-License-Visibility-Fix-v9.2/Native-checks.json",
+    "MKNitro-License-Visibility-Fix-v9.2/SHA256.txt",
+    "MKNitro-License-Visibility-Fix-v9.2/Verify.py",
+    "MKNitro-License-Visibility-Fix-v9.2/Build.py",
+    "MKNitro-License-Visibility-Fix-v9.2/README.txt",
+    "MKNitro-License-Visibility-Fix-v9.2/License-activation-hook.asm",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/Verification.json",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/Native-checks.json",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/SHA256.txt",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/Verify-native.py",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/Build.py",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/README.txt",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/SHA256SUMS.txt",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/BackModel-verification.json",
+    "MKNitro-Menu-And-BackModel-Fixes-v9.1/Build-BackModel.py",
+    "MKNitro-Settings-Filename-Update/Verification.json",
+    "MKNitro-Settings-Filename-Update/Build.py",
+    "MKNitro-Settings-Filename-Update/README.txt",
+    "MKNitro-Settings-Filename-Update/Migration-hook.asm",
+    "MKNitro-PAL-Voting-Preview-Test-Fix-v2/README.txt",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/README.txt",
+    "MKNitro-Settings-Footer-Fix-v10.1/archive_io.py",
+    "MKNitro-Settings-Footer-Fix-v10.1/Verification.json",
+    "MKNitro-Settings-Footer-Fix-v10.1/Build.py",
+    "MKNitro-Settings-Footer-Fix-v10.1/README.txt",
+    "MKNitro-Settings-Footer-Fix-v10.1/SHA256SUMS.txt",
+    "MKNitro-Itembox-UI-Colour-Fix/archive_io.py",
+    "MKNitro-Itembox-UI-Colour-Fix/Verification.json",
+    "MKNitro-Itembox-UI-Colour-Fix/Build.py",
+    "MKNitro-Itembox-UI-Colour-Fix/README.txt",
+    "MKNitro-Itembox-UI-Colour-Fix/Hook.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/README.txt",
+    "MKNitro-Native-Settings-And-Preview-v5/SHA256SUMS.txt",
+    "MKNitro-Preview-Crash-Repair-v6/README.txt",
+    "MKNitro-Preview-Crash-Repair-v6/SHA256SUMS.txt",
+    "MKNitro-Main-Settings-v10/archive_io.py",
+    "MKNitro-Main-Settings-v10/Verification.json",
+    "MKNitro-Main-Settings-v10/Native-checks.json",
+    "MKNitro-Main-Settings-v10/Options-hook.asm",
+    "MKNitro-Main-Settings-v10/Verify-native.py",
+    "MKNitro-Main-Settings-v10/Build.py",
+    "MKNitro-Main-Settings-v10/README.txt",
+    "MKNitro-Main-Settings-v10/SHA256SUMS.txt",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/checksums.json",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/README.txt",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/results.txt",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/code_tools.py",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/build.py",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/test.py",
+    "MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Source/online-tt-track-selection.patch",
+    "MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/README.txt",
+    "MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/results.txt",
+    "MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/code_tools.py",
+    "MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/build.py",
+    "MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/test.py",
+    "MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Source/findings.txt",
+    "MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/README.txt",
+    "MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/results.txt",
+    "MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/code_tools.py",
+    "MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/build.py",
+    "MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/test.py",
+    "MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/validation.txt",
+    "MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/code_tools.py",
+    "MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/build.py",
+    "MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/offsets.json",
+    "MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/test.py",
+    "MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/checksums.json",
+    "MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/build.py",
+    "MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/README.txt",
+    "MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/test.py",
+    "MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/Verification/validation.txt",
+    "MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/Verification/code_tools.py",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/code_tools.py",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/validation.txt",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/manifest.json",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/build.py",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/test.py",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/validation.txt",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/build.py",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/offsets.json",
+    "MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/test.py",
+    "MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/README.txt",
+    "MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/results.txt",
+    "MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/code_tools.py",
+    "MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/build.py",
+    "MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/test.py",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/README.txt",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/test_installer.py",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/results.txt",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/miis.json",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/code_tools.py",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/build.py",
+    "MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/test.py",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/ResetPosition.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/visibility.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/SetPreviewVisibility.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/manifest.json",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/package_repair.py",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/VehicleUpdate.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/Assets.json",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/state_check.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/layout_wrapper.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/build_repair.py",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/verification.json",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/state_switch.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/native_rel.py",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/verify_native.py",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/NoteUpdate.asm",
+    "MKNitro-Native-Settings-And-Preview-v5/Verification/DriverSwitch.asm",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/Verification.json",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/MenuKartPreviewHeap.cpp",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/manifest.json",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/package_repair.py",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/verify_lifecycle.py",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/build_repair.py",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/reproduce_loader.py",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/native_dol.py",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/native_probe.py",
+    "MKNitro-Preview-Crash-Repair-v6/Verification/Original-heap-crash.txt"
+  ],
+  "excluded_default_features": [
+    "experimental NitroIntegrity module and authentication enforcement"
+  ],
+  "status": "editable source recovery; exact current-release parity not established"
+}

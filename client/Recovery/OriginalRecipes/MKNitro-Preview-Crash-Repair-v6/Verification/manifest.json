@@ -1,0 +1,16 @@
+{
+  "base_version": "Native Settings and Preview v5",
+  "region": "PAL",
+  "base_sha256": "7946a60dbaf01bfc77c99d89ce11fcd92c5b0f5f677358087535030a170ffb4a",
+  "output_sha256": "c3cc4e01c96eddb14055c63c53df9318583256d4137a42f59544622526c70aaf",
+  "native_patch_address": "0x80542310",
+  "old_instruction": "0x3f40000e",
+  "new_instruction": "0x3f400012",
+  "old_heap_bytes": 921600,
+  "new_heap_bytes": 1183744,
+  "additional_bytes_per_local_player": 262144,
+  "max_additional_bytes_four_players": 1048576,
+  "appended_kamek_bytes": 12,
+  "existing_code_and_commands_unchanged": true,
+  "other_region_blocks_unchanged": true
+}

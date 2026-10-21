@@ -1,0 +1,727 @@
+#include <MarioKartWii/UI/Section/SectionMgr.hpp>
+#include <MarioKartWii/UI/Page/Menu/CupSelect.hpp>
+#include <MarioKartWii/UI/Page/Menu/CourseSelect.hpp>
+#include <MarioKartWii/UI/Page/Other/GhostSelect.hpp>
+#include <MarioKartWii/UI/Page/Other/Votes.hpp>
+#include <MarioKartWii/UI/Page/Other/SELECTStageMgr.hpp>
+#include <MarioKartWii/RKNet/RKNetController.hpp>
+#include <MarioKartWii/GlobalFunctions.hpp>
+#include <MarioKartWii/Race/RaceInfo/RaceInfo.hpp>
+#include <SlotExpansion/CupsConfig.hpp>
+#include <SlotExpansion/UI/ExpCupSelect.hpp>
+#include <SlotExpansion/UI/ExpansionUIMisc.hpp>
+#include <Network/PacketExpansion.hpp>
+#include <core/nw4r/lyt/TextBox.hpp>
+
+namespace Pulsar {
+namespace UI {
+
+static void BuildBlockedTrackName(wchar_t *dest, const wchar_t *src, u32 maxLen);
+static void RemoveAllEscapeSequences(wchar_t *dest, const wchar_t *src);
+static u32 AppendTrackTextPreservingColor(wchar_t *dest, const wchar_t *src, u32 outLen, u32 maxLen);
+static bool IsVariantBaseTrackBMGId(u32 bmgId);
+static void BuildVariantBaseTrackName(wchar_t *dest, const wchar_t *src, u32 maxLen);
+
+static void BuildTrackNameAndAuthor(wchar_t *dest, const wchar_t *trackName, const wchar_t *authorName, u32 maxLen);
+
+static bool IsGroupedTrack(PulsarId id) {
+    if (CupsConfig::IsReg(id)) return false;
+    const u32 idx = id - 0x100;
+    switch (idx) {
+        case 6:
+        case 9:
+        case 27:
+        case 29:
+        case 31:
+        case 32:
+        case 37:
+        case 51:
+        case 57:
+        case 61:
+        case 63:
+        case 67:
+        case 73:
+        case 76:
+        case 77:
+        case 85:
+            return true;
+        default:
+            if (idx >= 88 && idx <= 103) return true;
+            return false;
+    }
+}
+
+bool IsTrackBlocked(PulsarId id) {
+    System *system = System::sInstance;
+    if (!system) return false;
+
+    const u32 blockingCount = system->GetInfo().GetTrackBlocking();
+    if (blockingCount == 0 || system->netMgr.lastTracks == nullptr) return false;
+
+    for (u32 i = 0; i < blockingCount; ++i) {
+        if (system->netMgr.lastTracks[i] == id) return true;
+    }
+
+    RKNet::Controller *controller = RKNet::Controller::sInstance;
+    if (controller != nullptr &&
+        (controller->roomType == RKNet::ROOMTYPE_JOINING_REGIONAL ||
+         controller->roomType == RKNet::ROOMTYPE_VS_REGIONAL)) {
+        if (IsGroupedTrack(id) && system->netMgr.lastGroupedTrackPlayed) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Change brctr names
+kmWrite24(0x808a85ef, 'PUL');  // used by 807e5754
+
+static void LoadCtrlMenuCourseSelectCupBRCTR(ControlLoader &loader, const char *folderName, const char *ctrName,
+                                             const char *variant, const char **animNames) {
+    loader.Load(UI::buttonFolder, "PULrseSelectCup", variant, animNames);  // Move to button to avoid duplication of cup icon tpls
+}
+kmCall(0x807e4538, LoadCtrlMenuCourseSelectCupBRCTR);
+
+static void LoadCorrectTrackListBox(ControlLoader &loader, const char *folder, const char *normalBrctr, const char *variant, const char **anims) {
+    loader.Load(folder, "PULSelectNULL", variant, anims);
+}
+kmCall(0x807e5f24, LoadCorrectTrackListBox);
+
+static u32 GetLanguageTrackOffset() {
+    Pulsar::Language currentLanguage = static_cast<Pulsar::Language>(Pulsar::Settings::Mgr::Get().GetSettingValue(Pulsar::Settings::SETTING_LANGUAGE));
+    switch (currentLanguage) {
+        case Pulsar::LANGUAGE_JAPANESE:
+            return 0x1000;
+        case Pulsar::LANGUAGE_FRENCH:
+            return 0x2000;
+        case Pulsar::LANGUAGE_GERMAN:
+            return 0x3000;
+        case Pulsar::LANGUAGE_DUTCH:
+            return 0x4000;
+        case Pulsar::LANGUAGE_SPANISHUS:
+            return 0x5000;
+        case Pulsar::LANGUAGE_SPANISHEU:
+            return 0x6000;
+        case Pulsar::LANGUAGE_FINNISH:
+            return 0x7000;
+        case Pulsar::LANGUAGE_ITALIAN:
+            return 0x8000;
+        case Pulsar::LANGUAGE_KOREAN:
+            return 0x9000;
+        case Pulsar::LANGUAGE_RUSSIAN:
+            return 0xA000;
+        case Pulsar::LANGUAGE_TURKISH:
+            return 0xB000;
+        case Pulsar::LANGUAGE_CZECH:
+            return 0xC000;
+        case Pulsar::LANGUAGE_ENGLISH:
+        default:
+            return 0;
+    }
+}
+
+static u32 GetLanguageTrackBase() {
+    return BMG_TRACKS + GetLanguageTrackOffset();
+}
+
+int GetTrackVariantBMGId(PulsarId pulsarId, u8 variantIdx) {
+    u32 realId = CupsConfig::ConvertTrack_PulsarIdToRealId(pulsarId);
+    if (CupsConfig::IsReg(pulsarId)) {
+        u32 bmgBase = realId > 32 ? BMG_BATTLE : BMG_REGS;
+        return bmgBase + realId;
+    }
+    u32 languageBase = GetLanguageTrackBase();
+
+    if (variantIdx == 8) variantIdx = 0;
+    if (variantIdx == 0 && CupsConfig::sInstance->GetTrack(pulsarId).variantCount == 0)
+        return languageBase + realId;
+
+    const u32 VARIANT_TRACKS_BASE = 0x400000;
+    u32 variantOffset = static_cast<u32>(variantIdx);
+    return VARIANT_TRACKS_BASE + (realId << 4) + variantOffset + languageBase;
+}
+
+int GetTrackBMGId(PulsarId pulsarId, bool useCommonName) {
+    u8 variantIdx = 0;
+    if (!CupsConfig::IsReg(pulsarId)) {
+        const CupsConfig *cupsConfig = CupsConfig::sInstance;
+        if (cupsConfig->GetTrack(pulsarId).variantCount > 0) {
+            if (useCommonName) {
+                u32 realId = CupsConfig::ConvertTrack_PulsarIdToRealId(pulsarId);
+                return realId + GetLanguageTrackBase();
+            }
+            variantIdx = static_cast<u8>(cupsConfig->GetCurVariantIdx());
+        }
+    }
+    return GetTrackVariantBMGId(pulsarId, variantIdx);
+}
+
+int GetTrackBMGByRowIdx(u32 cupTrackIdx) {
+    const Pages::CupSelect *cup = SectionMgr::sInstance->curSection->Get<Pages::CupSelect>();
+    PulsarCupId curCupId;
+    if (cup == nullptr)
+        curCupId = PULSARCUPID_FIRSTREG;
+    else
+        curCupId = static_cast<PulsarCupId>(cup->ctrlMenuCupSelectCup.curCupID);
+    return GetTrackBMGId(CupsConfig::sInstance->ConvertTrack_PulsarCupToTrack(curCupId, cupTrackIdx), true);
+}
+kmWrite32(0x807e6184, 0x7FA3EB78);
+kmCall(0x807e6188, &GetTrackBMGByRowIdx);
+kmWrite32(0x807e6088, 0x7F63DB78);
+kmCall(0x807e608c, GetTrackBMGByRowIdx);
+
+static wchar_t s_blockedCupPreviewBuffer[4][0x100];
+static wchar_t s_variantBaseCupPreviewBuffer[4][0x100];
+
+static void SetCupPreviewTrackMessageImpl(LayoutUIControl *control, u32 bmgId, const Text::Info *info, u32 trackIdx) {
+    const Pages::CupSelect *cup = SectionMgr::sInstance->curSection->Get<Pages::CupSelect>();
+    PulsarCupId curCupId;
+    if (cup == nullptr)
+        curCupId = PULSARCUPID_FIRSTREG;
+    else
+        curCupId = static_cast<PulsarCupId>(cup->ctrlMenuCupSelectCup.curCupID);
+
+    PulsarId trackId = CupsConfig::sInstance->ConvertTrack_PulsarCupToTrack(curCupId, trackIdx);
+    if (IsTrackBlocked(trackId)) {
+        const wchar_t *originalText = GetCustomMsg(bmgId);
+        if (originalText != nullptr) {
+            BuildBlockedTrackName(s_blockedCupPreviewBuffer[trackIdx], originalText, 0x100);
+            Text::Info blockedInfo;
+            blockedInfo.strings[0] = s_blockedCupPreviewBuffer[trackIdx];
+            control->SetMessage(BMG_TEXT, &blockedInfo);
+            return;
+        }
+    }
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    if (!CupsConfig::IsReg(trackId) && cupsConfig != nullptr && cupsConfig->GetTrack(trackId).variantCount > 0 &&
+        IsVariantBaseTrackBMGId(bmgId) && trackIdx < 4) {
+        const wchar_t *originalText = GetCustomMsg(bmgId);
+        if (originalText != nullptr) {
+            BuildVariantBaseTrackName(s_variantBaseCupPreviewBuffer[trackIdx], originalText, 0x100);
+            Text::Info variantInfo;
+            variantInfo.strings[0] = s_variantBaseCupPreviewBuffer[trackIdx];
+            control->SetMessage(BMG_TEXT, &variantInfo);
+            return;
+        }
+    }
+    control->SetMessage(bmgId, info);
+}
+
+static void SetCupPreviewTrackMessage_R27(LayoutUIControl *control, u32 bmgId, const Text::Info *info) {
+    register u32 trackIdx;
+    asm(mr trackIdx, r27;);
+    SetCupPreviewTrackMessageImpl(control, bmgId, info, trackIdx);
+}
+kmCall(0x807e609c, SetCupPreviewTrackMessage_R27);
+
+static void SetCupPreviewTrackMessage_R29(LayoutUIControl *control, u32 bmgId, const Text::Info *info) {
+    register u32 trackIdx;
+    asm(mr trackIdx, r29;);
+    SetCupPreviewTrackMessageImpl(control, bmgId, info, trackIdx);
+}
+kmCall(0x807e6198, SetCupPreviewTrackMessage_R29);
+
+int GetCurTrackBMG() {
+    return GetTrackBMGId(CupsConfig::sInstance->GetWinning(), false);
+}
+
+u32 GetTrackAuthorBMGId(PulsarId trackId, u32 trackBmgId) {
+    if (CupsConfig::IsReg(trackId) || trackBmgId < BMG_TRACKS) return BMG_NINTENDO;
+
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    const u32 VARIANT_TRACKS_BASE = 0x400000;
+    const u32 VARIANT_AUTHORS_BASE = 0x500000;
+
+    const bool hasVariants = cupsConfig->GetTrack(trackId).variantCount > 0;
+    const u8 curVariant = cupsConfig->GetCurVariantIdx();
+    const u32 realId = CupsConfig::ConvertTrack_PulsarIdToRealId(trackId);
+
+    if (hasVariants && curVariant > 0 && trackBmgId >= VARIANT_TRACKS_BASE && trackBmgId < VARIANT_AUTHORS_BASE) {
+        u32 variantAuthorOffset = trackBmgId - VARIANT_TRACKS_BASE;
+        const u32 languageOffset = GetLanguageTrackOffset();
+        if (variantAuthorOffset >= languageOffset) variantAuthorOffset -= languageOffset;
+        return VARIANT_AUTHORS_BASE + variantAuthorOffset;
+    }
+    if (trackBmgId >= VARIANT_TRACKS_BASE && trackBmgId < VARIANT_AUTHORS_BASE) {
+        return BMG_AUTHORS + realId;
+    }
+    if (trackBmgId >= BMG_TRACKS && trackBmgId < VARIANT_TRACKS_BASE) {
+        return BMG_AUTHORS + realId;
+    }
+
+    const u32 languageFix = GetLanguageTrackOffset();
+    return trackBmgId + BMG_AUTHORS - BMG_TRACKS - languageFix;
+}
+
+bool SetTrackNameAuthorMessage(LayoutUIControl &control, PulsarId trackId, u32 trackBmgId) {
+    if (CupsConfig::IsReg(trackId)) return false;
+
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    const bool hasVariants = cupsConfig->GetTrack(trackId).variantCount > 0;
+    const u32 trackNameBmgId =
+        hasVariants ? GetTrackVariantBMGId(trackId, static_cast<u8>(cupsConfig->GetCurVariantIdx())) : GetTrackBMGId(trackId, true);
+    const u32 authorId = GetTrackAuthorBMGId(trackId, trackBmgId);
+    const wchar_t *trackText = GetCustomMsg(trackNameBmgId);
+    const wchar_t *authorText = GetCustomMsg(authorId);
+
+    if (trackText == nullptr || authorText == nullptr) return false;
+
+    static wchar_t s_trackAuthorBuffer[0x200];
+    BuildTrackNameAndAuthor(s_trackAuthorBuffer, trackText, authorText, 0x200);
+    Text::Info customInfo;
+    customInfo.strings[0] = s_trackAuthorBuffer;
+    control.SetMessage(BMG_TEXT, &customInfo);
+    return true;
+}
+
+static void SetVSIntroBmgId(LayoutUIControl *trackName) {
+    u32 bmgId = GetCurTrackBMG();
+    Text::Info info;
+    info.bmgToPass[0] = bmgId;
+    const PulsarId winning = CupsConfig::sInstance->GetWinning();
+    if (CupsConfig::IsReg(winning)) return;
+    if (SetTrackNameAuthorMessage(*trackName, winning, bmgId)) return;
+
+    info.bmgToPass[1] = GetTrackAuthorBMGId(winning, bmgId);
+    trackName->SetMessage(BMG_INFO_DISPLAY, &info);
+}
+kmCall(0x808552cc, SetVSIntroBmgId);
+
+static u32 GetCupBmgIdForInfo(PulsarCupId id, wchar_t *fallbackName, u32 fallbackNameLen, Text::Info &info) {
+    const u32 realCupId = CupsConfig::ConvertCup_PulsarIdToRealId(id);
+    const u32 iconCount = CupsConfig::sInstance->definedCTsCupCount;
+    if (realCupId >= iconCount) {
+        swprintf(fallbackName, fallbackNameLen, L"Cup %d", realCupId);
+        info.strings[0] = fallbackName;
+        return BMG_TEXT;
+    }
+    return BMG_CUPS + realCupId;
+}
+
+static void SetAwardsResultCupInfo(LayoutUIControl &awardType, const char *textBoxName, u32 bmgId, Text::Info &info) {
+    PulsarCupId id = CupsConfig::sInstance->lastSelectedCup;
+    if (!CupsConfig::IsRegCup(id)) {
+        awardType.layout.GetPaneByName("cup_icon")->flag &= ~1;
+        wchar_t cupName[0x20];
+        info.bmgToPass[1] = GetCupBmgIdForInfo(id, cupName, sizeof(cupName) / sizeof(cupName[0]), info);
+    }
+    awardType.SetTextBoxMessage(textBoxName, bmgId, &info);
+}
+kmCall(0x805bcb88, SetAwardsResultCupInfo);
+
+static void SetGPIntroInfo(LayoutUIControl &titleText, u32 bmgId, Text::Info &info) {
+    PulsarCupId id = CupsConfig::sInstance->lastSelectedCup;
+    if (!CupsConfig::IsRegCup(id)) {
+        titleText.layout.GetPaneByName("cup_icon")->flag &= ~1;
+        wchar_t cupName[0x20];
+        info.bmgToPass[1] = GetCupBmgIdForInfo(id, cupName, sizeof(cupName) / sizeof(cupName[0]), info);
+    }
+    titleText.SetMessage(bmgId, &info);
+}
+kmCall(0x808553b4, SetGPIntroInfo);
+
+static void SetGPBottomText(CtrlMenuInstructionText &bottomText, u32 bmgId, Text::Info &info) {
+    register ExpCupSelect *cupPage;
+    asm(mr cupPage, r31;);
+    PulsarCupId id = static_cast<PulsarCupId>(cupPage->ctrlMenuCupSelectCup.curCupID);
+
+    if (!CupsConfig::IsRegCup(id)) {
+        u32 realCupId = CupsConfig::ConvertCup_PulsarIdToRealId(id);
+        register u32 cc;
+        asm(mr cc, r28;);
+        u8 status = Settings::Mgr::GetGPStatus(realCupId, cc);
+        u32 trophyBmg;
+        u32 rankBmg;
+        if (status == 0xFF) {
+            trophyBmg = BMG_GP_BLANK;
+            rankBmg = BMG_GP_BLANK;
+        } else {
+            trophyBmg = BMG_GP_GOLD_TROPHY + Settings::Mgr::ComputeTrophyFromStatus(status);
+            rankBmg = BMG_GP_RANK_3STARS + Settings::Mgr::ComputeRankFromStatus(status);
+        }
+        info.bmgToPass[1] = trophyBmg;
+        info.bmgToPass[2] = rankBmg;
+    }
+    bottomText.SetMessage(bmgId, &info);
+}
+kmCall(0x80841720, SetGPBottomText);
+
+static void SetGhostInfoTrackBMG(GhostInfoControl *control, const char *textBoxName) {
+    control->SetTextBoxMessage(textBoxName, GetCurTrackBMG());
+}
+kmCall(0x805e2a4c, SetGhostInfoTrackBMG);
+
+kmWrite32(0x808406e8, 0x388000ff);  // store 0xFF on timeout instead of -1
+kmWrite32(0x808415ac, 0x388000ff);
+kmWrite32(0x80643004, 0x3be000ff);
+kmWrite32(0x808394e8, 0x388000ff);
+kmWrite32(0x80840c34, 0x388000ff);  // CourseSelect::OnTimeout - store 0xFF instead of -1
+kmWrite32(0x80644104, 0x3b5b0000);
+static void CourseVoteBMG(VoteControl *vote, bool isCourseIdInvalid, PulsarId courseVote, MiiGroup &miiGroup, u32 playerId, bool isLocalPlayer, u32 team) {
+    u32 bmgId = courseVote;
+
+    if (bmgId != 0x1101 && bmgId < 0x2498) {
+        u8 variantIdx = 0;
+        if (!CupsConfig::IsReg(courseVote)) {
+            const CupsConfig *cupsConfig = CupsConfig::sInstance;
+            if (cupsConfig->GetTrack(courseVote).variantCount > 0) {
+                Pages::SELECTStageMgr *selectStageMgr = SectionMgr::sInstance->curSection->Get<Pages::SELECTStageMgr>();
+                if (selectStageMgr != nullptr && playerId < 12) {
+                    const PlayerInfo &info = selectStageMgr->infos[playerId];
+                    const Network::ExpSELECTHandler &handler = Network::ExpSELECTHandler::Get();
+                    variantIdx = handler.GetVoteVariantIdx(info.aid, info.hudSlotid);
+                }
+            }
+        }
+        bmgId = GetTrackVariantBMGId(courseVote, variantIdx);
+    }
+    vote->Fill(isCourseIdInvalid, bmgId, miiGroup, playerId, isLocalPlayer, team);
+    SetVoteControlMessage(*vote, bmgId, courseVote, playerId);
+}
+kmCall(0x806441b8, CourseVoteBMG);
+
+static bool BattleArenaBMGFix(SectionId sectionId) {
+    register PulsarId id;
+    asm(mr id, r28;);
+    CupsConfig::sInstance->SetWinning(id, 0);
+    return IsOnlineSection(sectionId);
+}
+kmCall(0x8083d02c, BattleArenaBMGFix);
+
+static void WinningTrackBMG(PulsarId winningCourse) {
+    register Pages::Vote *vote;
+    asm(mr vote, r27;);
+
+    u8 variantIdx = 0;
+    if (!CupsConfig::IsReg(winningCourse)) {
+        const CupsConfig *cupsConfig = CupsConfig::sInstance;
+        if (cupsConfig->GetTrack(winningCourse).variantCount > 0) {
+            RKNet::Controller *controller = RKNet::Controller::sInstance;
+            RKNet::ControllerSub &sub = controller->subs[controller->currentSub];
+            const Network::ExpSELECTHandler &handler = Network::ExpSELECTHandler::Get();
+            const u8 hostAid = sub.hostAid;
+
+            if (hostAid == sub.localAid) {
+                variantIdx = handler.toSendPacket.variantIdx;
+            } else {
+                variantIdx = handler.receivedPackets[hostAid].variantIdx;
+            }
+        }
+    }
+    vote->trackBmgId = GetTrackVariantBMGId(winningCourse, variantIdx);
+}
+kmCall(0x80644344, WinningTrackBMG);
+
+// Rewrote InitSelf to start with correct TPLs
+static void ExtCupSelectCupInitSelf(CtrlMenuCupSelectCup *cups) {
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    PulsarCupId selCup = cupsConfig->lastSelectedCup;
+    cups->curCupID = selCup;
+    PushButton **buttons = reinterpret_cast<PushButton **>(cups->childrenGroup.controlArray);
+
+    for (int i = 0; i < 8; ++i) {
+        const PulsarCupId id = cupsConfig->GetNextCupId(selCup, i - cupsConfig->lastSelectedCupButtonIdx);
+        buttons[i]->buttonId = id;
+        ExpCupSelect::UpdateCupData(id, *buttons[i]);
+        buttons[i]->SetOnClickHandler(cups->onCupButtonClickHandler, 0);
+        buttons[i]->SetOnSelectHandler(cups->onCupButtonSelectHandler);
+        buttons[i]->SetPlayerBitfield(SectionMgr::sInstance->curSection->Get<Pages::CupSelect>()->GetPlayerBitfield());
+    }
+    buttons[cupsConfig->lastSelectedCupButtonIdx]->SelectInitial(0);
+};
+kmWritePointer(0x808d324c, ExtCupSelectCupInitSelf);  // 807e5894
+
+static void ExtCourseSelectCupInitSelf(CtrlMenuCourseSelectCup *courseCups) {
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    for (int i = 0; i < 8; ++i) {
+        CtrlMenuCourseSelectCupSub &cur = courseCups->cupIcons[i];
+        const PulsarCupId id = cupsConfig->GetNextCupId(cupsConfig->lastSelectedCup, i - cupsConfig->lastSelectedCupButtonIdx);
+        ExpCupSelect::UpdateCupData(id, cur);
+        cur.animator.GetAnimationGroupById(0).PlayAnimationAtFrame(0, 0.0f);
+        const bool clicked = cupsConfig->lastSelectedCupButtonIdx == i;
+        cur.animator.GetAnimationGroupById(1).PlayAnimationAtFrame(!clicked, 0.0f);
+        cur.animator.GetAnimationGroupById(2).PlayAnimationAtFrame(!clicked, 0.0f);
+        cur.animator.GetAnimationGroupById(3).PlayAnimationAtFrame(clicked, 0.0f);
+        cur.selected = clicked;
+        cur.SetRelativePosition(courseCups->positionAndscale[1]);
+    }
+    const Section *curSection = SectionMgr::sInstance->curSection;
+    Pages::CupSelect *cup = curSection->Get<Pages::CupSelect>();
+    NoteModelControl *positionArray = cup->modelPosition;
+
+    switch (cup->extraControlNumber) {
+        case (2):
+            positionArray[0].positionAndscale[1].position.x = -52.0f;
+            positionArray[0].positionAndscale[1].position.y = -8.0f;
+            positionArray[0].positionAndscale[1].scale.x = 0.875f;
+            positionArray[0].positionAndscale[1].scale.z = 0.875f;
+            positionArray[1].positionAndscale[1].position.x = -52.0f;
+            positionArray[1].positionAndscale[1].position.y = -13.0f;
+            positionArray[1].positionAndscale[1].scale.x = 0.875f;
+            positionArray[1].positionAndscale[1].scale.z = 0.875f;
+            break;
+        case (1):
+            positionArray[0].positionAndscale[1].position.x = -32.0f;
+            positionArray[0].positionAndscale[1].position.y = -32.0f;
+            positionArray = curSection->Get<Pages::CourseSelect>()->modelPosition;
+            positionArray[0].positionAndscale[1].position.x = -32.0f;
+            positionArray[0].positionAndscale[1].position.y = -32.0f;
+            break;
+        case (4):
+            positionArray[3].positionAndscale[1].position.x = 64.0f;
+            positionArray[3].positionAndscale[1].position.y = -55.25f;
+            positionArray[3].positionAndscale[1].scale.x = 0.6875f;
+            positionArray[3].positionAndscale[1].scale.z = 0.6875f;
+        case (3):
+            positionArray[0].positionAndscale[1].position.x = 64.0f;
+            positionArray[0].positionAndscale[1].position.y = -64.0f;
+            positionArray[0].positionAndscale[1].scale.x = 0.6875f;
+            positionArray[0].positionAndscale[1].scale.z = 0.6875f;
+            positionArray[1].positionAndscale[1].position.x = 64.0f;
+            positionArray[1].positionAndscale[1].position.y = -64.0f;
+            positionArray[1].positionAndscale[1].scale.x = 0.6875f;
+            positionArray[1].positionAndscale[1].scale.z = 0.6875f;
+            positionArray[2].positionAndscale[1].position.x = 64.0f;
+            positionArray[2].positionAndscale[1].position.y = -55.25f;
+            positionArray[2].positionAndscale[1].scale.x = 0.6875f;
+            positionArray[2].positionAndscale[1].scale.z = 0.6875f;
+            break;
+    }
+};
+kmWritePointer(0x808d3190, ExtCourseSelectCupInitSelf);  // 807e45c0
+
+static const wchar_t COLOR_ESCAPE_RED[] = {0x001A, 0x0800, 0x0001, 0x0017, 0x0000};
+static const wchar_t FONT_SIZE_ESCAPE_SMALL[] = {0x001A, 0x0800, 0x0000, 0x0050, 0x0000};
+
+static const wchar_t *FindFirstColorEscape(const wchar_t *src) {
+    const u8 *srcBytes = reinterpret_cast<const u8 *>(src);
+    while (*reinterpret_cast<const wchar_t *>(srcBytes) != L'\0') {
+        const wchar_t cur = *reinterpret_cast<const wchar_t *>(srcBytes);
+        if (cur == 0x001A) {
+            const u8 escapeLen = srcBytes[2];
+            if ((escapeLen == 0) || (escapeLen & 1)) break;
+
+            const wchar_t *escapeWchars = reinterpret_cast<const wchar_t *>(srcBytes);
+            const u8 escapeType = srcBytes[3];
+            if (escapeLen >= 8 && escapeType == 0 && escapeWchars[2] == 0x0001) return escapeWchars;
+
+            srcBytes += escapeLen;
+        } else {
+            srcBytes += sizeof(wchar_t);
+        }
+    }
+    return nullptr;
+}
+
+static void RemoveAllEscapeSequences(wchar_t *dest, const wchar_t *src) {
+    while (*src != L'\0') {
+        if (src[0] == 0x001A) {
+            const u8 *escapeBytes = reinterpret_cast<const u8 *>(src);
+            u8 escapeLength = escapeBytes[2];
+            src = reinterpret_cast<const wchar_t *>(escapeBytes + escapeLength);
+        } else {
+            *dest++ = *src++;
+        }
+    }
+    *dest = L'\0';
+}
+
+static void BuildBlockedTrackName(wchar_t *dest, const wchar_t *src, u32 maxLen) {
+    u32 prefixLen = 4;
+    for (u32 i = 0; i < prefixLen && i < maxLen - 1; ++i) {
+        dest[i] = COLOR_ESCAPE_RED[i];
+    }
+    RemoveAllEscapeSequences(dest + prefixLen, src);
+}
+
+static void BuildVariantBaseTrackName(wchar_t *dest, const wchar_t *src, u32 maxLen) {
+    if (maxLen == 0) return;
+
+    u32 out = AppendTrackTextPreservingColor(dest, src, 0, maxLen);
+    if (out < maxLen - 1) dest[out++] = L' ';
+    const wchar_t *colorEscape = FindFirstColorEscape(src);
+    if (colorEscape != nullptr) {
+        const u8 *escapeBytes = reinterpret_cast<const u8 *>(colorEscape);
+        const u8 escapeLen = escapeBytes[2];
+        const u32 escapeChars = escapeLen / sizeof(wchar_t);
+        for (u32 i = 0; i < escapeChars && out < maxLen - 1; ++i) {
+            dest[out++] = colorEscape[i];
+        }
+    }
+    if (out < maxLen - 1) dest[out++] = L'*';
+    dest[out] = L'\0';
+}
+
+static bool IsVariantBaseTrackBMGId(u32 bmgId) {
+    const u32 VARIANT_TRACKS_BASE = 0x400000;
+    const u32 VARIANT_AUTHORS_BASE = 0x500000;
+    if (bmgId >= VARIANT_TRACKS_BASE && bmgId < VARIANT_AUTHORS_BASE) return (bmgId & 0xF) == 0;
+    return bmgId >= BMG_TRACKS && bmgId < VARIANT_TRACKS_BASE;
+}
+
+static void BuildTrackNameAndAuthor(wchar_t *dest, const wchar_t *trackName, const wchar_t *authorName, u32 maxLen) {
+    if (maxLen == 0) return;
+
+    wchar_t cleanAuthor[0x100];
+    RemoveAllEscapeSequences(cleanAuthor, authorName);
+
+    u32 out = AppendTrackTextPreservingColor(dest, trackName, 0, maxLen);
+
+    if (out < maxLen - 1) {
+        dest[out++] = L'\n';
+    }
+
+    const u32 prefixLen = 4;
+    for (u32 i = 0; i < prefixLen && out < maxLen - 1; ++i) {
+        dest[out++] = FONT_SIZE_ESCAPE_SMALL[i];
+    }
+
+    const wchar_t *curAuthor = cleanAuthor;
+    while (*curAuthor != L'\0' && out < maxLen - 1) {
+        dest[out++] = *curAuthor++;
+    }
+
+    dest[out] = L'\0';
+}
+
+static u32 AppendTrackTextPreservingColor(wchar_t *dest, const wchar_t *src, u32 outLen, u32 maxLen) {
+    if (src == nullptr || maxLen == 0 || outLen >= maxLen - 1) return outLen;
+
+    u8 *destBytes = reinterpret_cast<u8 *>(dest);
+    const u8 *srcBytes = reinterpret_cast<const u8 *>(src);
+    u32 outBytes = outLen * sizeof(wchar_t);
+    const u32 maxDataBytes = (maxLen - 1) * sizeof(wchar_t);
+
+    while (outBytes < maxDataBytes) {
+        const wchar_t cur = *reinterpret_cast<const wchar_t *>(srcBytes);
+        if (cur == L'\0') break;
+
+        if (cur == 0x001A) {
+            const u8 escapeLen = srcBytes[2];
+            if ((escapeLen == 0) || (escapeLen & 1)) break;
+
+            bool keepEscape = false;
+            if (escapeLen >= 8) {
+                const wchar_t *escapeWchars = reinterpret_cast<const wchar_t *>(srcBytes);
+                const u8 escapeType = srcBytes[3];
+                keepEscape = (escapeType == 0) && (escapeWchars[2] == 0x0001);
+            }
+
+            if (keepEscape) {
+                if (outBytes + escapeLen > maxDataBytes) break;
+                for (u32 i = 0; i < static_cast<u32>(escapeLen); ++i) {
+                    destBytes[outBytes + i] = srcBytes[i];
+                }
+                outBytes += escapeLen;
+            }
+            srcBytes += escapeLen;
+            continue;
+        }
+
+        if (outBytes + sizeof(wchar_t) > maxDataBytes) break;
+        *reinterpret_cast<wchar_t *>(destBytes + outBytes) = cur;
+        outBytes += sizeof(wchar_t);
+        srcBytes += sizeof(wchar_t);
+    }
+
+    dest[outBytes / sizeof(wchar_t)] = L'\0';
+    return outBytes / sizeof(wchar_t);
+}
+
+static wchar_t s_blockedTrackNameBuffer[4][0x100];
+static wchar_t s_variantBaseTrackNameBuffer[5][0x100];
+
+void SetCourseButtonMessage(PushButton &button, u32 bmgId, PulsarId trackId, u32 buttonIdx, bool showVariantMarker) {
+    if (IsTrackBlocked(trackId)) {
+        const wchar_t *originalText = GetCustomMsg(bmgId);
+        if (originalText != nullptr) {
+            BuildBlockedTrackName(s_blockedTrackNameBuffer[buttonIdx], originalText, 0x100);
+            Text::Info info;
+            info.strings[0] = s_blockedTrackNameBuffer[buttonIdx];
+            button.SetMessage(BMG_TEXT, &info);
+            return;
+        }
+    }
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    if (showVariantMarker && !CupsConfig::IsReg(trackId) && cupsConfig != nullptr && cupsConfig->GetTrack(trackId).variantCount > 0 &&
+        IsVariantBaseTrackBMGId(bmgId) && buttonIdx < 5) {
+        const wchar_t *originalText = GetCustomMsg(bmgId);
+        if (originalText != nullptr) {
+            BuildVariantBaseTrackName(s_variantBaseTrackNameBuffer[buttonIdx], originalText, 0x100);
+            Text::Info info;
+            info.strings[0] = s_variantBaseTrackNameBuffer[buttonIdx];
+            button.SetMessage(BMG_TEXT, &info);
+            return;
+        }
+    }
+    button.SetMessage(bmgId);
+}
+
+static wchar_t s_blockedVoteNameBuffer[12][0x100];
+
+static bool IsVoteTrackBlocked(PulsarId courseVote) {
+    const Network::ExpSELECTHandler &handler = Network::ExpSELECTHandler::Get();
+    if (handler.toSendPacket.pulWinningTrack != 0xFF && handler.toSendPacket.pulWinningTrack == courseVote) return false;
+    return IsTrackBlocked(courseVote);
+}
+
+void SetVoteControlMessage(VoteControl &vote, u32 bmgId, PulsarId courseVote, u32 playerId) {
+    if (IsVoteTrackBlocked(courseVote) && playerId < 12) {
+        const wchar_t *originalText = GetCustomMsg(bmgId);
+        if (originalText != nullptr) {
+            BuildBlockedTrackName(s_blockedVoteNameBuffer[playerId], originalText, 0x100);
+            Text::Info info;
+            info.strings[0] = s_blockedVoteNameBuffer[playerId];
+            vote.SetMessage(BMG_TEXT, &info);
+            return;
+        }
+    }
+}
+
+void ApplyBlockedColorToString(wchar_t *dest, const wchar_t *src, u32 maxLen) {
+    BuildBlockedTrackName(dest, src, maxLen);
+}
+
+static void ExtCourseSelectCourseInitSelf(CtrlMenuCourseSelectCourse *course) {
+    const CupsConfig *cupsConfig = CupsConfig::sInstance;
+    const Section *curSection = SectionMgr::sInstance->curSection;
+    const Pages::CupSelect *cupPage = curSection->Get<Pages::CupSelect>();
+    Pages::CourseSelect *coursePage = curSection->Get<Pages::CourseSelect>();
+    // channel ldb stuff ignored
+    const u32 cupId = cupPage->clickedCupId;
+
+    PushButton *toSelect = &course->courseButtons[0];
+    for (int i = 0; i < 4; ++i) {
+        PushButton &curButton = course->courseButtons[i];
+        curButton.buttonId = i;
+        const u32 bmgId = GetTrackBMGByRowIdx(i);
+        PulsarId trackId = cupsConfig->ConvertTrack_PulsarCupToTrack(cupsConfig->lastSelectedCup, i);
+        SetCourseButtonMessage(curButton, bmgId, trackId, i);
+
+        if (trackId == cupsConfig->GetSelected()) {
+            toSelect = &curButton;
+        }
+    };
+    if (coursePage != nullptr) {
+        coursePage->SelectButton(*toSelect);
+    }
+};
+kmWritePointer(0x808d30d8, ExtCourseSelectCourseInitSelf);  // 807e5118
+
+// Multiplayer Fix
+kmWrite32(0x807e56d4, 0x60000000);
+kmWrite32(0x807e5f04, 0x60000000);
+
+// TPL
+// CupSelectCup patch, disable picture panes
+kmWrite32(0x807e57a4, 0x60000000);
+kmWrite32(0x807e57bc, 0x60000000);
+kmWrite32(0x807e57d4, 0x60000000);
+
+// CourseSelectCup patch, disable picture panes
+kmWrite32(0x807e4550, 0x60000000);
+kmWrite32(0x807e4568, 0x60000000);
+kmWrite32(0x807e4580, 0x60000000);
+}  // namespace UI
+}  // namespace Pulsar

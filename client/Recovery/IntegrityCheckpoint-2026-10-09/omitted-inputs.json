@@ -1,0 +1,1007 @@
+[
+  {
+    "path": "Candidate/Code.map",
+    "bytes": 120203,
+    "sha256": "63c7114f84dd01fc80e64496d8ddc805d37b4f9128eabdbe2af83ff62be18b40"
+  },
+  {
+    "path": "Candidate/Code_AUDIT_CANDIDATE.pul",
+    "bytes": 1654912,
+    "sha256": "8155c33e2798ed75c45c35161c93e98156869f873d84cda7aab351ea6f76a9d4"
+  },
+  {
+    "path": "Candidate/candidate-validation.json",
+    "bytes": 889,
+    "sha256": "17d43eed9325d5f29736edb10260083cd2a57781cde72a861e5e3fb976e502f5"
+  },
+  {
+    "path": "Recovery/AppliedSourcePorts/PlayerRating.patch",
+    "bytes": 2133,
+    "sha256": "2c704b086dbff74082a18ad6d07e1e761cf63a3880be906696b0f51a8bf97624"
+  },
+  {
+    "path": "Recovery/AppliedSourcePorts/online-tt-track-selection.patch",
+    "bytes": 2287,
+    "sha256": "67c9ca9790879d7247174aef7a2b2ccdb2b212ccf27737a3411b376d3dabfff8"
+  },
+  {
+    "path": "Recovery/CONTINUATION-20261009.json",
+    "bytes": 6220,
+    "sha256": "98ec99c11cb7022a78f927d067274a689ab8dcf68705a248f195c0cf9e808039"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/README.txt",
+    "bytes": 3953,
+    "sha256": "922b10255e8eea0e5dbf7c82edf26ec18352238e2ede78d6fcb126e7a0539eb9"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/build.py",
+    "bytes": 5978,
+    "sha256": "751c10fd16b4213e26c6f86a46733546a59afcb98bb013de60eea888714cb70b"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/results.txt",
+    "bytes": 562,
+    "sha256": "c9398a0bf141fbb62313a855a503b8597efff952b2fb7492811efb52b2431b27"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-HTTP-Fallback-Fix/MKNitro-HTTP-Fallback-Fix/Verification/test.py",
+    "bytes": 7948,
+    "sha256": "b1c1b95d17d915c54d453699a3e213b8c9ed4157d1ae866f8539440b787a92dc"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Itembox-UI-Colour-Fix/Build.py",
+    "bytes": 4413,
+    "sha256": "943b22f7ece7607379b99e89a80f164a3c2eb8b05cc26f618c08079c13f0139f"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Itembox-UI-Colour-Fix/Hook.asm",
+    "bytes": 348,
+    "sha256": "8a3c21a0e6a4e31e3216ff6fabc8a11f75e3ed351571bfbb016d9c249fb1dc11"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Itembox-UI-Colour-Fix/README.txt",
+    "bytes": 1433,
+    "sha256": "1ccf739eb5840da5a8e1165b4774f69dc92280f3389ffedd730b5f4013bad7ef"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Itembox-UI-Colour-Fix/Verification.json",
+    "bytes": 995,
+    "sha256": "a2897ffda274f264f497d9baa318eac7e3c819ba7cf7371d820eaab2a934c888"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Itembox-UI-Colour-Fix/archive_io.py",
+    "bytes": 1939,
+    "sha256": "05d9b2b464752334580447f6d821b9c8fa6597f76c50bd79432da850429ca50c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/README.txt",
+    "bytes": 5270,
+    "sha256": "2ae62fddbfe34a6b66c6f5848f74e115db6ac64714b68a7c5f629161c7e205a6"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/build.py",
+    "bytes": 3691,
+    "sha256": "3c19f54915faea5540e2aaf24958ca01a1fcfc4db0b37bb48df506a4997663d5"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/miis.json",
+    "bytes": 425,
+    "sha256": "a7f130074788ab4f679e9a3a4ba1453877033df28c2d285abdc345564037aa36"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/results.txt",
+    "bytes": 1348,
+    "sha256": "c0092f04e340326c509168d176e92d6bd36ea7a9458cbfac0dad578b088bf856"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/test.py",
+    "bytes": 6879,
+    "sha256": "30cd5466daf69ef0d0857be2aa7fb28baaec6eb66ed95365cb506a95f216b77d"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Mii-Fix/MKNitro-Leaderboard-Mii-Fix/Verification/test_installer.py",
+    "bytes": 3308,
+    "sha256": "fa1f93912aa16824b063a64ae5ff0a7ad3d5da69b7cf67a0fee11c2c36d44a50"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/README.txt",
+    "bytes": 3335,
+    "sha256": "98aabdcc76e25a65b7eb1a31f108c792914e853876379604449ae90a8c7c8295"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Source/findings.txt",
+    "bytes": 1969,
+    "sha256": "ffa8e40b90b0c120d6381330ca7667a01ebf16ac4b3ad7c507c3dc86e5c04b22"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/build.py",
+    "bytes": 5973,
+    "sha256": "a55c147a935c275205661058c59d493db89178e27c3eb24f72d5ad57b67c702c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/results.txt",
+    "bytes": 248,
+    "sha256": "f14321b1b3bd25586efc60d595155ded03903661f014104df6388423b0fa76c0"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Leaderboard-Reserve-Fix/MKNitro-Leaderboard-Reserve-Fix/Verification/test.py",
+    "bytes": 7210,
+    "sha256": "5b74cb566d158c956b2c8dc13b77c200dd373c2a6fcb42d49ba4d434a75ab0e4"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/Build.py",
+    "bytes": 3102,
+    "sha256": "55b31daa25c60ee522cf49ee02dc1cb7f1453fbf8de9f1decf2bac94b2443f65"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/License-activation-hook.asm",
+    "bytes": 1295,
+    "sha256": "1dd1bf4d69252cab3e18b2df84424bb5678056653da57f7ffc99c114dd0ed3ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/Native-checks.json",
+    "bytes": 990,
+    "sha256": "907f80bbb0f5b6512c4ed260a684dbbcc77d63d132dcb432801221e5cfaa55a7"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/README.txt",
+    "bytes": 1438,
+    "sha256": "a01a68b0e1085e56dd6fd2e0ee2546e54bc568fb640feffa2a3ebcf2f5daaa9c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/SHA256.txt",
+    "bytes": 104,
+    "sha256": "c1d0531fea9e44ae29ef58db10fe72a0705260efd0bfa1cae21ad1cdb03b6307"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/Verification.json",
+    "bytes": 558,
+    "sha256": "e3bc594cfbfe44fdd4a3aed1d303d6fda2658b7ead19fdb27e48242c69b8bc76"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-License-Visibility-Fix-v9.2/Verify.py",
+    "bytes": 2414,
+    "sha256": "e2d58273079541fd115109d8e8ca2b90ac474011eb837551bf10f8e9b7887342"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/README.txt",
+    "bytes": 4189,
+    "sha256": "503722755bfc27680a23c1b03ec700d32b7f31a751220e47d2d7e0a288ecd121"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/build.py",
+    "bytes": 8047,
+    "sha256": "d155e9c81dcf48d9a0accaaeae85875e3288b934aed6fc77167701b56a6915dd"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/results.txt",
+    "bytes": 786,
+    "sha256": "bb39e59fbef6f880cf858dd069496c215d9e7ae518e4c2dcc9446844e3c33b22"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-MEM2-Pool-Fix/MKNitro-MEM2-Pool-Fix/Verification/test.py",
+    "bytes": 13481,
+    "sha256": "710e923e949b73808fe56ea58e1defedc558d624e3bf34aefe3fa98840cfae71"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/Build.py",
+    "bytes": 5793,
+    "sha256": "9d5ec64043771fb25b9097e6ea5d0a3f3c1634e52272853e7afcaa50f2804d48"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/Native-checks.json",
+    "bytes": 392,
+    "sha256": "410c9cb45e7ec0c1fa3c22052dfa2dcf23d7b9eb88fea128f5cee6a0f5611693"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/Options-hook.asm",
+    "bytes": 257,
+    "sha256": "ad1201e11ced234870e376476d94ba7293da16fd11fced4c11be97129464488f"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/README.txt",
+    "bytes": 2612,
+    "sha256": "17105ec04eb02152b134a88b80e498159e02ebf6678b4759a0a92bf75956b7f8"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/SHA256SUMS.txt",
+    "bytes": 1701,
+    "sha256": "8356de30425afec81b915a6b6a87ed6629a276ced55476d22d0e05f600f86382"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/Verification.json",
+    "bytes": 1313,
+    "sha256": "0de8ab3f63289570990ddb88b634e5cd5d9aa1d32acf64de858c401d01499fdd"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/Verify-native.py",
+    "bytes": 2479,
+    "sha256": "cfc7a6c6fe579df30f28679b74d1fc1881fc1569dfd481caebd99c3c91ba01a1"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Main-Settings-v10/archive_io.py",
+    "bytes": 1939,
+    "sha256": "05d9b2b464752334580447f6d821b9c8fa6597f76c50bd79432da850429ca50c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/BackModel-verification.json",
+    "bytes": 218,
+    "sha256": "c3c6c696e2c383e3a4bfe5bca52fe3cbb9c88c71f55c9685c1551d2ab9b22ea2"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/Build-BackModel.py",
+    "bytes": 3206,
+    "sha256": "b4da374d3f5a3da8f47a2a08138d0ec146d6a9f9ad9b5b802bcc16b5359f2006"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/Build.py",
+    "bytes": 7404,
+    "sha256": "9d057393e79e22efd06daf26626d112d9f7a6a038e3cce81ed3ba9b2c6509841"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/Native-checks.json",
+    "bytes": 243,
+    "sha256": "eacef6670eff8aad45b6543448afe48d8913b4802d8124b46aa16e890aff3c4f"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/README.txt",
+    "bytes": 3250,
+    "sha256": "b0451d0960857f4a1962729d8098413371f9f51216907c4e15b78c25957e9196"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/SHA256.txt",
+    "bytes": 318,
+    "sha256": "31f555b089b7544c5965b00ba9376070f0c8fd77ca2f56bd7ac7a0e019689fc5"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/SHA256SUMS.txt",
+    "bytes": 318,
+    "sha256": "31f555b089b7544c5965b00ba9376070f0c8fd77ca2f56bd7ac7a0e019689fc5"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/Verification.json",
+    "bytes": 1387,
+    "sha256": "1490faac8329995354a1d97cd3765b320e0cd2f9ab6f96d2422edcc6f7c37e8f"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Menu-And-BackModel-Fixes-v9.1/Verify-native.py",
+    "bytes": 1751,
+    "sha256": "212ce1a88de647525e2c7ed742a2a39f5f924c383522c5a221660abf49311116"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/README.txt",
+    "bytes": 3924,
+    "sha256": "8fd85023af37b5606cd74b90d62ffa0bd6a9f23959e50c015506e39526662301"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/SHA256SUMS.txt",
+    "bytes": 1820,
+    "sha256": "1a58848ddc407806b99eb1cdcf83c6da7bab31d9c95ef6324b116ae663889f16"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/Assets.json",
+    "bytes": 1116,
+    "sha256": "7385f1ed81defdd3f1f6edfc48e770072ad52d6c6362fdb0b13c53941e5d6357"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/DriverSwitch.asm",
+    "bytes": 5402,
+    "sha256": "c436b00c73750323689a3eb7d4adc4dc15743f1303e34624acbe8c1201e67cca"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/NoteUpdate.asm",
+    "bytes": 10685,
+    "sha256": "4d59a3667c6fa11daf57eb5af24e4f356527b3294bba0b5739dcc8935dd60202"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/ResetPosition.asm",
+    "bytes": 3697,
+    "sha256": "1e136404b38a4c4d23f6025b9822564ab791d96a73e85bed9b803fc81cc32e21"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/SetPreviewVisibility.asm",
+    "bytes": 795,
+    "sha256": "23e9aa22ac10d5bc527a5d86c1a7b54e7b1d47beea8a85928795666f3a20fa09"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/VehicleUpdate.asm",
+    "bytes": 5508,
+    "sha256": "476533cc123bf38dcb227f43251f4b0f8de71c12f51f284607ca811c08ee6b81"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/build_repair.py",
+    "bytes": 4917,
+    "sha256": "2e60cc220968d4b90d923a03d9e5700e7051518790176381b48ea79e7734ef8b"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/layout_wrapper.asm",
+    "bytes": 876,
+    "sha256": "73109b7d65cc07b4cbefa49578f8d2a7e78fa2003d6e4380d979e78d37de2bc1"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/manifest.json",
+    "bytes": 747,
+    "sha256": "61ea0be827342b6f2d3ddf161b90a1a50f5dd26418e646dc6a909068e2aa7282"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/native_rel.py",
+    "bytes": 1851,
+    "sha256": "0bbbc098dce74f8480f632a8d7e36ad31e419372b64590b1879c9b8b24c48403"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/package_repair.py",
+    "bytes": 7540,
+    "sha256": "271cd32671fa0590a349aac634615964c9d16be7e85b15cda0631b50f637b513"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/state_check.asm",
+    "bytes": 210,
+    "sha256": "021237733c6cecadde4b097ace6170c74ae7a4fbaa00ab9ad1618ed1ed3debc5"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/state_switch.asm",
+    "bytes": 225,
+    "sha256": "970b30da6dc91c18a595cf3d4cb839479eb2b4ec915f6ac895d54818d18df5dd"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/verification.json",
+    "bytes": 3570,
+    "sha256": "268acab33e5c67e5e18ccdce1a3ed1eea09f707cb1046c47d4210511bef59281"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/verify_native.py",
+    "bytes": 9937,
+    "sha256": "f3bd37ed29130d7f56d505f8f63a0939f102dff0b58ec8c1f1168b14f4239d9c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Native-Settings-And-Preview-v5/Verification/visibility.asm",
+    "bytes": 225,
+    "sha256": "d48cbacf220848e09d26b26522a4766985bf60e73454164be4e17b2a242b2109"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/README.txt",
+    "bytes": 2974,
+    "sha256": "bcb316c14851c02098f3cf0d52a5b6ad9e31995a983e2959bb66bee699d26848"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Source/online-tt-track-selection.patch",
+    "bytes": 2287,
+    "sha256": "67c9ca9790879d7247174aef7a2b2ccdb2b212ccf27737a3411b376d3dabfff8"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/build.py",
+    "bytes": 2893,
+    "sha256": "a6f0a4e1a5810879784033240312ffda9cfe1ac14308588360e461f593b9a3db"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/results.txt",
+    "bytes": 111,
+    "sha256": "5639128c75a480a3daef593db31bf47e7160a9d1098b7fd53910cc7ff0b9af5a"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/Verification/test.py",
+    "bytes": 4665,
+    "sha256": "656d474d953296bff4033b8854a76096c9b6874adc137176d257c3e391d73f08"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Online-TT-Track-Fix/MKNitro-Online-TT-Track-Fix/checksums.json",
+    "bytes": 1154,
+    "sha256": "f843e2c182f0aa3123e97b6312934d0d23541d0ac4f31987cb1c38950f5b885a"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/README.txt",
+    "bytes": 1912,
+    "sha256": "12a279415ef5d6256073cf798f7e6496d93b5cf250af6af83b3c3d0ebdbdac6a"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/build.py",
+    "bytes": 1173,
+    "sha256": "3d0d088e998e91256f118c74723483adf2becf9b9ec572c5e819423db5e82d23"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/offsets.json",
+    "bytes": 66,
+    "sha256": "f606aa28c9f34c5e51e3a664113595fcde2ef94a6bdd4832445e9401e2fa3936"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/test.py",
+    "bytes": 3366,
+    "sha256": "c4dde9f75ced7af0fa4ccceaca27c8da512110d6935c04965c3d269946acd1a1"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/Preview/validation.txt",
+    "bytes": 218,
+    "sha256": "1f440b9080eddb131dcb46532bbb9aa3efee599d49e675a4f8281213aa448cbf"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/build.py",
+    "bytes": 1906,
+    "sha256": "e27df009df6c24bc60cd23c02482734407af2176080d7a9c2fa3d18edc34add1"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/manifest.json",
+    "bytes": 493,
+    "sha256": "f575b531f483c655e6ec62caaa0b6ac105343f32399ebc37d2f281162691d34a"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/test.py",
+    "bytes": 2256,
+    "sha256": "f47c2f33791ecb657123881555898e13ddaa1ff8b007e010cecf4dc02bc555c6"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/VR/validation.txt",
+    "bytes": 219,
+    "sha256": "8110e4a3b15ee310d6db24e0966f0736cd7f29af8895736ed8796f1665180e8c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Preview-And-VR-Test-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Voting-Preview-Test-Fix-v2/README.txt",
+    "bytes": 1781,
+    "sha256": "2dab92d223b4dd37b1708919372ec597925c8fccfbb95e89b3b5ef680c5c6bd1"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/build.py",
+    "bytes": 2045,
+    "sha256": "82f2a84b79af2cecaa12889b9ecfbe7ab29305b0c9a06b27394f8bff3f6affdb"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/offsets.json",
+    "bytes": 56,
+    "sha256": "aff9127e4bbcca45576ac1e14db2af354a7945a95d18fa0d2f6362d39028c044"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/test.py",
+    "bytes": 2460,
+    "sha256": "3198e8125cd03db918e2ebe5cf0abf320f3db4beac7328ea4488dd55c474af97"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-PAL-Voting-Preview-Test-Fix-v2/Verification/validation.txt",
+    "bytes": 275,
+    "sha256": "0829c4d7fcdc2d84136db589aec4b6d9472ba28ae1ec57d555ee0169f15a3e52"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/README.txt",
+    "bytes": 2650,
+    "sha256": "27bdb6a9b531746e5d19cbae81eb700ed99aeb61fd4f6108a7e63cb779c57944"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/SHA256SUMS.txt",
+    "bytes": 210,
+    "sha256": "41777b5c9516e808e7c83bc2ca5b50096a9f327e21d10d6b9d418b479318ee84"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/MenuKartPreviewHeap.cpp",
+    "bytes": 800,
+    "sha256": "024e48ad6c028d03481fead2a793ac082098e7681cdaa77a8b8dfd3b425570b3"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/Original-heap-crash.txt",
+    "bytes": 2518,
+    "sha256": "b84ef84939e8ed1d339bc73f1bcbc1ffc3bf5554b853ee665146114c1c510128"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/Verification.json",
+    "bytes": 4833,
+    "sha256": "bcc0ebcc4b7ec5bb65b92817c0a578e86fa4565ff803931f5b908acc32460c30"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/build_repair.py",
+    "bytes": 1389,
+    "sha256": "8d49887d45a270f6470a30c7856274e2e72b4c1c0f80fc942467c9f52f090dab"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/manifest.json",
+    "bytes": 627,
+    "sha256": "a0410e5afaf18935399b3e55568d7e9e6eed4cc22a00cafe26132e953588a4ef"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/native_dol.py",
+    "bytes": 847,
+    "sha256": "d9c63744e7ac557576371e84143773b0fcbf7a2604c032025fe5c1a17b5e37eb"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/native_probe.py",
+    "bytes": 3359,
+    "sha256": "6683898fbab7f4a577c58eb23e9475dbbf889f6640da74b39a6b9d04c86626f8"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/package_repair.py",
+    "bytes": 7686,
+    "sha256": "67a196bd6271d8a5fab19446d315579e213c212df3d27d7be1c1ae83deae405e"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/reproduce_loader.py",
+    "bytes": 4460,
+    "sha256": "32a2c75981d0dbdd16655a4cdbe6347a57944b8f782141ad4b698ffa146ca049"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Preview-Crash-Repair-v6/Verification/verify_lifecycle.py",
+    "bytes": 1449,
+    "sha256": "1226f4f359cf29ef7df73fa653d2f905ca8b86eed59c4e1352f041ccc9593227"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Filename-Update/Build.py",
+    "bytes": 5500,
+    "sha256": "e71a20cbf806181b0b0aa9bea58a170d90458a637c5c3c15a2e42242c1cad1ac"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Filename-Update/Migration-hook.asm",
+    "bytes": 958,
+    "sha256": "953939bd434d9e6fdbb94961af3a499248032316d9d6034238f01d2396a09b47"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Filename-Update/README.txt",
+    "bytes": 2011,
+    "sha256": "494f33536db841c343111b4dce91c3a9d518340461b594e4c10f1fdc4ace2c73"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Filename-Update/Verification.json",
+    "bytes": 6202,
+    "sha256": "49cbcdbd02518cbb3b8db14d3edf0752febe5b5d2ec99270870d7fd61e214f7f"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Footer-Fix-v10.1/Build.py",
+    "bytes": 2953,
+    "sha256": "336cb5b1fb5b11eba762b949a40b3216874d298601f9a844b9ff87f770aa6b73"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Footer-Fix-v10.1/README.txt",
+    "bytes": 882,
+    "sha256": "b1d079a4cad7550ba18f0a6c5bc4d1c7968a584502a2d437f77c3b19f04e789d"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Footer-Fix-v10.1/SHA256SUMS.txt",
+    "bytes": 107,
+    "sha256": "dbc898fb6b309c456ae9b306de77e083df60821eda34ac265ed7ffd42978044c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Footer-Fix-v10.1/Verification.json",
+    "bytes": 328,
+    "sha256": "08abe4e367f12f259139dd96a38d90e57816f359165e48ccc84857ca78dcad74"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-Settings-Footer-Fix-v10.1/archive_io.py",
+    "bytes": 1939,
+    "sha256": "05d9b2b464752334580447f6d821b9c8fa6597f76c50bd79432da850429ca50c"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/README.txt",
+    "bytes": 1992,
+    "sha256": "914fe6f49ebb64a4a27e332e9d485f33864c43f4684ce616eece4cbb6f7187ee"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/Verification/code_tools.py",
+    "bytes": 964,
+    "sha256": "52b5756eae0c51f5963892c89dbb3de1950e214d1a20127bb740fb1502da23ad"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/Verification/validation.txt",
+    "bytes": 263,
+    "sha256": "4690b879c916906700341212f9b0be92ce0790d39fb2c60bc0b14eaea3bf2f40"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/build.py",
+    "bytes": 2346,
+    "sha256": "35445382717f3192eba584fbfb34bc5beb1ce025045177dca6bf10ad5744755b"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/checksums.json",
+    "bytes": 629,
+    "sha256": "e551995c038ebad60d5263696bdaff467667abbe2f8c2dc3f8fec15033ab58d8"
+  },
+  {
+    "path": "Recovery/ClientFixRecipes/MKNitro-VR-Profile-ID-Fix/MKNitro-VR-Profile-ID-Fix/test.py",
+    "bytes": 2792,
+    "sha256": "d9ca9d207fb78a2ead29b169504bebbedf8fbcb300081b919dc25f6da45baf92"
+  },
+  {
+    "path": "Recovery/NitroIntegrity_original_manifest_review.json",
+    "bytes": 13695,
+    "sha256": "06d2897978df936de494d3cc2c9c9968b4214ded1800b1ec16f7e26e10c5caf8"
+  },
+  {
+    "path": "Recovery/PreviousComparison/CONTENTS.txt",
+    "bytes": 959,
+    "sha256": "92eaca6e8a672b2dff3c09e4d090a8f29d5c3c1fa25dacfed94fb05c4f385be5"
+  },
+  {
+    "path": "Recovery/PreviousComparison/READ_ME_FIRST.md",
+    "bytes": 15647,
+    "sha256": "5891a250386370964909b57bbc2b4a6ecc6240f00fd97852aced30bf63b33ab6"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/all-source-archive-files.json",
+    "bytes": 328969,
+    "sha256": "0bfef0fb7e94d90ef9eea9a23c8adbb717878ca09cfe07f979329eda223f7ecc"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/asset-diff.json",
+    "bytes": 185796,
+    "sha256": "5eda4246f1695c6bc8915e21f469e0850eabc994dd1bff3cc6c2d0a361c5935b"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/asset-variant-diff.json",
+    "bytes": 61805,
+    "sha256": "d9e927dad4be333099a6e9d81cddb6b02a3ae33c2f795035158d14c49a95f535"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/binary-comparison.json",
+    "bytes": 1110,
+    "sha256": "026dd2df877a59439f1e6c2189d57bc5af02af53116c8e7bc161fa77d4067d42"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/config-bmg-message-differences.json",
+    "bytes": 51915,
+    "sha256": "7b0e970fbc5f995c2556ea55c6a39c0bad8023b28a6feab1a1d2eb2c2f845707"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/config-comparison.json",
+    "bytes": 524809,
+    "sha256": "17897ea86831d6dedea39c2711fbed74162aa12f45b3a27d3f2b88d8c5bf2060"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/configrt-differences.json",
+    "bytes": 229,
+    "sha256": "c1f1d0acfe8a9c9c48043ca98af4692ae1b14297f49833f0e357797dbfeab15d"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/download-verification.json",
+    "bytes": 2350,
+    "sha256": "ab08abee77e17dc6febccc4d6ca62d8bd766b724b077e892e756ace218018ee0"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/nitro-bmg-markers.json",
+    "bytes": 16664,
+    "sha256": "a4ffcd27a40d4013c327d667cc41e3bda2ca5896ac68d9bcc19d83418194a7e3"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/pack-file-comparison.json",
+    "bytes": 1212852,
+    "sha256": "e6d19bfdda74a754d536518d2c05a8ca71ee6346eb358e7dc52ec4255b8dca79"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/recovered-package-contents.json",
+    "bytes": 24376,
+    "sha256": "7100e05ff365a4c83b530ad37c1aadd30dc5553dbf0b41a3cfa7498630e8aff7"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/recovered-source-comparison.json",
+    "bytes": 609,
+    "sha256": "5f97135f97efb2e4fd57368188f73dfd12d8911fed76b6519073adde9a85d333"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/release-commit.json",
+    "bytes": 277,
+    "sha256": "30cb285c6f47fa7509f42a168f09e934db835b77d3277b4b117656bae2ed51d3"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/release-zip-byte-verification.json",
+    "bytes": 383,
+    "sha256": "02814ac7c415adb16779412ce7de7fd2660682a0b7835e45a278ece124d4342c"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/release-zip-comparison.json",
+    "bytes": 3008,
+    "sha256": "cfb57d9894cae6b33c5dfaef8a9d0cf9c9b99488ae52df559142e3e0f7b2a44a"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/release-zip-inventory.json",
+    "bytes": 647972,
+    "sha256": "583f8fce70d2b4c3bf0e2f1cb72680bdc4c58b3329c1bdf8d58eba113f8e7ca7"
+  },
+  {
+    "path": "Recovery/PreviousComparison/details/xml-mappings.json",
+    "bytes": 367776,
+    "sha256": "20105108d6635921f8835ee4ddca78e95846c288a710cbc6fd2f35a1ed0bb339"
+  },
+  {
+    "path": "Recovery/PreviousComparison/source-differences/uploaded-domain-to-recovered-v5.patch",
+    "bytes": 29200,
+    "sha256": "c75ee3ec9828ee837acf403c8faf4f3c70f0491279b0efd3fc20711d2e762268"
+  },
+  {
+    "path": "Recovery/PreviousComparison/source-differences/uploaded-domain-to-rr.patch",
+    "bytes": 20345,
+    "sha256": "e80c676fcdf2abcfa3da0317484ce9d34d66cf1d76ce8bf84a7d0f6fdc7d6560"
+  },
+  {
+    "path": "Recovery/README-20261008.md",
+    "bytes": 7188,
+    "sha256": "7ccc46dc59598ccf6f03c9c0fc7fb2e18ce4594530b090101ba2b06f4c463863"
+  },
+  {
+    "path": "Recovery/REMAINING_WORK.md",
+    "bytes": 1786,
+    "sha256": "794ae432525acb25b29fbf7d99bd61f6122264aa87a64ddda68b3838f288be6d"
+  },
+  {
+    "path": "Recovery/changed-source-files.json",
+    "bytes": 3363,
+    "sha256": "54268a44daae4bb5824f4ee39b0db07698c7a082710dc8eb72827a0703222cbc"
+  },
+  {
+    "path": "Recovery/changes-from-v5.patch",
+    "bytes": 40279,
+    "sha256": "55578ad232e879a48d5f80d7d462dadc864e9eccfbabc9e82fee077587a93713"
+  },
+  {
+    "path": "Recovery/provenance.json",
+    "bytes": 6072,
+    "sha256": "d658d30444cce0e62d419a3ea6838dfb63cba53ed0f36a7ffc3821eb0173eb64"
+  },
+  {
+    "path": "Reference/Code-10-UNCHANGED.pul",
+    "bytes": 2680200,
+    "sha256": "0f5364590f8ec8164f06a934666bdbd9252b87edf7d31c79bf93e189f30c15bc"
+  },
+  {
+    "path": "Reference/MarioKartNitro-8-UNCHANGED.xml",
+    "bytes": 199322,
+    "sha256": "2105789ee85606de634820107aac2b87a27460d5034c1456e8d50587bc0aaee9"
+  },
+  {
+    "path": "SHA256SUMS.json",
+    "bytes": 161005,
+    "sha256": "873d3212b689b34137a155280749a09660ddb3aaa20131f1841f5e2cd33b11c6"
+  },
+  {
+    "path": "Verification/build-dry-run.txt",
+    "bytes": 94465,
+    "sha256": "ed6dc8b64cfa5f419661f08326b7b47a6a77b2095fdeda33f4664e16bbc0a0a6"
+  },
+  {
+    "path": "Verification/candidate-tests.txt",
+    "bytes": 161,
+    "sha256": "81495e18ae11811fc8759a87f83011bbee94575244fccc19877041b4d014d3d4"
+  },
+  {
+    "path": "Verification/candidate-validation.json",
+    "bytes": 889,
+    "sha256": "17d43eed9325d5f29736edb10260083cd2a57781cde72a861e5e3fb976e502f5"
+  },
+  {
+    "path": "Verification/http-reserve-host-tests.txt",
+    "bytes": 163,
+    "sha256": "312c20de0784045c3510049514e8b5b89ac2cbb50f1c425dfd3602f975876e47"
+  },
+  {
+    "path": "Verification/integration-tests.txt",
+    "bytes": 560,
+    "sha256": "13dd15145d344e1b905fea658ecfc926d5432f04e1d2b970a809c94bd0cc5893"
+  },
+  {
+    "path": "Verification/nitrointegrity-host-tests.txt",
+    "bytes": 356,
+    "sha256": "28f85b204722f241404bd285a34ad1c6b8fd060991c2331ef5803cef67ee2720"
+  },
+  {
+    "path": "Verification/ppc-clean-build.txt",
+    "bytes": 25025,
+    "sha256": "85590d78959a6a6a4847a84edf1f5c9a8b7b354398829c89eeb7e659c40df1cb"
+  },
+  {
+    "path": "toolchain/codewarrior/CLT_EABI_PPC_Tools_Notes.txt",
+    "bytes": 4606,
+    "sha256": "c981f6e8bdf393c31dca0a03629f031ac55f64db7bbb40131379c4151207cb1b"
+  },
+  {
+    "path": "toolchain/codewarrior/CLT_Usage_Notes.txt",
+    "bytes": 41267,
+    "sha256": "0518bdf938f315066b3eb3ff4e45c4385123dd24c3573de35e905a89d77557a5"
+  },
+  {
+    "path": "toolchain/codewarrior/lmgr11.dll",
+    "bytes": 1490944,
+    "sha256": "18948a3dda90c3641a5da533d74bbc2a764aefdc80fb600490b938463e4bc2aa"
+  },
+  {
+    "path": "toolchain/codewarrior/lmgr8c.dll",
+    "bytes": 851968,
+    "sha256": "996041141858fd4724ec36add0913755a0067498b93271d7d26e4a1bfa04a561"
+  },
+  {
+    "path": "toolchain/codewarrior/mwasmeppc.exe",
+    "bytes": 1128812,
+    "sha256": "a94c1c70db9169aacb7eb23fce0b630c570a7baba040b35b49258a0cb61c19e9"
+  },
+  {
+    "path": "toolchain/codewarrior/mwasmeppc.txt",
+    "bytes": 22266,
+    "sha256": "49ea07a538aa94d3e05dbb6c3201fc8d8402829668bb18400a3c81d54b1827b3"
+  },
+  {
+    "path": "toolchain/codewarrior/mwcceppc.exe",
+    "bytes": 4381564,
+    "sha256": "0515a708c5f3e51cab79ed3a16f1d712569ef2e19dcee6f4c14ef6dccd213e3f"
+  },
+  {
+    "path": "toolchain/codewarrior/mwcceppc.txt",
+    "bytes": 52698,
+    "sha256": "59fb302d09408624efb9ea8d0ce5bab034c6403968aa288341588abe0fa5802b"
+  },
+  {
+    "path": "toolchain/codewarrior/mwldeppc.exe",
+    "bytes": 1200128,
+    "sha256": "31b6d48b83f1a6b39b1ac37e9994067744cf31555bc49620abbce8b06c311557"
+  },
+  {
+    "path": "toolchain/codewarrior/mwldeppc.txt",
+    "bytes": 30255,
+    "sha256": "72475648488328b4efe413de900924a2c649b847df14e0c795c4f8f6321d1313"
+  },
+  {
+    "path": "toolchain/kamek/Kamek.dll.config",
+    "bytes": 187,
+    "sha256": "c66e1ba36e874342cd570cf5bdd3d8b73864a4c9e9d802398be7f46fe39a8532"
+  },
+  {
+    "path": "toolchain/kamek/Kamek.exe",
+    "bytes": 13210900,
+    "sha256": "e24c06110edee68637ae351206bc86d606dce1a527dd98f6d17dfb1e43e07f08"
+  },
+  {
+    "path": "toolchain/kamek/README.md",
+    "bytes": 1874,
+    "sha256": "24b56295a3e566147db1b3bd0a8d2b723c671ccdfbc7fccfadc655a20cd877c8"
+  },
+  {
+    "path": "toolchain/kamek/examples/1-nsmbw-osreport.cpp",
+    "bytes": 746,
+    "sha256": "c27454af8d06578be497a4ead570f31221edccf39c18dc6d63edf1a63b362bfa"
+  },
+  {
+    "path": "toolchain/kamek/examples/2-assembly.S",
+    "bytes": 1022,
+    "sha256": "441addad146cf71259f39b4ddbe4146d45d4891ce30c2283fed7bd9d9dd799cf"
+  },
+  {
+    "path": "toolchain/kamek/examples/build-1.bat",
+    "bytes": 520,
+    "sha256": "5f1c10156331ef66ebd13c8444a11ae8c270dfd73c63751c078c414ad3887c3b"
+  },
+  {
+    "path": "toolchain/kamek/examples/build-1.sh",
+    "bytes": 853,
+    "sha256": "7e884995a7270725c2d5f6826896b04e39e15be063cfdac3ccf1ac886fe37edb"
+  },
+  {
+    "path": "toolchain/kamek/examples/build-2.bat",
+    "bytes": 409,
+    "sha256": "5280919bfbb0ec2c03a3c23f80ceaf547556ef1c226a8330eacc58698e8a6538"
+  },
+  {
+    "path": "toolchain/kamek/examples/externals-nsmbw-eu-v1.txt",
+    "bytes": 4131,
+    "sha256": "2a623a6afe6008fce88025b418d7e59bddf56b08309d9fcda5a9d03499f413e3"
+  },
+  {
+    "path": "toolchain/kamek/examples/versions-nsmbw.txt",
+    "bytes": 18338,
+    "sha256": "8fd14ec26ba2897f448bb33deb4087959fca5260c9cf64ce02db832ae3863bdc"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/k_sdk/c_stdlib.h",
+    "bytes": 2603,
+    "sha256": "58c8663672bd5088fc1bb4366c13108b1845c60868ac2e595fd86858820aff95"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/k_sdk/egg.h",
+    "bytes": 2482,
+    "sha256": "7cde7119dbb1605cc632616a3d4674c68a231ae739cef37c8f9dcc9d41d950ba"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/k_sdk/nw4r.h",
+    "bytes": 9974,
+    "sha256": "55d4e019e012a34041ebb0158ff2ebef1feb4513bb04273482d3e7e5dac50e8c"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/k_sdk/rvl_sdk.h",
+    "bytes": 4194,
+    "sha256": "3ef54a45a3760149cb247d8663e5314f6bdf12e1315befcdd261c706f672853e"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/k_sdk/types.h",
+    "bytes": 654,
+    "sha256": "f5ddb36376b0e77cbeb0d0f34a471d2e1210e901e65a12350140fec042d0d5d1"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/kamek.h",
+    "bytes": 4099,
+    "sha256": "1a8f02bf9fdf68a4aba4bb6346a025cab1cc8a7216cb97f08ba950a84dc9d716"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/kamek_asm.S",
+    "bytes": 4803,
+    "sha256": "7844311940a0207a6a34199b6c1c1319443150e47a216486f9851ec43c192354"
+  },
+  {
+    "path": "toolchain/kamek/k_stdlib/kamek_sdk.h",
+    "bytes": 141,
+    "sha256": "65d0929be0db50dc5f5e59ccfce8c5e9002741dceae4312683c4837cb033cb59"
+  },
+  {
+    "path": "toolchain/kamek/loader/README.md",
+    "bytes": 3853,
+    "sha256": "a298e5cf11291885cb9a6eb6879e77f3dd7e658176d8c2acf1f8db6384d2cdcc"
+  },
+  {
+    "path": "toolchain/kamek/loader/build_nsmbw.bat",
+    "bytes": 643,
+    "sha256": "f3af07a9b4e955162eb34a4d2d1530539b5add2d9f02b9504c52734f6bd7bcdd"
+  },
+  {
+    "path": "toolchain/kamek/loader/build_nsmbw.sh",
+    "bytes": 712,
+    "sha256": "f2ba8e3b994da1e8514037a37a230c086079164b03dedc071072265263880b44"
+  },
+  {
+    "path": "toolchain/kamek/loader/kamekLoader.cpp",
+    "bytes": 6982,
+    "sha256": "e72be0c7555b0a84dc1d64268ba77439ce73a1927c8344097f2a4f35d16aff84"
+  },
+  {
+    "path": "toolchain/kamek/loader/kamekLoader.h",
+    "bytes": 1164,
+    "sha256": "e9ca36ec6d2f44776e1d262f754abe53587b0009e159ae7368c43d5fe2e95a13"
+  },
+  {
+    "path": "toolchain/kamek/loader/nsmbw.cpp",
+    "bytes": 8267,
+    "sha256": "5233808be797871cd9ee69be26aee24ceec18b6e3ad86fff3634cf95ebd76011"
+  },
+  {
+    "path": "toolchain/kamek/preproc_demo.cpp",
+    "bytes": 922,
+    "sha256": "3f046933639bc68aa66d3d04925d8754f69c3d8907fccc49e2467c4837139db7"
+  },
+  {
+    "path": "toolchain/kamek/shield-fix/addresses.txt",
+    "bytes": 62,
+    "sha256": "b3947b0c49839a4f92219b985dd32183760f0aa59d807c412b12f70b075cb1ce"
+  },
+  {
+    "path": "toolchain/kamek/shield-fix/build.bat",
+    "bytes": 385,
+    "sha256": "2d76f363d4d384a6949d36b7954c39d7156cfa07ba3ebd3fb038536eb78c57e8"
+  },
+  {
+    "path": "toolchain/kamek/shield-fix/shield-fix.cpp",
+    "bytes": 4604,
+    "sha256": "925db1f87f89a36494dbea61fe01ee009f1287404a0c4b12dded1888355ad566"
+  }
+]

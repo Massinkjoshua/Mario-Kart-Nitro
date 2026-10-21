@@ -1,0 +1,1 @@
+80 PowerPC reload-control-flow cases passed. Native model loading/rendering calls mocked; final visual result not tested in Dolphin. Earlier VR helper bytes and all patch commands retained. US/J code blocks unchanged.

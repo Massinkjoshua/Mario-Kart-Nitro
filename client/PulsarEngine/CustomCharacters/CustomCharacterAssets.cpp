@@ -1,0 +1,994 @@
+// Integrated recovered October checkpoint on 2026-10-16; see docs/recovery-provenance.json.
+#include <CustomCharacters/CustomCharacters.hpp>
+
+namespace Pulsar {
+namespace CustomCharacters {
+
+bool pendingMenuDriverModelReloads[LOCAL_PLAYER_COUNT];
+CharacterId pendingMenuDriverModelCharacters[LOCAL_PLAYER_COUNT];
+const GameScene *pendingMenuDriverModelScenes[LOCAL_PLAYER_COUNT];
+const MenuModelMgr *pendingMenuDriverModelManagers[LOCAL_PLAYER_COUNT];
+static u8 loadedMenuDriverModelTables[MENU_DRIVER_MODEL_COUNT];
+static bool loadedMenuDriverModelTablesValid[MENU_DRIVER_MODEL_COUNT];
+
+// Choose a scene heap that can hold loose raw model data without starving menus.
+EGG::Heap *RawParentHeap(GameScene &scene, u32 heapSize) {
+    static const u32 PARENT_RESERVE = 0x200000;
+    EGG::Heap *heaps[] = {scene.structsHeaps.heaps[1], scene.structsHeaps.heaps[0]};
+    EGG::Heap *best = nullptr;
+    u32 bestSize = 0;
+    for (u32 i = 0; i < ARRAY_COUNT(heaps); ++i) {
+        if (heaps[i] == nullptr) continue;
+        UnlockHeap(heaps[i]);
+        const u32 size = heaps[i]->getAllocatableSize(0x20);
+        if (size >= heapSize + PARENT_RESERVE) return heaps[i];
+        if (size > bestSize) {
+            best = heaps[i];
+            bestSize = size;
+        }
+    }
+    if (bestSize >= heapSize) return best;
+    return nullptr;
+}
+
+bool BindRawBRRES(nw4r::g3d::ResFile &resFile, const char *path) {
+    return ModelDirector::BindBRRESImpl(resFile, path, nullptr, 0);
+}
+
+// Loose BRRES files are loaded once, then bound into each model holder.
+bool LoadRawBRRES(void *holder, RawBRRES &cache, const char *path) {
+    if (cache.failed) return false;
+    if (cache.file == nullptr) {
+        u32 fileSize = 0;
+        if (!DiscFileSize(path, fileSize)) {
+            cache.failed = true;
+            return false;
+        }
+        GameScene *scene = const_cast<GameScene *>(GameScene::GetCurrent());
+        if (scene == nullptr) {
+            cache.failed = true;
+            return false;
+        }
+        const u32 heapSize = AlignUp(fileSize, 0x20) + 0x2000;
+        EGG::Heap *parent = RawParentHeap(*scene, heapSize);
+        if (parent == nullptr) {
+            cache.failed = true;
+            return false;
+        }
+        cache.heap = EGG::ExpHeap::Create(static_cast<int>(heapSize), parent, 0);
+        if (cache.heap == nullptr) {
+            cache.failed = true;
+            return false;
+        }
+        u32 loadedSize = 0;
+        cache.file = LoadFileToMainRAM(path, cache.heap, EGG::DvdRipper::ALLOC_FROM_HEAD, &loadedSize);
+        if (cache.file == nullptr || loadedSize == 0) {
+            ClearRawCache(cache, true);
+            cache.failed = true;
+            return false;
+        }
+    }
+    if ((reinterpret_cast<u32>(cache.file) & 0x1f) != 0) {
+        cache.failed = true;
+        return false;
+    }
+    nw4r::g3d::ResFile &resFile = *reinterpret_cast<nw4r::g3d::ResFile *>(reinterpret_cast<u8 *>(holder) + 4);
+    resFile.data = reinterpret_cast<nw4r::g3d::ResFileData *>(cache.file);
+    if (!cache.bound) {
+        BindRawBRRES(resFile, path);
+        cache.bound = true;
+    }
+    return true;
+}
+
+bool LoadRawBRRESIntoHeap(void *holder, EGG::Heap *heap, const char *path, u32 fileSize) {
+    if (holder == nullptr || heap == nullptr || path == nullptr || fileSize == 0) return false;
+    u32 loadedSize = 0;
+    void *file = LoadFileToMainRAM(path, heap, EGG::DvdRipper::ALLOC_FROM_HEAD, &loadedSize);
+    if (file == nullptr || loadedSize == 0) return false;
+    if ((reinterpret_cast<u32>(file) & 0x1f) != 0) {
+        heap->free(file);
+        return false;
+    }
+
+    nw4r::g3d::ResFile &resFile = *reinterpret_cast<nw4r::g3d::ResFile *>(reinterpret_cast<u8 *>(holder) + 4);
+    resFile.data = reinterpret_cast<nw4r::g3d::ResFileData *>(file);
+    BindRawBRRES(resFile, path);
+    return true;
+}
+
+// Mii outfit C files are separate loose BRRES overrides.
+u8 MiiCIndex(CharacterId character) {
+    switch (character) {
+        case MII_S_C_MALE:
+            return 0;
+        case MII_S_C_FEMALE:
+            return 1;
+        case MII_M_C_MALE:
+            return 2;
+        case MII_M_C_FEMALE:
+            return 3;
+        case MII_L_C_MALE:
+            return 4;
+        case MII_L_C_FEMALE:
+            return 5;
+        default:
+            return MII_C_COUNT;
+    }
+}
+
+bool TryLoadCustomMenuBRRES(void *holder, CharacterId character) {
+    const CharacterId menuCharacter = MenuBRRESCharacter(character);
+    const u8 table = ResolveMenuTable(menuCharacter);
+    if (table == TABLE_DEFAULT || table >= TABLE_COUNT || !HasSkin(menuCharacter, table)) return false;
+    char path[0x60];
+    if (!BuildDriverPath(menuCharacter, table, path, sizeof(path))) return false;
+    return LoadRawBRRES(holder, rawBRRES[table][menuCharacter], path);
+}
+
+bool TryLoadLooseMiiCBRRES(void *holder, CharacterId character) {
+    const u8 idx = MiiCIndex(character);
+    if (idx >= MII_C_COUNT) return false;
+    char path[0x60];
+    if (!BuildDriverPath(character, TABLE_DEFAULT, path, sizeof(path))) return false;
+    return LoadRawBRRES(holder, looseMiiCBRRES[idx], path);
+}
+
+bool TryLoadCustomMenuBRRESIntoHeap(void *holder, CharacterId character, EGG::Heap *heap, bool &fileExists) {
+    fileExists = false;
+    const CharacterId menuCharacter = MenuBRRESCharacter(character);
+    const u8 table = ResolveMenuTable(menuCharacter);
+    if (table == TABLE_DEFAULT || table >= TABLE_COUNT || !HasSkin(menuCharacter, table)) return false;
+    char path[0x60];
+    if (!BuildDriverPath(menuCharacter, table, path, sizeof(path))) return false;
+    u32 fileSize = 0;
+    if (!DiscFileSize(path, fileSize)) {
+        rawBRRES[table][menuCharacter].failed = true;
+        return false;
+    }
+    fileExists = true;
+    return LoadRawBRRESIntoHeap(holder, heap, path, fileSize);
+}
+
+bool TryLoadLooseMiiCBRRESIntoHeap(void *holder, CharacterId character, EGG::Heap *heap, bool &fileExists) {
+    fileExists = false;
+    const u8 idx = MiiCIndex(character);
+    if (idx >= MII_C_COUNT) return false;
+    char path[0x60];
+    if (!BuildDriverPath(character, TABLE_DEFAULT, path, sizeof(path))) return false;
+    u32 fileSize = 0;
+    if (!DiscFileSize(path, fileSize)) {
+        looseMiiCBRRES[idx].failed = true;
+        return false;
+    }
+    fileExists = true;
+    return LoadRawBRRESIntoHeap(holder, heap, path, fileSize);
+}
+
+// Menu driver BRRES loads prefer selected loose skins, then loose Mii C, then vanilla.
+u32 LoadMenuDriverBRRESHook(void *holder, CharacterId character) {
+    SyncRawCachesToCurrentScene();
+    ScnMgr *const *mgrs = ScnMgr::sInstance;
+    ScnMgr *scnMgr = mgrs[0];
+    EGG::Heap *heap = scnMgr != nullptr ? scnMgr->curHeap : static_cast<EGG::Heap *>(nullptr);
+    bool fileExists = false;
+    if (TryLoadCustomMenuBRRESIntoHeap(holder, character, heap, fileExists)) return 1;
+    if (fileExists) return 0;
+    if (TryLoadLooseMiiCBRRESIntoHeap(holder, character, heap, fileExists)) return 1;
+    if (fileExists) return 0;
+    if (TryLoadCustomMenuBRRES(holder, character) || TryLoadLooseMiiCBRRES(holder, character)) return 1;
+    return static_cast<MenuModelBRRESHandle *>(holder)->BindDriverBRRES(character);
+}
+kmCall(0x80830368, LoadMenuDriverBRRESHook);
+kmCall(0x80831234, LoadMenuDriverBRRESHook);
+kmCall(0x8083183c, LoadMenuDriverBRRESHook);
+
+bool LoadMenuDriverBRRESForReload(void *holder, CharacterId character, EGG::ExpHeap *heap) {
+    bool fileExists = false;
+    if (TryLoadCustomMenuBRRESIntoHeap(holder, character, heap, fileExists)) return true;
+    if (fileExists) return false;
+    if (TryLoadLooseMiiCBRRESIntoHeap(holder, character, heap, fileExists)) return true;
+    if (fileExists) return false;
+    return static_cast<MenuModelBRRESHandle *>(holder)->BindDriverBRRES(character);
+}
+
+bool BuildMinimapTPLPath(CharacterId character, u8 table, char *path, u32 pathSize) {
+    const char *postfix = GeneratedCustomPostfix(character, table);
+    if (postfix == nullptr) return false;
+    const int written = snprintf(path, pathSize, "/Race/Map/%s.tpl", postfix);
+    return written > 0 && static_cast<u32>(written) < pathSize;
+}
+
+EGG::Heap *MinimapTPLHeap(GameScene &scene, u32 fileSize) {
+    EGG::Heap *heaps[] = {scene.structsHeaps.heaps[0], scene.structsHeaps.heaps[1], scene.mainMEMHeap, scene.otherMEMHeap};
+    for (u32 i = 0; i < ARRAY_COUNT(heaps); ++i) {
+        EGG::Heap *heap = heaps[i];
+        if (heap == nullptr) continue;
+        UnlockHeap(heap);
+        if (heap->getAllocatableSize(0x20) >= fileSize + 0x1000) return heap;
+    }
+    return nullptr;
+}
+
+// Loose minimap icons are optional TPL files matched to the selected skin table.
+TPLPalettePtr LoadLooseMinimapTPL(CharacterId character, u8 table) {
+    static const u32 TPL_VERSION_NUMBER = 0x0020af30;
+    if (table == TABLE_DEFAULT || table >= TABLE_COUNT || !IsCharacter(character)) return nullptr;
+    RawTPL &cache = looseMinimapTPL[table][character];
+    if (cache.failed) return nullptr;
+
+    char path[0x60];
+    if (!BuildMinimapTPLPath(character, table, path, sizeof(path))) {
+        cache.failed = true;
+        return nullptr;
+    }
+    u32 fileSize = 0;
+    if (!DiscFileSize(path, fileSize)) {
+        cache.failed = true;
+        return nullptr;
+    }
+    GameScene *scene = const_cast<GameScene *>(GameScene::GetCurrent());
+    if (scene == nullptr) {
+        cache.failed = true;
+        return nullptr;
+    }
+    EGG::Heap *heap = MinimapTPLHeap(*scene, fileSize);
+    if (heap == nullptr) {
+        cache.failed = true;
+        return nullptr;
+    }
+    u32 loadedSize = 0;
+    TPLPalettePtr palette = static_cast<TPLPalettePtr>(LoadFileToMainRAM(path, heap, EGG::DvdRipper::ALLOC_FROM_HEAD, &loadedSize));
+    if (palette == nullptr || loadedSize == 0 || palette->versionNumber != TPL_VERSION_NUMBER) {
+        cache.failed = true;
+        return nullptr;
+    }
+    return palette;
+}
+
+void ReplacePaneTPL(nw4r::lyt::Pane *pane, TPLPalettePtr tpl) {
+    if (pane == nullptr || tpl == nullptr) return;
+    nw4r::lyt::Material *material = pane->GetMaterial();
+    if (material == nullptr) return;
+    material->GetTexMapAry()->ReplaceImage(tpl);
+}
+
+void ApplyLooseMinimapTPL(CtrlRace2DMapCharacter *control) {
+    const Racedata *racedata = Racedata::sInstance;
+    if (control == nullptr || racedata == nullptr) return;
+    const u8 playerId = control->playerId;
+    if (playerId >= racedata->racesScenario.playerCount) return;
+    const CharacterId character = racedata->racesScenario.players[playerId].characterId;
+    const u8 table = RaceSkinTable(playerId, character);
+    TPLPalettePtr tpl = LoadLooseMinimapTPL(character, table);
+    if (tpl == nullptr) return;
+    ReplacePaneTPL(control->charaPane, tpl);
+    ReplacePaneTPL(control->charaShadow0Pane, tpl);
+    ReplacePaneTPL(control->charaShadow1Pane, tpl);
+}
+
+void InitMinimapCharacterHook(CtrlRace2DMapCharacter *control) {
+    ApplyLooseMinimapTPL(control);
+    control->CtrlRaceBase::InitSelf();
+}
+kmCall(0x807eb22c, InitMinimapCharacterHook);
+
+// The new Halloween uploads contain only some racing vehicles. Leave existing
+// skins alone, and use the native driver when an archive for these skins is absent.
+bool IsPartialHalloweenRacePostfix(const char *postfix) {
+    if (postfix == nullptr) return false;
+    return strcmp(postfix, "fk-7") == 0 || strcmp(postfix, "fk-8") == 0 || strcmp(postfix, "kt-5") == 0 ||
+           strcmp(postfix, "wl-6") == 0 || strcmp(postfix, "ds-6") == 0 || strcmp(postfix, "ka-5") == 0;
+}
+
+void UseNativeRacePostfixIfMissing(const char **entry, KartId kart, CharacterId character, u32 color, u32 type) {
+    // Latest PAL removes the old six-skin whitelist at code offset 0x5cc4.
+    // Every selected archive may use its native fallback when it is missing.
+    if (entry == nullptr || *entry == nullptr) return;
+    if (*reinterpret_cast<const volatile u32 *>(0x80000000) != 0x524d4350u &&
+        !IsPartialHalloweenRacePostfix(*entry)) return;
+    const char *prefix = ArchiveMgr::GetKartArchivePrefix(kart);
+    const bool standard = kart == STANDARD_KART_S || kart == STANDARD_KART_M || kart == STANDARD_KART_L ||
+                          kart == STANDARD_BIKE_S || kart == STANDARD_BIKE_M || kart == STANDARD_BIKE_L;
+    const char *colorSuffix = standard && color < 2 ? (color == 0 ? "_red" : "_blue") : "";
+    char path[0x80];
+    u32 fileSize = 0;
+    const int written = prefix == nullptr ? -1 :
+        snprintf(path, sizeof(path), "/Race/Kart/%s%s-%s%s.szs", prefix, colorSuffix, *entry, type == 0 ? "" : "_4");
+    if (written <= 0 || static_cast<u32>(written) >= sizeof(path) || !DiscFileSize(path, fileSize)) {
+        const char *nativePostfix = GetDefaultCharacterPostfix(character);
+        if (nativePostfix != nullptr) *entry = nativePostfix;
+    }
+}
+
+// Kart archive loading reads the temporarily swapped character name postfix.
+ArchivesHolder *LoadKartArchiveHook(ArchiveMgr *archiveMgr, u8 playerId, KartId kart, CharacterId character, u32 color, u32 type,
+                                    EGG::Heap *decompressedHeap, EGG::Heap *archiveHeap) {
+    const char *oldName;
+    const char **entry = BeginNameSwap(playerId, character, oldName);
+    UseNativeRacePostfixIfMissing(entry, kart, character, color, type);
+    ArchivesHolder *holder = archiveMgr->LoadKartArchive(playerId, kart, character, color, type, decompressedHeap, archiveHeap);
+    if (entry != nullptr) *entry = oldName;
+    return holder;
+}
+kmCall(0x805540f4, LoadKartArchiveHook);
+
+ArchivesHolder *LoadBackupKartArchiveHook(ArchiveMgr *archiveMgr, u8 playerId, KartId kart, CharacterId character, u32 color, u32 type,
+                                          EGG::Heap *decompressedHeap, EGG::Heap *archiveHeap) {
+    const char *oldName;
+    const char **entry = BeginNameSwap(playerId, character, oldName);
+    UseNativeRacePostfixIfMissing(entry, kart, character, color, 0);
+    ArchivesHolder *holder = archiveMgr->LoadKartArchiveHolder2(playerId, kart, character, color, 0, decompressedHeap, archiveHeap);
+    if (entry != nullptr) *entry = oldName;
+    return holder;
+}
+kmCall(0x80554198, LoadBackupKartArchiveHook);
+
+kmRuntimeUse(0x8056be20);
+void SetModelColorsIfReady(void *starAnm, void *drawMdl) {
+    if (drawMdl == nullptr) return;
+    const u8 *model = static_cast<const u8 *>(drawMdl);
+    if (*reinterpret_cast<void *const *>(model + 0x10) == nullptr) return;
+    for (u32 i = 0; i < 2; ++i) {
+        if (*reinterpret_cast<void *const *>(model + 0x14 + i * sizeof(void *)) == nullptr) return;
+    }
+    reinterpret_cast<void (*)(void *, void *)>(kmRuntimeAddr(0x8056be20))(starAnm, drawMdl);
+}
+kmCall(0x80592e24, SetModelColorsIfReady);
+kmCall(0x80592e40, SetModelColorsIfReady);
+
+struct MenuKartArchiveRequest {
+    const GameScene *scene;
+    CharacterId character;
+    u32 gamemode;
+    const char *postfix;
+};
+static MenuKartArchiveRequest menuKartArchiveRequests[LOCAL_PLAYER_COUNT];
+
+bool IsMenuKartArchiveLoading(const AllkartArchivesLoader &loader) {
+    return loader.state == AllkartArchivesLoader::ALLKARTARCHIVES_ABOUTTOLOAD ||
+           loader.state == AllkartArchivesLoader::ALLKARTARCHIVES_ISLOADING;
+}
+
+bool MenuKartArchiveExists(const char *postfix, u32 gamemode) {
+    if (postfix == nullptr) return false;
+    char path[0x60];
+    const char *suffix = gamemode == 2 ? "" : "_BT";
+    const int written = snprintf(path, sizeof(path), "/Scene/Model/Kart/%s-allkart%s.szs", postfix, suffix);
+    if (written <= 0 || static_cast<u32>(written) >= sizeof(path)) return false;
+    u32 fileSize = 0;
+    return DiscFileSize(path, fileSize);
+}
+
+const char *MenuKartArchivePostfix(CharacterId character, u32 gamemode) {
+    const char *customPostfix = GeneratedCustomPostfix(character, SelectedTable(character));
+    if (customPostfix != nullptr && MenuKartArchiveExists(customPostfix, gamemode)) return customPostfix;
+    return GetDefaultCharacterPostfix(character);
+}
+
+void RequestLoadKartArchivesForSkin(ArchiveMgr *archiveMgr, u8 hudSlotId, CharacterId character, u32 gamemode) {
+    if (archiveMgr == nullptr || hudSlotId >= LOCAL_PLAYER_COUNT) return;
+    AllkartArchivesLoader &loader = archiveMgr->allkartsModelsLoaders[hudSlotId];
+    if (!IsMenuKartArchiveLoading(loader)) {
+        const GameScene *scene = GameScene::GetCurrent();
+        const char *postfix = MenuKartArchivePostfix(character, gamemode);
+        MenuKartArchiveRequest &request = menuKartArchiveRequests[hudSlotId];
+        const bool sameRequest = request.scene == scene && request.character == character &&
+                                 request.gamemode == gamemode && request.postfix != nullptr;
+        const bool changed = sameRequest ? postfix != nullptr && strcmp(request.postfix, postfix) != 0 :
+                                          SelectedTable(character) != TABLE_DEFAULT;
+        // Invalidate only a completed same-slot cache when its skin changes.
+        // Busy loader fields and all state transitions belong to the game.
+        if (changed && loader.state == AllkartArchivesLoader::ALLKARTARCHIVES_HASLOADED &&
+            loader.id == character && loader.mode == gamemode) loader.id = CHARACTER_NONE;
+        request.scene = scene;
+        request.character = character;
+        request.gamemode = gamemode;
+        request.postfix = postfix;
+    }
+    archiveMgr->RequestLoadKartArchives(hudSlotId, character, gamemode);
+    QueueMenuDriverModelIfNeeded(hudSlotId, character);
+}
+kmCall(0x805f5658, RequestLoadKartArchivesForSkin);
+kmCall(0x805f5798, RequestLoadKartArchivesForSkin);
+kmCall(0x805f592c, RequestLoadKartArchivesForSkin);
+
+// Resolve the filename when the native worker actually asks for it. A temporary
+// name swap around RequestLoadKartArchives would end before that worker runs.
+const char *GetKartArchivePostfixHook(CharacterId character) {
+    const GameScene *scene = GameScene::GetCurrent();
+    const ArchiveMgr *archiveMgr = ArchiveMgr::sInstance;
+    if (scene != nullptr && (scene->id == SCENE_ID_MENU || scene->id == SCENE_ID_GLOBE) && archiveMgr != nullptr) {
+        // The task thread handles one worker at a time. Prefer its loading
+        // slot over another HUD's queued request for the same character.
+        for (u32 pass = 0; pass < 2; ++pass) {
+            const AllkartArchivesLoader::State state = pass == 0 ? AllkartArchivesLoader::ALLKARTARCHIVES_ISLOADING :
+                                                                  AllkartArchivesLoader::ALLKARTARCHIVES_ABOUTTOLOAD;
+            for (u8 hud = 0; hud < LOCAL_PLAYER_COUNT; ++hud) {
+                const AllkartArchivesLoader &loader = archiveMgr->allkartsModelsLoaders[hud];
+                if (loader.mountHeap == nullptr || loader.id != character || loader.state != state) continue;
+                const MenuKartArchiveRequest &request = menuKartArchiveRequests[hud];
+                if (request.scene == scene && request.character == character && request.gamemode == loader.mode &&
+                    request.postfix != nullptr) return request.postfix;
+                return MenuKartArchivePostfix(character, loader.mode);
+            }
+        }
+    }
+    const char **entry = CharacterNameEntry(character);
+    return entry != nullptr ? *entry : static_cast<const char *>(nullptr);
+}
+kmBranch(0x805419c8, GetKartArchivePostfixHook);
+
+bool IsMenuKartSkinReady(u8 hud, CharacterId character) {
+    ArchiveMgr *archiveMgr = ArchiveMgr::sInstance;
+    if (archiveMgr == nullptr) return true;
+    AllkartArchivesLoader &loader = archiveMgr->allkartsModelsLoaders[hud];
+    if (IsMenuKartArchiveLoading(loader)) return false;
+    const MenuKartArchiveRequest &request = menuKartArchiveRequests[hud];
+    if (loader.state == AllkartArchivesLoader::ALLKARTARCHIVES_HASLOADED && StateCharacter(loader.id) == character &&
+        request.scene == GameScene::GetCurrent() && request.character == loader.id && request.postfix != nullptr) {
+        const char *postfix = MenuKartArchivePostfix(loader.id, loader.mode);
+        if (postfix != nullptr && strcmp(request.postfix, postfix) != 0) {
+            SectionMgr *sectionMgr = SectionMgr::sInstance;
+            Pages::ModelRenderer *renderer = sectionMgr != nullptr && sectionMgr->curSection != nullptr ?
+                sectionMgr->curSection->Get<Pages::ModelRenderer>() : static_cast<Pages::ModelRenderer *>(nullptr);
+            if (renderer == nullptr) return false;
+            const CharacterId id = loader.id;
+            // Use the whole native preview transition so old kart models are
+            // released before their backing allkart archive is replaced.
+            loader.id = CHARACTER_NONE;
+            renderer->LoadKartModelsByCharacter(hud, id);
+            return !IsMenuKartArchiveLoading(loader);
+        }
+    }
+    return true;
+}
+
+const char *GetMenuDriverBRRESNameHook(u32 character) {
+    const CharacterId id = static_cast<CharacterId>(character);
+    const u8 table = ResolveMenuTable(id);
+    if (IsCharacter(id) && table < TABLE_COUNT && rawBRRES[table][id].failed) return DriverBRRESName(id, TABLE_DEFAULT);
+    const char *name = DriverBRRESName(id, table);
+    if (name != nullptr) return name;
+    return ArchiveMgr::GetKartArchivePostfix(id);
+}
+kmCall(0x8081e4a0, GetMenuDriverBRRESNameHook);
+
+void DetachListNodeIfPresent(nw4r::ut::List *list, void *target) {
+    if (list == nullptr || target == nullptr) return;
+    for (void *node = nw4r::ut::List_GetNext(list, nullptr); node != nullptr;) {
+        void *next = nw4r::ut::List_GetNext(list, node);
+        if (node == target) nw4r::ut::List_Remove(list, node);
+        node = next;
+    }
+}
+
+// Reloaded menu models must leave all scene lists before their heap is destroyed.
+void DetachModelDirectorFromScnMgrs(ModelDirector *model) {
+    if (model == nullptr) return;
+    ScnMgr *const *mgrs = ScnMgr::sInstance;
+    for (u32 i = 0; i < 2; ++i) {
+        ScnMgr *mgr = mgrs[i];
+        if (mgr == nullptr) continue;
+        DetachListNodeIfPresent(&mgr->modelDirectors, model);
+        DetachListNodeIfPresent(&mgr->screenSpecificModelDirectors, model);
+        DetachListNodeIfPresent(&mgr->hardcodedMatNamesModelDirectors, model);
+    }
+}
+
+void RemoveInitializedModelDirector(ModelDirector *model) {
+    if (model == nullptr) return;
+    if ((model->bitfield & 0x100000) != 0) model->ToggleVisible(false);
+    DetachModelDirectorFromScnMgrs(model);
+}
+
+void DestroyModelDirector(ModelDirector *model) {
+    if (model == nullptr) return;
+    RemoveInitializedModelDirector(model);
+    delete model;
+}
+
+void ForgetReloadedMenuDriverModelHeaps() {
+    for (u32 i = 0; i < MENU_DRIVER_MODEL_COUNT; ++i) {
+        reloadedMenuDriverModelHeaps[i] = nullptr;
+        reloadedMenuDriverModels[i] = nullptr;
+        reloadedMenuDriverModelHairs[i] = nullptr;
+        loadedMenuDriverModelTablesValid[i] = false;
+    }
+    reloadedMenuDriverModelOwner = nullptr;
+}
+
+void DestroyReloadedMenuDriverModel(u8 idx, ModelDirector **modelSlot) {
+    if (idx >= MENU_DRIVER_MODEL_COUNT) return;
+    EGG::ExpHeap *&heap = reloadedMenuDriverModelHeaps[idx];
+    ModelDirector *model = reloadedMenuDriverModels[idx];
+    if (model == nullptr && modelSlot != nullptr) model = *modelSlot;
+    ToadetteHair *hair = reloadedMenuDriverModelHairs[idx];
+
+    if (heap == nullptr) {
+        DestroyModelDirector(hair);
+        DestroyModelDirector(model);
+        if (modelSlot != nullptr && *modelSlot == model) *modelSlot = nullptr;
+        reloadedMenuDriverModelHairs[idx] = nullptr;
+        reloadedMenuDriverModels[idx] = nullptr;
+        return;
+    }
+
+    if (hair != nullptr && IsInHeap(heap, hair)) DestroyModelDirector(hair);
+    if (model != nullptr && IsInHeap(heap, model)) DestroyModelDirector(model);
+    if (modelSlot != nullptr && *modelSlot == model) *modelSlot = nullptr;
+    reloadedMenuDriverModelHairs[idx] = nullptr;
+    reloadedMenuDriverModels[idx] = nullptr;
+    DestroyHeap(heap);
+}
+
+void DestroyAllReloadedMenuDriverModels() {
+    for (u8 i = 0; i < MENU_DRIVER_MODEL_COUNT; ++i) DestroyReloadedMenuDriverModel(i, nullptr);
+}
+
+void SyncReloadedMenuDriverModelHeaps(MenuDriverModel *models) {
+    const GameScene *scene = GameScene::GetCurrent();
+    if (reloadedMenuDriverModelSceneOwner != scene) {
+        ForgetReloadedMenuDriverModelHeaps();
+        reloadedMenuDriverModelSceneOwner = scene;
+    }
+
+    if (reloadedMenuDriverModelOwner != models) {
+        if (reloadedMenuDriverModelOwner != nullptr) DestroyAllReloadedMenuDriverModels();
+        ForgetReloadedMenuDriverModelHeaps();
+        reloadedMenuDriverModelOwner = models;
+    }
+}
+
+void CleanupReloadedMenuDriverModels() {
+    memset(pendingMenuDriverModelReloads, 0, sizeof(pendingMenuDriverModelReloads));
+    DestroyAllReloadedMenuDriverModels();
+    ForgetReloadedMenuDriverModelHeaps();
+    reloadedMenuDriverModelSceneOwner = nullptr;
+}
+
+void DestroyMenuModelMgrInstanceHook() {
+    MenuModelMgr *mgr = MenuModelMgr::sInstance;
+    if (mgr == nullptr) return;
+    CleanupReloadedMenuDriverModels();
+    MenuModelMgr::sInstance = nullptr;
+
+    const u32 vtable = *reinterpret_cast<u32 *>(reinterpret_cast<u8 *>(mgr) + 0x10);
+    typedef void (*Dtor)(MenuModelMgr *, s32);
+    reinterpret_cast<Dtor>(*reinterpret_cast<u32 *>(vtable + 0x8))(mgr, 1);
+}
+kmBranch(0x8059e04c, DestroyMenuModelMgrInstanceHook);
+
+EGG::Allocator **MenuAllocatorSlot() { return &menuAllocator; }
+
+EGG::Allocator *CreateScnObjAllocator(EGG::Heap *parent) {
+    if (parent == nullptr) return nullptr;
+    void *buf = operator new(0x1c, parent, 4);
+    if (buf == nullptr) return nullptr;
+    return new (buf) EGG::Allocator(parent, 0x20);
+}
+
+// Menu model reloads use a fresh heap so failed custom loads can be discarded.
+EGG::ExpHeap *CreateMenuDriverModelHeap(GameScene &scene) {
+    static const u32 MIN_HEAP_SIZE = 0x60000;
+    static const u32 PARENT_RESERVE = 0x20000;
+    EGG::Heap *parents[] = {scene.structsHeaps.heaps[0], scene.structsHeaps.heaps[1]};
+    EGG::Heap *best = nullptr;
+    u32 bestSize = 0;
+    for (u32 i = 0; i < ARRAY_COUNT(parents); ++i) {
+        EGG::Heap *parent = parents[i];
+        if (parent == nullptr) continue;
+        UnlockHeap(parent);
+        const u32 freeSize = parent->getAllocatableSize(0x20);
+        if (freeSize > bestSize) {
+            best = parent;
+            bestSize = freeSize;
+        }
+    }
+    if (best == nullptr || bestSize <= MIN_HEAP_SIZE + PARENT_RESERVE) return nullptr;
+    return EGG::ExpHeap::Create(static_cast<int>(bestSize - PARENT_RESERVE), best, 0);
+}
+
+void UnlockMenuModelHeaps(MenuModelMgr &modelMgr) {
+    UnlockHeap(modelMgr.otherHeap);
+    UnlockHeap(modelMgr.heap);
+
+    GameScene *scene = const_cast<GameScene *>(GameScene::GetCurrent());
+    if (scene == nullptr) return;
+    for (u32 i = 0; i < ARRAY_COUNT(scene->structsHeaps.heaps); ++i) UnlockHeap(scene->structsHeaps.heaps[i]);
+    UnlockHeap(scene->mainMEMHeap);
+    UnlockHeap(scene->otherMEMHeap);
+}
+
+// These accessors name the vanilla MenuDriverModel fields used by reload hooks.
+ModelDirector **MenuDriverModelDirectorSlot(MenuDriverModel *models, u8 idx) {
+    static const u32 MENU_DRIVER_MODEL_SIZE = 0x28;
+    static const u32 MENU_MODEL_DIRECTOR_OFFSET = 0x4;
+    return reinterpret_cast<ModelDirector **>(reinterpret_cast<u8 *>(models) + idx * MENU_DRIVER_MODEL_SIZE + MENU_MODEL_DIRECTOR_OFFSET);
+}
+
+MenuDriverModel *MenuDriverModelSlot(MenuDriverModel *models, u8 idx) {
+    static const u32 MENU_DRIVER_MODEL_SIZE = 0x28;
+    return reinterpret_cast<MenuDriverModel *>(reinterpret_cast<u8 *>(models) + idx * MENU_DRIVER_MODEL_SIZE);
+}
+
+u32 &MenuDriverModelStateSlot(MenuDriverModel &model) {
+    static const u32 MENU_DRIVER_MODEL_STATE_OFFSET = 0x8;
+    return *reinterpret_cast<u32 *>(reinterpret_cast<u8 *>(&model) + MENU_DRIVER_MODEL_STATE_OFFSET);
+}
+
+ModelTransformator **MenuDriverModelCharSelTransformatorSlot(MenuDriverModel &model) {
+    static const u32 MENU_DRIVER_MODEL_CHAR_SEL_TRANSFORMATOR_OFFSET = 0xc;
+    return reinterpret_cast<ModelTransformator **>(reinterpret_cast<u8 *>(&model) + MENU_DRIVER_MODEL_CHAR_SEL_TRANSFORMATOR_OFFSET);
+}
+
+ModelTransformator **MenuDriverModelOnKartTransformatorSlot(MenuDriverModel &model) {
+    static const u32 MENU_DRIVER_MODEL_ON_KART_TRANSFORMATOR_OFFSET = 0x10;
+    return reinterpret_cast<ModelTransformator **>(reinterpret_cast<u8 *>(&model) + MENU_DRIVER_MODEL_ON_KART_TRANSFORMATOR_OFFSET);
+}
+
+u32 &MenuDriverModelIdSlot(MenuDriverModel &model) {
+    static const u32 MENU_DRIVER_MODEL_ID_OFFSET = 0x18;
+    return *reinterpret_cast<u32 *>(reinterpret_cast<u8 *>(&model) + MENU_DRIVER_MODEL_ID_OFFSET);
+}
+
+KartId &MenuDriverModelVehicleSlot(MenuDriverModel &model) {
+    static const u32 MENU_DRIVER_MODEL_VEHICLE_OFFSET = 0x14;
+    return *reinterpret_cast<KartId *>(reinterpret_cast<u8 *>(&model) + MENU_DRIVER_MODEL_VEHICLE_OFFSET);
+}
+
+void ConstructMenuModelBRRESHandle(void *handle) {
+    new (handle) MenuModelBRRESHandle;
+}
+
+void DestroyMenuModelBRRESHandle(void *handle) {
+    static_cast<MenuModelBRRESHandle *>(handle)->~MenuModelBRRESHandle();
+}
+
+bool LoadMenuDriverModel(void *handle, ModelDirector *model, CharacterId character) {
+    return static_cast<MenuModelBRRESHandle *>(handle)->LoadDriverModel(*model, character);
+}
+
+ToadetteHair *LoadMenuDriverToadetteHair(void *handle, EGG::ExpHeap *heap, ModelDirector *model) {
+    if (heap == nullptr || model == nullptr) return nullptr;
+    return new (heap, 4) ToadetteHair(static_cast<MenuModelBRRESHandle *>(handle)->menuModelBRRES, model, 1);
+}
+
+bool IsLoadedMenuDriverModelReady(const ModelDirector *model) {
+    return model != nullptr && (model->bitfield & 0x100000) != 0 && model->scnMdlEx[0] != nullptr &&
+           model->scnMdlEx[0]->scnObj != nullptr && model->scnMdlEx[1] != nullptr && model->scnMdlEx[1]->scnObj != nullptr;
+}
+
+// Build a replacement menu model in an isolated heap and restore scene allocators.
+bool LoadReloadedMenuDriverModel(GameScene &scene, ScnMgr &scnMgr, CharacterId character, ModelDirector *&newModel,
+                                 ToadetteHair *&newHair, EGG::ExpHeap *&newHeap) {
+    newModel = nullptr;
+    newHair = nullptr;
+    newHeap = nullptr;
+
+    EGG::ExpHeap *modelHeap = CreateMenuDriverModelHeap(scene);
+    if (modelHeap == nullptr) return false;
+
+    u32 handle[2];
+    ConstructMenuModelBRRESHandle(handle);
+    const bool brresLoaded = LoadMenuDriverBRRESForReload(handle, character, modelHeap);
+    if (!brresLoaded) {
+        DestroyMenuModelBRRESHandle(handle);
+        DestroyHeap(modelHeap);
+        return false;
+    }
+
+    EGG::Allocator *freshAllocator = CreateScnObjAllocator(modelHeap);
+    if (freshAllocator == nullptr) {
+        DestroyMenuModelBRRESHandle(handle);
+        DestroyHeap(modelHeap);
+        return false;
+    }
+
+    EGG::Allocator **menuAllocSlot = MenuAllocatorSlot();
+    EGG::Heap *savedHeap = scnMgr.curHeap;
+    EGG::Allocator *savedAllocator = scnMgr.curAllocator;
+    EGG::Allocator *savedMenuAllocator = *menuAllocSlot;
+    scnMgr.curHeap = modelHeap;
+    scnMgr.curAllocator = freshAllocator;
+    *menuAllocSlot = freshAllocator;
+
+    ModelDirector *model = new (modelHeap, 4) ModelDirector(2, 0);
+    const bool loaded = model != nullptr && LoadMenuDriverModel(handle, model, character) && IsLoadedMenuDriverModelReady(model);
+    ToadetteHair *hair = nullptr;
+    bool hairLoaded = true;
+    if (loaded && character == TOADETTE) {
+        hair = LoadMenuDriverToadetteHair(handle, modelHeap, model);
+        hairLoaded = IsLoadedMenuDriverModelReady(hair);
+    }
+
+    scnMgr.curHeap = savedHeap;
+    scnMgr.curAllocator = savedAllocator;
+    *menuAllocSlot = savedMenuAllocator;
+    DestroyMenuModelBRRESHandle(handle);
+
+    if (!loaded || !hairLoaded) {
+        DestroyModelDirector(hair);
+        DestroyModelDirector(model);
+        DestroyHeap(modelHeap);
+        return false;
+    }
+
+    UnlockHeap(modelHeap);
+    modelHeap->adjust();
+    newModel = model;
+    newHair = hair;
+    newHeap = modelHeap;
+    return true;
+}
+
+bool LoadDefaultReloadedMenuDriverModel(GameScene &scene, ScnMgr &scnMgr, CharacterId character, ModelDirector *&newModel,
+                                        ToadetteHair *&newHair, EGG::ExpHeap *&newHeap) {
+    forceDefaultMenuDriverBRRES = true;
+    const bool loaded = LoadReloadedMenuDriverModel(scene, scnMgr, character, newModel, newHair, newHeap);
+    forceDefaultMenuDriverBRRES = false;
+    return loaded;
+}
+
+void DestroyOldMenuDriverModelForReload(u8 idx, ModelDirector **modelSlot, ModelDirector *oldModel, ToadetteHair **hairSlot,
+                                        ToadetteHair *oldHair) {
+    if (reloadedMenuDriverModelHeaps[idx] != nullptr) {
+        DestroyReloadedMenuDriverModel(idx, modelSlot);
+        if (hairSlot != nullptr && *hairSlot == oldHair) *hairSlot = nullptr;
+        return;
+    }
+
+    DestroyModelDirector(oldHair);
+    DestroyModelDirector(oldModel);
+    if (modelSlot != nullptr && *modelSlot == oldModel) *modelSlot = nullptr;
+    if (hairSlot != nullptr && *hairSlot == oldHair) *hairSlot = nullptr;
+}
+
+void ResetReloadedMenuDriverModel(MenuDriverModel &menuModel, CharacterId character) {
+    *MenuDriverModelCharSelTransformatorSlot(menuModel) = menuModel.model->modelTransformator;
+    *MenuDriverModelOnKartTransformatorSlot(menuModel) = nullptr;
+    MenuDriverModelStateSlot(menuModel) = MenuDriverModel::MENUDRIVERMODEL_STATE_ONCHARSELECT;
+    MenuDriverModelIdSlot(menuModel) = static_cast<u32>(character);
+}
+
+// Replace one character-select model while preserving the surrounding menu manager.
+bool ReloadMenuDriverModel(MenuDriverModelMgr &driverMgr, CharacterId character) {
+    if (character < 0 || character >= MENU_DRIVER_MODEL_COUNT || driverMgr.models == nullptr) return false;
+    const u8 idx = static_cast<u8>(character);
+    MenuDriverModel *menuModel = MenuDriverModelSlot(driverMgr.models, idx);
+    ModelDirector **modelSlot = MenuDriverModelDirectorSlot(driverMgr.models, idx);
+    ToadetteHair **hairSlot = character == TOADETTE ? &driverMgr.bangs : static_cast<ToadetteHair **>(nullptr);
+
+    GameScene *scene = const_cast<GameScene *>(GameScene::GetCurrent());
+    if (scene == nullptr) return false;
+    SyncReloadedMenuDriverModelHeaps(driverMgr.models);
+
+    ScnMgr *const *mgrs = ScnMgr::sInstance;
+    ScnMgr *scnMgr = mgrs[0];
+    if (scnMgr == nullptr) return false;
+
+    ModelDirector *oldModel = *modelSlot;
+    ToadetteHair *oldHair = hairSlot != nullptr ? *hairSlot : static_cast<ToadetteHair *>(nullptr);
+
+    ModelDirector *newModel = nullptr;
+    ToadetteHair *newHair = nullptr;
+    EGG::ExpHeap *newHeap = nullptr;
+    if (!LoadReloadedMenuDriverModel(*scene, *scnMgr, character, newModel, newHair, newHeap)) {
+        if (!LoadDefaultReloadedMenuDriverModel(*scene, *scnMgr, character, newModel, newHair, newHeap)) {
+            return false;
+        }
+    }
+
+    DestroyOldMenuDriverModelForReload(idx, modelSlot, oldModel, hairSlot, oldHair);
+
+    *modelSlot = newModel;
+    if (hairSlot != nullptr) *hairSlot = newHair;
+    reloadedMenuDriverModelHeaps[idx] = newHeap;
+    reloadedMenuDriverModels[idx] = newModel;
+    reloadedMenuDriverModelHairs[idx] = newHair;
+    loadedMenuDriverModelTables[idx] = ResolveMenuTable(MenuBRRESCharacter(character));
+    loadedMenuDriverModelTablesValid[idx] = true;
+    ResetReloadedMenuDriverModel(*menuModel, character);
+    menuModel->Init();
+    return true;
+}
+
+// The scn roots are double buffered (ScnMgr::SwitchScnRoot flips them every
+// draw): the root drawn this frame was already calculated last frame, before
+// the reloaded model existed, and would display it in bind pose for one frame.
+// Attach the animations and recalculate that root now, then attach them to the
+// root the upcoming ScnMgr::CalcMain calculates. Only correct right before
+// CalcMain, so this must stay on the queued reload path below.
+void PoseReloadedMenuDriverModel(CharacterId character) {
+    ModelDirector *model = reloadedMenuDriverModels[character];
+    ToadetteHair *hair = reloadedMenuDriverModelHairs[character];
+    ScnMgr *scnMgr = ScnMgr::sInstance[0];
+    if (model == nullptr || scnMgr == nullptr) return;
+
+    const u32 curRootIdx = scnMgr->curScnRootIdx;
+    const u32 drawnRootIdx = curRootIdx ^ 1;
+    model->Update(drawnRootIdx);
+    if (hair != nullptr) hair->Update(drawnRootIdx);
+    scnMgr->curScnRootIdx = drawnRootIdx;
+    scnMgr->curScnRoot = scnMgr->scnRoots[drawnRootIdx];
+    scnMgr->UpdateScnRoot(0);
+    scnMgr->curScnRootIdx = curRootIdx;
+    scnMgr->curScnRoot = scnMgr->scnRoots[curRootIdx];
+    model->Update(curRootIdx);
+    if (hair != nullptr) hair->Update(curRootIdx);
+}
+
+// In menus the section update runs after ScnMgr::CalcMain, so a model reloaded
+// there could never be posed in time for its first draw. Skin changes are
+// therefore only queued here and executed right before the next CalcMain.
+// A skin change during the section update must wait until the next scene calc.
+static void ApplyMenuDriverModelReload(u8 hud, CharacterId character) {
+    MenuModelMgr *modelMgr = MenuModelMgr::sInstance;
+    if (modelMgr == nullptr || !modelMgr->isActive || modelMgr->driverModels == nullptr) return;
+    if (hud >= LOCAL_PLAYER_COUNT || hud >= modelMgr->playerCount) return;
+    MenuDriverModelMgr &drivers = *modelMgr->driverModels;
+    MenuDriverModel *oldPlayerModel = drivers.players[hud].playerModel;
+    const bool choosingCharacter = IsCharacterSelectActive();
+    const MenuDriverModel::State oldState = oldPlayerModel != nullptr
+        ? static_cast<MenuDriverModel::State>(MenuDriverModelStateSlot(*oldPlayerModel))
+        : MenuDriverModel::MENUDRIVERMODEL_STATE_ONCHARSELECT;
+    const bool onKart = !choosingCharacter && oldPlayerModel != nullptr &&
+        (oldState == MenuDriverModel::MENUDRIVERMODEL_STATE_ONKARTSELECT || static_cast<u32>(oldState) == 3);
+    UnlockMenuModelHeaps(*modelMgr);
+    if (!ReloadMenuDriverModel(drivers, character)) return;
+    drivers.SetPlayerCharacter(hud, character);
+    SectionMgr *sectionMgr = SectionMgr::sInstance;
+    if (sectionMgr != nullptr && sectionMgr->curSection != nullptr) {
+        if (choosingCharacter) {
+            Pages::CharacterSelect *page = sectionMgr->curSection->Get<Pages::CharacterSelect>();
+            if (page != nullptr && page->models != nullptr) page->models[hud].RequestModel(character);
+        } else if (onKart) {
+            // A refresh delayed into vehicle selection needs fresh riding
+            // animations. Never reuse the old driver's transformator.
+            drivers.PrepareDriverOnKartAnms(hud);
+            MenuDriverModel *model = drivers.players[hud].playerModel;
+            Pages::ModelRenderer *renderer = sectionMgr->curSection->Get<Pages::ModelRenderer>();
+            if (model != nullptr && *MenuDriverModelOnKartTransformatorSlot(*model) != nullptr) {
+                if (renderer != nullptr) MenuDriverModelVehicleSlot(*model) = renderer->params[hud].kart;
+                model->SwitchState(hud, oldState);
+            }
+        }
+    }
+    // Rebind the player/control first, then attach and evaluate the current animation.
+    PoseReloadedMenuDriverModel(character);
+}
+
+void ReinitMenuDriverModelMgr(u8 hud, CharacterId character) {
+    const MenuModelMgr *modelMgr = MenuModelMgr::sInstance;
+    const GameScene *scene = GameScene::GetCurrent();
+    if (scene == nullptr || modelMgr == nullptr || modelMgr->driverModels == nullptr) return;
+    if (hud >= LOCAL_PLAYER_COUNT || hud >= modelMgr->playerCount) return;
+    if (character < 0 || character >= MENU_DRIVER_MODEL_COUNT) return;
+    pendingMenuDriverModelCharacters[hud] = character;
+    pendingMenuDriverModelScenes[hud] = scene;
+    pendingMenuDriverModelManagers[hud] = modelMgr;
+    pendingMenuDriverModelReloads[hud] = true;
+}
+
+void QueueMenuDriverModelIfNeeded(u8 hud, CharacterId requestedCharacter) {
+    if (hud >= LOCAL_PLAYER_COUNT) return;
+    const CharacterId character = StateCharacter(requestedCharacter);
+    // Even an untouched vanilla slot must cancel an older custom-slot request.
+    if (pendingMenuDriverModelReloads[hud] && pendingMenuDriverModelCharacters[hud] != character)
+        pendingMenuDriverModelReloads[hud] = false;
+    const MenuModelMgr *modelMgr = MenuModelMgr::sInstance;
+    if (character < 0 || character >= MENU_DRIVER_MODEL_COUNT || modelMgr == nullptr ||
+        modelMgr->driverModels == nullptr || modelMgr->driverModels->models == nullptr || hud >= modelMgr->playerCount) return;
+    const u8 table = ResolveMenuTable(MenuBRRESCharacter(character));
+    const bool owned = reloadedMenuDriverModelSceneOwner == GameScene::GetCurrent() &&
+                       reloadedMenuDriverModelOwner == modelMgr->driverModels->models &&
+                       loadedMenuDriverModelTablesValid[character] &&
+                       reloadedMenuDriverModels[character] == *MenuDriverModelDirectorSlot(modelMgr->driverModels->models, character);
+    if ((owned && loadedMenuDriverModelTables[character] != table) || (!owned && table != TABLE_DEFAULT))
+        ReinitMenuDriverModelMgr(hud, character);
+}
+
+bool PendingMenuDriverCharacterStillSelected(u8 hud, CharacterId character) {
+    if (!IsCharacterSelectActive()) return true;
+    SectionMgr *sectionMgr = SectionMgr::sInstance;
+    Pages::CharacterSelect *page = sectionMgr->curSection->Get<Pages::CharacterSelect>();
+    return page->models == nullptr || StateCharacter(page->models[hud].curCharacter) == character;
+}
+
+// These are the three ScnMgr::CalcMain call sites of GameScene::calc, covering
+// every scene calc path a menu can take.
+void ProcessMenuDriverModelReloadsAndCalc() {
+    for (u8 hud = 0; hud < LOCAL_PLAYER_COUNT; ++hud) {
+        if (!pendingMenuDriverModelReloads[hud]) continue;
+        if (pendingMenuDriverModelScenes[hud] != GameScene::GetCurrent() ||
+            pendingMenuDriverModelManagers[hud] != MenuModelMgr::sInstance ||
+            !PendingMenuDriverCharacterStillSelected(hud, pendingMenuDriverModelCharacters[hud])) {
+            pendingMenuDriverModelReloads[hud] = false;
+            continue;
+        }
+        const MenuModelMgr *modelMgr = MenuModelMgr::sInstance;
+        if (modelMgr == nullptr || modelMgr->driverModels == nullptr || hud >= modelMgr->playerCount) {
+            pendingMenuDriverModelReloads[hud] = false;
+            continue;
+        }
+        // Temporary menu inactivity or an in-flight allkart request must not
+        // consume the driver's refresh before it can actually be applied.
+        if (!modelMgr->isActive || !IsMenuKartSkinReady(hud, pendingMenuDriverModelCharacters[hud])) continue;
+        pendingMenuDriverModelReloads[hud] = false;
+        ApplyMenuDriverModelReload(hud, pendingMenuDriverModelCharacters[hud]);
+    }
+    InstallReleasedCoursePreview();
+    ApplyVoteRandomMessageBoxKartState();
+    ScnMgr::CalcMain();
+}
+kmCall(0x8051b444, ProcessMenuDriverModelReloadsAndCalc);
+kmCall(0x8051b4dc, ProcessMenuDriverModelReloadsAndCalc);
+kmCall(0x8051b610, ProcessMenuDriverModelReloadsAndCalc);
+
+void RefreshMenuDriverModel(CharacterId character) {
+    MenuModelMgr *modelMgr = MenuModelMgr::sInstance;
+    if (modelMgr == nullptr || !modelMgr->isActive || modelMgr->driverModels == nullptr) return;
+
+    UnlockMenuModelHeaps(*modelMgr);
+    ReloadMenuDriverModel(*modelMgr->driverModels, character);
+}
+
+KartId SelectedMenuKartForHud(u8 hud) {
+    const SectionMgr *sectionMgr = SectionMgr::sInstance;
+    if (sectionMgr != nullptr && sectionMgr->sectionParams != nullptr && hud < sectionMgr->sectionParams->localPlayerCount) {
+        return sectionMgr->sectionParams->karts[hud];
+    }
+    const Racedata *racedata = Racedata::sInstance;
+    if (racedata != nullptr && hud < racedata->menusScenario.localPlayerCount) {
+        const u8 playerId = racedata->menusScenario.settings.hudPlayerIds[hud];
+        if (playerId < ONLINE_PLAYER_COUNT) return racedata->menusScenario.players[playerId].kartId;
+    }
+    return STANDARD_KART_S;
+}
+
+// The random-vote message box shows drivers on the currently selected kart.
+void ApplyVoteRandomMessageBoxKartState() {
+    SectionMgr *sectionMgr = SectionMgr::sInstance;
+    if (sectionMgr == nullptr || sectionMgr->curSection == nullptr) {
+        voteRandomMessageBoxKartStateApplied = false;
+        return;
+    }
+    const Page *topPage = sectionMgr->curSection->GetTopLayerPage();
+    if (!IsVotingSection(sectionMgr->curSection->sectionId) || topPage == nullptr || topPage->pageId != PAGE_VOTERANDOM_MESSAGE_BOX) {
+        voteRandomMessageBoxKartStateApplied = false;
+        return;
+    }
+    if (voteRandomMessageBoxKartStateApplied) return;
+
+    MenuModelMgr *modelMgr = MenuModelMgr::sInstance;
+    if (modelMgr == nullptr || !modelMgr->isActive || modelMgr->driverModels == nullptr) return;
+    const u8 count = SectionPlayerCount(sectionMgr);
+    for (u8 hud = 0; hud < count && hud < modelMgr->playerCount; ++hud) {
+        MenuDriverModel *model = modelMgr->driverModels->players[hud].playerModel;
+        if (model == nullptr) continue;
+        MenuDriverModelVehicleSlot(*model) = SelectedMenuKartForHud(hud);
+        // PrepareDriverOnKartAnms saves the active transformator as the character-select transformator.
+        model->SwitchState(hud, MenuDriverModel::MENUDRIVERMODEL_STATE_ONCHARSELECT);
+        // Reuse the prepared controller; only allocate when missing, with the
+        // model heaps unlocked, in the pre-CalcMain phase.
+        if (*MenuDriverModelOnKartTransformatorSlot(*model) == nullptr) {
+            UnlockMenuModelHeaps(*modelMgr);
+            modelMgr->driverModels->PrepareDriverOnKartAnms(hud);
+        }
+        model->SwitchState(hud, static_cast<MenuDriverModel::State>(3));
+    }
+    voteRandomMessageBoxKartStateApplied = true;
+}
+
+// Award models use separate animations and must always load from the vanilla BRRES.
+const char *GetAwardDriverBRRESName(CharacterId character) {
+    return GetDefaultCharacterPostfix(character);
+}
+kmCall(0x80789668, GetAwardDriverBRRESName);
+
+}  // namespace CustomCharacters
+}  // namespace Pulsar
+
+// Increase each local allkart loader heap from 0xe1000 to 0x121000.
+// Historical recipe: absent from Code(10); retained for review only.
+// kmWrite32(0x80542310, 0x3f400012);

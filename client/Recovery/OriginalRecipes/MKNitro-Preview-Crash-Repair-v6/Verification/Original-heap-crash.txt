@@ -1,0 +1,30 @@
+{'vehicle': 'la_bike.brres', 'remaining': 20736, 'scene_models': ['0x910db780', '0x910dbae0']}
+{'vehicle': 'la_kart.brres', 'remaining': 18592, 'scene_models': ['0x910dbfe0', '0x910dc340']}
+{'vehicle': 'lb_bike.brres', 'remaining': 16448, 'scene_models': ['0x910dc840', '0x910dcba0']}
+{'vehicle': 'lb_kart.brres', 'remaining': 14304, 'scene_models': ['0x910dd0a0', '0x910dd400']}
+{'vehicle': 'lc_bike.brres', 'remaining': 12160, 'scene_models': ['0x910dd900', '0x910ddc60']}
+{'vehicle': 'lc_kart.brres', 'remaining': 10016, 'scene_models': ['0x910de160', '0x910de4c0']}
+{'vehicle': 'ld_bike.brres', 'remaining': 7872, 'scene_models': ['0x910de9c0', '0x910ded20']}
+{'vehicle': 'ld_kart.brres', 'remaining': 5728, 'scene_models': ['0x910df220', '0x910df580']}
+{'vehicle': 'ldf_bike.brres', 'remaining': 3584, 'scene_models': ['0x910dfa80', '0x910dfde0']}
+{'vehicle': 'ldf_kart.brres', 'remaining': 1440, 'scene_models': ['0x910e02e0', '0x910e0640']}
+FAIL le_bike.brres Invalid memory write (UC_ERR_WRITE_UNMAPPED) PC=8006dd0c LR=8023c384 remaining 320 failed_allocations [{'heap': 2432696376, 'size': 800, 'alignment': 32, 'returned': 0}]
+registers [(3, '0x140'), (4, '0xffffffe0'), (5, '0x910e0eb8'), (6, '0x0'), (7, '0x8'), (8, '0x910db754'), (9, '0x0'), (10, '0x0'), (11, '0x817dfe80'), (12, '0x8023cec8')]
+Traceback (most recent call last):
+  File "/workspace/scratch/e221e6641538/work/crash-repair/native_probe.py", line 38, in call
+    try:self.uc.emu_start(addr,self.stop,count=3000000)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/lib/python3.12/site-packages/unicorn/unicorn_py3/unicorn.py", line 766, in emu_start
+    raise UcError(status)
+unicorn.unicorn_py3.unicorn.UcError: Invalid memory write (UC_ERR_WRITE_UNMAPPED)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/e221e6641538/work/crash-repair/reproduce_loader.py", line 62, in <module>
+    ret=rt.call(0x80831fc4,obj,0,22,i,heap,128,128)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/e221e6641538/work/crash-repair/native_probe.py", line 39, in call
+    except Exception as e:raise RuntimeError(f'{e} PC={self.uc.reg_read(UC_PPC_REG_PC):08x} LR={self.uc.reg_read(UC_PPC_REG_LR):08x}')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Invalid memory write (UC_ERR_WRITE_UNMAPPED) PC=8006dd0c LR=8023c384

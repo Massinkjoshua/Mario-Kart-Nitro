@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "executions": 212,
+  "error_cases": 44,
+  "result_cases": 56,
+  "release_sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "source_profile_sha256": "5ea566c7f141f923b21d80f07f14c99f8835b2dcdd1f3ac15c3e992f01539a26",
+  "checked": [
+    "Real ApplyError and ApplyResults execute with internal helpers",
+    "Exact error strings and cleared row text",
+    "Page-local entry selection, fallback rank, names/VR/footer text",
+    "Invalid Miis hidden and valid Miis loaded and bound",
+    "Full canonical UI/native-call trace equality"
+  ],
+  "limits": [
+    "Native layout, text formatting and RFL APIs controlled; no real rendering",
+    "Friend highlighting not exercised: synthetic friend codes are zero",
+    "PAL only; not full released-core or game boot"
+  ]
+}
