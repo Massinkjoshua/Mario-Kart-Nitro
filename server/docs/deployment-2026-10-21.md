@@ -22,7 +22,13 @@ go test -race ./api ./database ./gpcm
 go build -trimpath -buildvcs=false -o /root/nitro-pagination-review/wwfc.candidate .
 ```
 
-All package tests and focused race checks passed. The inspected build metadata included GOOS=linux, GOARCH=amd64, GOAMD64=v1, CGO_ENABLED=1 and trimpath=true. The host build hash differs from the earlier handoff executable; do not substitute the handoff hash for the deployed build. An independent fresh rebuild comparison and a hash of the running process executable are not yet recorded here.
+All package tests and focused race checks passed. The inspected build metadata included GOOS=linux, GOARCH=amd64, GOAMD64=v1, CGO_ENABLED=1 and trimpath=true. The host build hash differs from the earlier handoff executable; do not substitute the handoff hash for the deployed build. A subsequent operator screenshot verified identical SHA-256 hashes for the running process executable (read through /proc/<MainPID>/exe), the staged wwfc.candidate and a fresh wwfc.verify build from the pinned source directory:
+
+```text
+9e4dda5664349cfe985662ed4a2086b87a3fa04b09aed01338e838cc3fc572ed
+```
+
+The fresh build used the same Go 1.25.5 command and host environment, with build cache permitted. This establishes an operator-observed on-host rebuild match to the running executable; it is not an independent clean-room or cross-host reproduction.
 
 Before rollout, the operator backed up the executable and private configuration and verified both backups matched their originals. A private pg_dumpall backup was created with restricted permissions and its completion marker checked. No secrets, configuration contents, database dumps or player records are published.
 
@@ -42,7 +48,6 @@ The operator separately confirmed that friend codes appeared correctly in active
 
 ## Remaining verification boundaries
 
-- Independently hash the running executable and compare it with the staged candidate; preserve exact build settings and inputs for reproduction.
 - Test the new ratings endpoint and authenticated report/readback against real PostgreSQL with identified test profiles. The unit tests use mocked database calls; the schema transaction and game smoke report do not replace those integration checks.
 - A fresh disposable-database integration suite, banned-report rejection, outage behavior and full game-client identity verification remain unrecorded.
 - The public source-offer visibility/routing for this precise deployed server version still needs checking. The separately archived October-12 candidate's /api/source route must not be assumed present in this deployment.
