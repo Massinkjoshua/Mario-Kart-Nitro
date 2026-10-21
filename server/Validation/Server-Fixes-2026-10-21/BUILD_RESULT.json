@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-21",
+  "base_source_commit": "46dbe695c693b5c427701c8510eba63bd508b637",
+  "go_version": "1.25.5",
+  "target": "linux/amd64",
+  "binary_sha256": "67101853556cb3abee818c699fc5c03b062afb41894eca815825032dda9d8c1e",
+  "binary_bytes": 17895899,
+  "go_test_all_passed": true,
+  "go_test_race_api_database_gpcm_passed": true,
+  "go_build_passed": true,
+  "postgres_integration_tested": false,
+  "live_deployed": false,
+  "website_updated": false,
+  "game_binary_changed": false
+}

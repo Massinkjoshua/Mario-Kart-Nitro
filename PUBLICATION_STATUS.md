@@ -1,3 +1,9 @@
+## Server candidate and uploaded core review — 21 October 2026
+
+`server/Server-Fixes-2026-10-21` adds website API paging and client rating-sync handlers. Go tests, focused race checks and Linux amd64 build passed. PostgreSQL/live integration and current website edits remain pending; nothing was deployed. See `server/Server-Fixes-2026-10-21/SERVER-UPDATE.md`.
+
+The newly uploaded Code.pul matches the historical 58de core, not the latest 2507 candidate. See `client/docs/uploaded-code-review-2026-10-21.md`; the active game file should be verified before assigning runtime test results.
+
 ## New paging and matchmaking candidate (18 October 2026)
 
 The new 2507 candidate fixes the in-game leaderboard ceiling/navigation, adds a safe waiting-screen timeout, and corrects the VR room-filter scale. 142 new scenarios, 284 safeguard scenarios and 11,176 existing regression executions passed. Runtime testing remains pending. [Details](client/docs/paging-update-2026-10-18.md). Earlier records below describe previous candidates.

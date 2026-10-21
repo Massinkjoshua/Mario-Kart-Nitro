@@ -1,0 +1,9 @@
+{
+  "filename": "Code(20261021-101334).pul",
+  "bytes": 2688428,
+  "sha256": "58de1c05cfd1a39c80552ec5bef20582b68460606eac98ec7f540d88a81ec364",
+  "matches_recorded_historical_release": true,
+  "latest_client_candidate_sha256": "25071c02e4a24e99432627165c87d5be212491f931c0d68e36b9e71d11b54dba",
+  "matches_latest_client_candidate": false,
+  "conclusion": "Identical to the recorded historical core; no new changes relative to that core. Different from the latest paging/safeguards candidate. This does not establish which file Dolphin is loading."
+}

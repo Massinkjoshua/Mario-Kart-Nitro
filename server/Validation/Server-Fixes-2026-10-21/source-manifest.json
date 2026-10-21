@@ -1,0 +1,712 @@
+[
+  {
+    "path": "LICENSE",
+    "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+    "bytes": 34523
+  },
+  {
+    "path": "Makefile",
+    "sha256": "8d9ba02d48696cdb7e48c66be85e08657bc5c517c438129396f46ed740729a7e",
+    "bytes": 163
+  },
+  {
+    "path": "README.md",
+    "sha256": "a87dbe00e39b11e6ced0de81ee74e69bc2a92571bc2d48a0f9839442ad241c3e",
+    "bytes": 3224
+  },
+  {
+    "path": "SERVER-UPDATE.md",
+    "sha256": "5d42e035a210845e4edd46475f458ae3306e750a065052b7f979ea642f20bd79",
+    "bytes": 4978
+  },
+  {
+    "path": "SOURCE_EXPORT_MANIFEST.json",
+    "sha256": "a1b07bc76584083c8c81b5fb349e16a353d5cdd8ce82fe3b1fde4f0f2c2fdb78",
+    "bytes": 20749
+  },
+  {
+    "path": "api/ban.go",
+    "sha256": "f81150ef51db8290fd22ce3df72f72917e52ea8d5211bafeba59bcc11a2b3588",
+    "bytes": 1589
+  },
+  {
+    "path": "api/clear.go",
+    "sha256": "2e3592e0c9af722f921cc4afa1639f7f97e005728713f2c0db79bbd999457d5d",
+    "bytes": 689
+  },
+  {
+    "path": "api/get_hash.go",
+    "sha256": "8f2c9c0372934c893606bdb92d1b54044c1df9486bb5010e6ea558eeebba19d7",
+    "bytes": 479
+  },
+  {
+    "path": "api/groups.go",
+    "sha256": "5bd8053a674bf0180c71bcd8734a8c71fec68fcf0d28574a0d77714a268b37ee",
+    "bytes": 832
+  },
+  {
+    "path": "api/investigate.go",
+    "sha256": "b3984f141fc3b2a76bfa1eb097a52ebcca4dc0e068a14452026990563b165600",
+    "bytes": 2782
+  },
+  {
+    "path": "api/kick.go",
+    "sha256": "479b9b3c9be93fc8fd9407d7b0b9423cadcdfa7358d97c4db7ed0e1971cc1235",
+    "bytes": 995
+  },
+  {
+    "path": "api/link.go",
+    "sha256": "82aa952ca10220b14be935bf73c283dbc26f788fe772136e6f450297db82dded",
+    "bytes": 5160
+  },
+  {
+    "path": "api/main.go",
+    "sha256": "9c07ea5093801f1368eaf2f0e9dceb0c4cba08b91cfc7cb7e7961252840866c0",
+    "bytes": 9062
+  },
+  {
+    "path": "api/mii.go",
+    "sha256": "7e8086241bc21d4451fc552c9f0ade0846a9d849a217118ffeb3b7ea81084bf3",
+    "bytes": 942
+  },
+  {
+    "path": "api/mkw_rr.go",
+    "sha256": "456a2438448e05b95f4ea98ab3ec1d89b0d2a8251400066fd84d3ee04fb1141c",
+    "bytes": 1231
+  },
+  {
+    "path": "api/mkw_stats.go",
+    "sha256": "f856a55b7ec5828cdfbced021a7f6047229b8ecfa33e5c7203723d901b9408ac",
+    "bytes": 1629
+  },
+  {
+    "path": "api/motd.go",
+    "sha256": "840273ba456d0f8e37c1948d5d478fdeb6ba90a390e67b82f4b18e45bc9e6f08",
+    "bytes": 849
+  },
+  {
+    "path": "api/new_players.go",
+    "sha256": "84b157122421962cfc6098748f1aa83cf7d02c29138c9d16c70372e5c78a398d",
+    "bytes": 532
+  },
+  {
+    "path": "api/nitro_leaderboard.go",
+    "sha256": "95831936940236341f3a4243e266a91e880325ffd3bd31873052cc7ce0d57fa4",
+    "bytes": 6764
+  },
+  {
+    "path": "api/nitro_ratings.go",
+    "sha256": "3e042a10d69a8f3d4841a44a21acd5807009ebc596d245d5b40bdd78002e3794",
+    "bytes": 1512
+  },
+  {
+    "path": "api/nitro_ratings_test.go",
+    "sha256": "7143411623e27a2ef41af9847aa56e95bf5aee6392c374478df86f701b4ce839",
+    "bytes": 2781
+  },
+  {
+    "path": "api/pcount.go",
+    "sha256": "a64f7a9dc7fcf9021453afad5336d4f181cd8f2c1f2604adfecec8ff15a8b753",
+    "bytes": 1518
+  },
+  {
+    "path": "api/pinfo.go",
+    "sha256": "96d72361b990775f280b8b9ff6d11ee86f47183f37e29a5e20f6c1f730c45305",
+    "bytes": 1160
+  },
+  {
+    "path": "api/query.go",
+    "sha256": "9c10dedf627f88aefd556bfa2ee20de29f17ba3f89f5acd6a28df30cd3810ef7",
+    "bytes": 4993
+  },
+  {
+    "path": "api/remove_hash.go",
+    "sha256": "160b96c0039c7ab4722536e3e0a174a7c13772c7f55d5589426c7d4748edd30c",
+    "bytes": 699
+  },
+  {
+    "path": "api/self.go",
+    "sha256": "e547c89f41b3f11bf94de795333259f6f47efced572ef1add04ac0b2b040b6ea",
+    "bytes": 3579
+  },
+  {
+    "path": "api/set_hash.go",
+    "sha256": "efc665eaa3cea60d10adbb95b1f6142dff6e26528b8f633d94366bc0c5bef13f",
+    "bytes": 890
+  },
+  {
+    "path": "api/stats.go",
+    "sha256": "1731d686f45a19bb893d361d93cc20245825b3ab3005861d235e79e6316fe75f",
+    "bytes": 1770
+  },
+  {
+    "path": "api/unban.go",
+    "sha256": "c6deeedd59d53710828920a44da4910c8bb81ad9af89a45a8dfe55e0e636fee7",
+    "bytes": 851
+  },
+  {
+    "path": "common/auth_token.go",
+    "sha256": "76a756e43d7e1743c6005d5cf8b31553b26c789c0225d7b780d07268775913b8",
+    "bytes": 4607
+  },
+  {
+    "path": "common/config.go",
+    "sha256": "7d71aa9bf115ea1c9d712edc43040934330177170400cb71665615caa9e0009c",
+    "bytes": 4276
+  },
+  {
+    "path": "common/connection.go",
+    "sha256": "05f496b3cd5f311d0721c4c340315e0b787bdb2d4020aaedbaa3a9918452210a",
+    "bytes": 2459
+  },
+  {
+    "path": "common/encoding.go",
+    "sha256": "97ee4c8e2266a5a45fb2c316531ec6ee551246a03455f969c525145cb0c91ea4",
+    "bytes": 1596
+  },
+  {
+    "path": "common/encryption.go",
+    "sha256": "91fa2657ce71265ff539979acc6f2ba410dad82dbc3ade9340c01980fa18bd34",
+    "bytes": 3085
+  },
+  {
+    "path": "common/encryption_test.go",
+    "sha256": "edc4d66ff3af021e5199959cf44923b7ee46656a8d03af721ad5f748c35e0d2a",
+    "bytes": 259
+  },
+  {
+    "path": "common/friend_code.go",
+    "sha256": "9dc5ff85e14476e2897304f82a79d37571517ecc8bc0a5380fe33d5fffc06835",
+    "bytes": 1924
+  },
+  {
+    "path": "common/game_list.go",
+    "sha256": "fb3f1a799ec981dad9033a9cfe63f430931a08400e4366d552cf706a008b036d",
+    "bytes": 2922
+  },
+  {
+    "path": "common/gamespy_message.go",
+    "sha256": "e66dee0b6f20eca91890ea407942629af1c1c4581275a1742c90049ab04d7230",
+    "bytes": 2610
+  },
+  {
+    "path": "common/gamespy_test.go",
+    "sha256": "8e9213e08bf2508b2a844cdd65f6fd4fd5a14216c2bbc85e7c5dce754f7e1a9f",
+    "bytes": 903
+  },
+  {
+    "path": "common/ip_address.go",
+    "sha256": "dd3da990b643e21d387cf055a2cd0c17cc675619a64f7b0444fcefe45c1e8174",
+    "bytes": 3078
+  },
+  {
+    "path": "common/mario_kart_wii.go",
+    "sha256": "378b5fa9d05062738553fdbbe03b73db6382f0e5fe31165c5efa90be663f37f8",
+    "bytes": 16166
+  },
+  {
+    "path": "common/match_command.go",
+    "sha256": "6fa7f88222e4804c86af6da468539fef3668c624acfd5b52afb6d8526240fb9a",
+    "bytes": 20988
+  },
+  {
+    "path": "common/mii.go",
+    "sha256": "d5983e595e2d8659fcc8a3d054803355255b7397fc4af3d044a6e99a9f06ae98",
+    "bytes": 747
+  },
+  {
+    "path": "common/misc.go",
+    "sha256": "39a0a68534f4da62dec70179a1937297dbbe21e8010a56f7fd658f29c824cae1",
+    "bytes": 50
+  },
+  {
+    "path": "common/nitro_mii.go",
+    "sha256": "b0e2ff5065e61aab73a2f9ee956af7ab08558d0b088935e1b6ef49c2fcfdfc09",
+    "bytes": 1289
+  },
+  {
+    "path": "common/nitro_mii_test.go",
+    "sha256": "732d3b7166ec22c6697c687f7f9f7e328e7552146f40eca5377bf481114bee4c",
+    "bytes": 1678
+  },
+  {
+    "path": "common/strings.go",
+    "sha256": "d45a7945f30f1cbd50fcc164bce7fc100ad8e9ee844448b4e65bc4f9e9de59b9",
+    "bytes": 2356
+  },
+  {
+    "path": "database/gamestats.go",
+    "sha256": "5f049fe2f5a01b311ea912425414166c4f99c0452c8797b62178d922eb9dcc45",
+    "bytes": 1480
+  },
+  {
+    "path": "database/hash.go",
+    "sha256": "63237fc7284a4ab40c315c25a30b5a78bb128b8cfaa014a5ec1392a4c937f0d6",
+    "bytes": 4819
+  },
+  {
+    "path": "database/hash_security_test.go",
+    "sha256": "5131266bfd10d85eed978dd9d65b827409e42695c2fcd736b1db575e92ab1f2b",
+    "bytes": 991
+  },
+  {
+    "path": "database/identifier_policy.go",
+    "sha256": "04117ec4b27b2e74ced3fe43e36a7fde93090d49b7d23f7ec0c791d71f8c54f3",
+    "bytes": 584
+  },
+  {
+    "path": "database/identifier_policy_test.go",
+    "sha256": "7af297522a6bee64cd609688efbd3ce9c84c3d23525fc7ba3e64571fde40b5fe",
+    "bytes": 1244
+  },
+  {
+    "path": "database/login.go",
+    "sha256": "52827e8d59ac82d7d1d708a684ca171126568546e9198617db143edfd89526e0",
+    "bytes": 9160
+  },
+  {
+    "path": "database/mario_kart_wii.go",
+    "sha256": "7c0a286b36611c2baf3be0c6600dd75c0c5d389f04b9644df125374b6b6c00d7",
+    "bytes": 3767
+  },
+  {
+    "path": "database/nitro_ratings.go",
+    "sha256": "a8f1c2764dab0be7161d657774c0d9691f506989b52e4912af007fc8fbf8873c",
+    "bytes": 3298
+  },
+  {
+    "path": "database/nitro_ratings_test.go",
+    "sha256": "c71712e4a92f3046c4d60a68efe8b4cf91bebc28829a9b6642b6df7038dc949f",
+    "bytes": 3512
+  },
+  {
+    "path": "database/schema.go",
+    "sha256": "1bd2eacc585580914b089c53c0fece437c1fafa7e456baec241e94f38957f17d",
+    "bytes": 1369
+  },
+  {
+    "path": "database/user.go",
+    "sha256": "99377f17e06f7c1bb1e7fa5cf0d54d31122510e2bf29e1f6c913a2013d01a0f0",
+    "bytes": 11789
+  },
+  {
+    "path": "dlc/README.md",
+    "sha256": "139329cc0940d85d1a2520e98da05cc0cbf26272c18d8433e47b64ce9842f87e",
+    "bytes": 176
+  },
+  {
+    "path": "gamestats/auth.go",
+    "sha256": "e8d1bda20f3722b5a50a6e8b4c3dae4d845bbcb0e91c67641ba004466aaa91b9",
+    "bytes": 2359
+  },
+  {
+    "path": "gamestats/error.go",
+    "sha256": "032d7eb59bc368b1646ecd012017df914f5e136b66d21716b87d2554e1b3e7a2",
+    "bytes": 336
+  },
+  {
+    "path": "gamestats/getpd.go",
+    "sha256": "deff6e0556befde80b1d1e000a8c4692d9cd533e5d851d15a175fac9392853ee",
+    "bytes": 2003
+  },
+  {
+    "path": "gamestats/main.go",
+    "sha256": "3581fb5afdb45b3336a098a5675fb437cb122322ca255960c37b3e29a7b7a556",
+    "bytes": 7004
+  },
+  {
+    "path": "gamestats/setpd.go",
+    "sha256": "4aa543febe8a3802564186102c0eaec90eb451452e57dc3d95fdff3c0d3b3677",
+    "bytes": 3062
+  },
+  {
+    "path": "gamestats/web.go",
+    "sha256": "0dbb10800ff39224e76c9b0582a491c89a551c89398329824b495fdf2318e8f7",
+    "bytes": 3512
+  },
+  {
+    "path": "go.mod",
+    "sha256": "c1c7a49297a0698157f5a44abf3cb500dff4241666da99dc760d8c635c0b0843",
+    "bytes": 901
+  },
+  {
+    "path": "go.sum",
+    "sha256": "f37ecfa41576a7afcec609010f34674fb99082e0e4a1dcfa760786814adb2212",
+    "bytes": 22145
+  },
+  {
+    "path": "gpcm/device_policy.go",
+    "sha256": "06692b6e6982bd0ab8d3a28b2c3cfb9b059b74998ed175629f1266eae1095c13",
+    "bytes": 286
+  },
+  {
+    "path": "gpcm/device_policy_test.go",
+    "sha256": "231917263a3c5babe5246d6e872e40f5b404e67e4211879447d27969f6a34537",
+    "bytes": 555
+  },
+  {
+    "path": "gpcm/ecdsa.go",
+    "sha256": "82b4c071bd1dd57add77f34d1ff0f86a3f7c11b001d372d835c77e5a7db2ccfc",
+    "bytes": 5039
+  },
+  {
+    "path": "gpcm/error.go",
+    "sha256": "2069ef85e165f92eadb86ecd6f7679d6717d5e3b006b99ff471772aa11537020",
+    "bytes": 12721
+  },
+  {
+    "path": "gpcm/error_messages.go",
+    "sha256": "585e670365579d82d007e0cfb55b3756cf3dfd5d4c08f4ade2f31b4a120814a5",
+    "bytes": 55320
+  },
+  {
+    "path": "gpcm/friend.go",
+    "sha256": "0fd27e07dfae0f1e6315f57ec5c2a5a10331678de6551d918997864c812c9db0",
+    "bytes": 12498
+  },
+  {
+    "path": "gpcm/kick.go",
+    "sha256": "06b08f855b9a5e75ac88bfce0d74c504f9db54074bb3dedca69275697a2136a9",
+    "bytes": 3700
+  },
+  {
+    "path": "gpcm/login.go",
+    "sha256": "7c7f82f6d230896bf82605daa1a737dc9c92764203ec10897a43d3201b7e1da7",
+    "bytes": 18153
+  },
+  {
+    "path": "gpcm/main.go",
+    "sha256": "95c20f8b0387b0a823d65d583cda97267a8da8a0e03143f2361558dd3b240216",
+    "bytes": 9219
+  },
+  {
+    "path": "gpcm/message.go",
+    "sha256": "b01b7f1aa4f69405b69139d427b75a70909ca0b3f945f7f91ac9e7ed425ce12b",
+    "bytes": 10824
+  },
+  {
+    "path": "gpcm/motd.go",
+    "sha256": "745649d347040163b62f3c9cf8ebcfea8a83f8c5123e4334f104a1f6292042e4",
+    "bytes": 1345
+  },
+  {
+    "path": "gpcm/network_policy.go",
+    "sha256": "dfbd993b59bb043f3619214260e4e477afdfe7124394e584f7d6522208818a8b",
+    "bytes": 1014
+  },
+  {
+    "path": "gpcm/nitro_name_policy.go",
+    "sha256": "00f667f3386b77bdc7c45a700cb909c4f8d7c822df9f557d5caf3f81eb3ea9d1",
+    "bytes": 769
+  },
+  {
+    "path": "gpcm/nitro_ratings.go",
+    "sha256": "63f23fac6a2a849e3dd520a5adf44f708a5bb8b0ed534efff0fd70baece7fd45",
+    "bytes": 581
+  },
+  {
+    "path": "gpcm/nitro_ratings_test.go",
+    "sha256": "8fd04562b97ae66ef871c0de3b4a5d494a45b0f2678629774a4e82e0714f0da3",
+    "bytes": 1448
+  },
+  {
+    "path": "gpcm/profile.go",
+    "sha256": "03a52641f4b36b19f5517c8b65e1daaa4f9cf54dabcba6b54d35815dc50c7350",
+    "bytes": 4101
+  },
+  {
+    "path": "gpcm/report.go",
+    "sha256": "e9ce2475f488d3bd4a87ce09fd16e7a72ede5e888751b83abceb564022f42860",
+    "bytes": 2662
+  },
+  {
+    "path": "gpsp/error.go",
+    "sha256": "86079d5200e9f5bd7ccc8b196a14f4167bc0dd83ca9ca2d40a261e2eec5f5a8d",
+    "bytes": 352
+  },
+  {
+    "path": "gpsp/main.go",
+    "sha256": "e9ce93a8fd10d032026e07c28eafd071028ab8e330151bb38c75fe290075957b",
+    "bytes": 1173
+  },
+  {
+    "path": "gpsp/otherslist.go",
+    "sha256": "104ba76c92a79b7a208e23fd4594af20eaa0f34167947a5a6962e1a98bdc690d",
+    "bytes": 2522
+  },
+  {
+    "path": "gpsp/search.go",
+    "sha256": "d15e55f0c1c5d8dd71e9e12e741c9b25cfddb590daee5cf87054125fcd775fb8",
+    "bytes": 1107
+  },
+  {
+    "path": "logging/log.go",
+    "sha256": "2f036eed9aa82fe153002b663d08a0eed0f1ce71f466efdbdfae38d1dab56015",
+    "bytes": 1847
+  },
+  {
+    "path": "main.go",
+    "sha256": "5ebae61fb1ab22abf3a1b6b598a592ef32fe7e312c5a789b6c11bc79250065f1",
+    "bytes": 14984
+  },
+  {
+    "path": "nas/auth.go",
+    "sha256": "785481c80239f78f404269be4e172151dfce452d2fce44b64de1523bb4ba02c7",
+    "bytes": 10618
+  },
+  {
+    "path": "nas/conntest.go",
+    "sha256": "ef9c02fcf24f230582f6a6f098bb0629399ead67faba3b9901c215e346586905",
+    "bytes": 930
+  },
+  {
+    "path": "nas/https.go",
+    "sha256": "b71be7bd2662bc6cb424c22ead8aafcc8878859905d7bf48591f3bf097e79609",
+    "bytes": 33150
+  },
+  {
+    "path": "nas/main.go",
+    "sha256": "0c98307c1b77b98bb9b729dc43d1b385336a679130d1a885cae0e1a5bb614a01",
+    "bytes": 7658
+  },
+  {
+    "path": "nas/payload.go",
+    "sha256": "a9ed5253ea741f6f400de91c27eec69bc9b1262dd1483e2a4a3cb90050689d24",
+    "bytes": 3905
+  },
+  {
+    "path": "nas/profanity.go",
+    "sha256": "b417f52e04cf87231ff7aa58826e32c38f48c60e291ed2e736a3927cc29870d3",
+    "bytes": 3608
+  },
+  {
+    "path": "natneg/connect.go",
+    "sha256": "74cdb4b2c64d377b4cba32220cd3c0743152dc3828991b726f192b68830c2910",
+    "bytes": 2550
+  },
+  {
+    "path": "natneg/init.go",
+    "sha256": "f45395709969070d44bff15448e0cf9f6db41b65e22ce2ae43ebc2af3562a1f1",
+    "bytes": 2743
+  },
+  {
+    "path": "natneg/main.go",
+    "sha256": "d8b6292f5447f7d0cd3d0c11fc04bbadfbca195655d2887cde859d9a31b64da6",
+    "bytes": 8546
+  },
+  {
+    "path": "natneg/preinit.go",
+    "sha256": "a7623f4508ecf946544235530244bdb4044badb19eb18f1e56dc295f524ab1e6",
+    "bytes": 1175
+  },
+  {
+    "path": "natneg/report.go",
+    "sha256": "4b69a4adccac10f78105e733138811d857ce704d7336a2b5fecdc39389384e04",
+    "bytes": 1374
+  },
+  {
+    "path": "networkpolicy/policy.go",
+    "sha256": "37ce6b5d0dff49544a7a54b909c2ac69de26fe62db17523f385cb89ee8f91468",
+    "bytes": 6288
+  },
+  {
+    "path": "networkpolicy/policy_test.go",
+    "sha256": "fe66a3ac27b7ad6ccaf336157de8c69f06407bb51ee800a9a94303b33ad2cb1f",
+    "bytes": 5933
+  },
+  {
+    "path": "nhttp/ascii.go",
+    "sha256": "2a4bf0f351d9882800c8e2eed87f93ba45d225d9816452743932d336570eff90",
+    "bytes": 3456
+  },
+  {
+    "path": "nhttp/buffer.go",
+    "sha256": "19b69731b4fff023e98fca43bc1e52a141ce28a91fa25894a300ef36128c7e67",
+    "bytes": 16638
+  },
+  {
+    "path": "nhttp/chunked.go",
+    "sha256": "18145a580e2d53871b3acd59467661acef4fe09c47406ca08ef50eac642c2560",
+    "bytes": 6775
+  },
+  {
+    "path": "nhttp/errors.go",
+    "sha256": "8d7ff82fcbb15a4caecd2bc888e1cb651b3a7ff0ed554395aa56f95a915e7314",
+    "bytes": 1253
+  },
+  {
+    "path": "nhttp/handler.go",
+    "sha256": "7ce4a248346d75bb47c3a94a3a8ebab025d5425476920113a413cce235acbbaa",
+    "bytes": 974
+  },
+  {
+    "path": "nhttp/request.go",
+    "sha256": "cba3157255f31e0062beffe39af872d5981332448a8f7b943babac5837441a85",
+    "bytes": 14676
+  },
+  {
+    "path": "nhttp/response.go",
+    "sha256": "a6b42fa91600367cee561e7b26d3f548b341fa6b6ac15eac50c2f68c170e95d2",
+    "bytes": 8465
+  },
+  {
+    "path": "nhttp/server.go",
+    "sha256": "1b35059d1646473295f51ac2284161b913d62d0c8665fb5678405f4d60602139",
+    "bytes": 16671
+  },
+  {
+    "path": "nhttp/transfer.go",
+    "sha256": "cdb80d31d657299a600c0fba43bc733b6c529bf871d88329bf58fab283b1ae6f",
+    "bytes": 15573
+  },
+  {
+    "path": "qr2/callback.go",
+    "sha256": "f44f7d5966fe59f7d86cdc83b86ccdd57a3e389e20ec60e5548ccba6a3236eac",
+    "bytes": 142
+  },
+  {
+    "path": "qr2/challenge.go",
+    "sha256": "5c2676a57881bd761f05378951c08eb9810d36f354067c9ea49609b1a43fbff1",
+    "bytes": 1060
+  },
+  {
+    "path": "qr2/group.go",
+    "sha256": "d33709354277a6ee786389c96d3008de94da88ed1f58610d4d1d81f0451494d3",
+    "bytes": 24714
+  },
+  {
+    "path": "qr2/group_info.go",
+    "sha256": "7d019368a5ed26f1c4ee79e35eba400656f8d0e9ec32dac28d97d829864d1dde",
+    "bytes": 6392
+  },
+  {
+    "path": "qr2/heartbeat.go",
+    "sha256": "546e62ae2e9afd2cd5b3529cf551872a26811fed9d4fd5aebbac161e9a324b23",
+    "bytes": 4973
+  },
+  {
+    "path": "qr2/logins.go",
+    "sha256": "fccd34a902ce3daa84158ecfe3191789f95b1df7476a89128a1d74ea86141be4",
+    "bytes": 2935
+  },
+  {
+    "path": "qr2/main.go",
+    "sha256": "3ea3dee97f48295e6fa9f15e7316d723fb9f790e34eef159857ced92edd25125",
+    "bytes": 5790
+  },
+  {
+    "path": "qr2/message.go",
+    "sha256": "db82ce76b6b7bf7d17a4555962bfcd379fc2c9f3fe3dca5aed6475d2de2551ea",
+    "bytes": 12083
+  },
+  {
+    "path": "qr2/nitro_leaderboard.go",
+    "sha256": "2a90c494d4fb074b30984c2aab67149396087642360beadf2ccca21623465f6a",
+    "bytes": 1080
+  },
+  {
+    "path": "qr2/session.go",
+    "sha256": "80dbab205c75887fd67eeb8c59f0dbcf3f98efdeb89e78e5b939698a3b961bd8",
+    "bytes": 10397
+  },
+  {
+    "path": "race/main.go",
+    "sha256": "b0ea0603bed4d7c41ec2a9924276bc85d09bde3efab16d03bd2b3d399a0e4b22",
+    "bytes": 1121
+  },
+  {
+    "path": "race/nintendo_racing_service.go",
+    "sha256": "78d0d60519f2fe4c800d6810482aa3bb1ec3a6d48353c5b5f81da38fb5f17e94",
+    "bytes": 6107
+  },
+  {
+    "path": "sake/constants.go",
+    "sha256": "d7cc370bc13efd72b0411e7043394658d0a7141fc5a77ec4523b7c8c2f155a52",
+    "bytes": 407
+  },
+  {
+    "path": "sake/file.go",
+    "sha256": "e6e932995d41a418f5f3d73474ae231601e96fa4b5dc169467a5a5aadf949ede",
+    "bytes": 1362
+  },
+  {
+    "path": "sake/main.go",
+    "sha256": "9f909b04737ba083569e396a25b86753d3714f3c2897fc0980e51755373ab2d0",
+    "bytes": 1345
+  },
+  {
+    "path": "sake/mario_kart_wii.go",
+    "sha256": "2118ae4600dff26cff795412fca4f5b8d1754e0872b6ea7c026f6b38295d7179",
+    "bytes": 10306
+  },
+  {
+    "path": "sake/storage.go",
+    "sha256": "b838b6454602bc552b9d14f22fd4bdcec5d19fe963417702a529302db67b5c95",
+    "bytes": 15896
+  },
+  {
+    "path": "schema.sql",
+    "sha256": "6de08924224ef980bb882149b796e575a740412902222191a2190de8e461d3c3",
+    "bytes": 4685
+  },
+  {
+    "path": "serverbrowser/filter/eval.go",
+    "sha256": "7c758981fde8a46b4ed9755f853ea031f0668c654bd48d544650e17085791963",
+    "bytes": 8849
+  },
+  {
+    "path": "serverbrowser/filter/parse.go",
+    "sha256": "453c5ad2c4a9d8e803ae0f787fa0b50fd337bfdb881441c1648c6fe0e48890aa",
+    "bytes": 4184
+  },
+  {
+    "path": "serverbrowser/filter/parse_branches.go",
+    "sha256": "818fe4ad816a080ed1a1446cff6c929b89e724de13e4556b78960179b360240a",
+    "bytes": 2682
+  },
+  {
+    "path": "serverbrowser/filter/scanner.go",
+    "sha256": "bb046fc1e8507fd39defeb9aee1f92ed69d07362151370c70dd84f3c79424d51",
+    "bytes": 3958
+  },
+  {
+    "path": "serverbrowser/filter/scanner_helper.go",
+    "sha256": "504a96be6df4c872c6a061852af02e933358fe8bba6278150e104bdd522df938",
+    "bytes": 1790
+  },
+  {
+    "path": "serverbrowser/filter/tokens.go",
+    "sha256": "9d42a2add0cd583131a497b18b5ee3f07bcd9707b5bf3b1394003b3893042404",
+    "bytes": 4356
+  },
+  {
+    "path": "serverbrowser/filter/treenode.go",
+    "sha256": "c62dca7f093d0e15f8648600cc37568673f3cbeaadbd34bdba5bafaa575edec2",
+    "bytes": 2989
+  },
+  {
+    "path": "serverbrowser/filter.go",
+    "sha256": "43a91f16ed81d8095592cf9b2bbf54be5602e5048a448b31912309e71891f1d3",
+    "bytes": 3422
+  },
+  {
+    "path": "serverbrowser/filter_test.go",
+    "sha256": "2235d2e178b8dd5a48b1c53a8e9ca18c7947566fded4f3c8c4826fb4c6f31b14",
+    "bytes": 1344
+  },
+  {
+    "path": "serverbrowser/main.go",
+    "sha256": "9cd0b0c31594da834bfa4ac7bd0ced61f2320cd2013620d10609665b21a37d48",
+    "bytes": 3695
+  },
+  {
+    "path": "serverbrowser/server.go",
+    "sha256": "13ab7c894b32bfa1c851424d563c80a03e5899dd30aa1ccee58ccb9ee147d156",
+    "bytes": 9642
+  },
+  {
+    "path": "translations/README.md",
+    "sha256": "6943f1a7f7e0a17ae77a451b8043ea7a8bdbce9aae8c215c8a1613906d2374e5",
+    "bytes": 220
+  }
+]
