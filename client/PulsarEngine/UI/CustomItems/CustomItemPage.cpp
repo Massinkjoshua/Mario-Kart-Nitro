@@ -55,6 +55,26 @@ bool CustomItemPage::ShouldSkipFriendRoomPreview() {
 }
 
 CustomItemPage::CustomItemPage() {
+    // Menu/MenuInteractable have empty inline constructors in these headers.
+    // Their scalar state must not depend on the previous contents of the heap.
+    this->playerMiis = nullptr;
+    this->externControls = nullptr;
+    this->curSelect = nullptr;
+    this->titleText = nullptr;
+    this->bottomText = nullptr;
+    for (u32 i = 0; i < 20; ++i) this->movies[i] = nullptr;
+    this->curMovieCount = 0;
+    this->extraControlype = 0;
+    this->modelPosition = nullptr;
+    this->nextPageId = PAGE_NONE;
+    this->prevSection = SECTION_NONE;
+    this->nextSection = SECTION_NONE;
+    this->movieStartFrame = -1;
+    this->extraControlNumber = 0;
+    this->isLocked = false;
+    this->controlCount = 0;
+    this->playerBitfield = 1;
+
     this->onButtonClickHandler.subject = this;
     this->onButtonClickHandler.ptmf = &CustomItemPage::OnButtonClick;
     this->onButtonSelectHandler.subject = this;
@@ -83,6 +103,34 @@ CustomItemPage::~CustomItemPage() {}
 
 void CustomItemPage::OnInit() {
     ::Pages::Menu::OnInit();
+    this->TraceLayouts("init");
+}
+
+static bool IsItemsAddress(u32 address, u32 size) {
+    if ((address & 3) != 0 || size == 0) return false;
+    return (address >= 0x80000000 && address <= 0x81800000 - size) ||
+           (address >= 0x90000000 && address <= 0x94000000 - size);
+}
+
+void CustomItemPage::TraceLayouts(const char *stage) const {
+    OS::Report("[NitroItems-v1] %s page=%p controls=%u playerBits=%u extraType=%u extraCount=%u\n",
+               stage, this, this->controlGroup.controlCount, this->playerBitfield,
+               this->extraControlype, this->extraControlNumber);
+    // Only inspect controls whose concrete layout-bearing type is known here.
+    for (u32 i = 0; i < 23; ++i) {
+        const LayoutUIControl *control = i < 20 ? &this->buttons[i] :
+            i == 20 ? &this->backButton :
+            i == 21 ? static_cast<const LayoutUIControl *>(this->titleText) :
+                      static_cast<const LayoutUIControl *>(this->bottomText);
+        if (control == nullptr) continue;
+        const u32 vt = *reinterpret_cast<const u32 *>(&control->layout.layout);
+        const u32 *table = IsItemsAddress(vt, 0x38) ? reinterpret_cast<const u32 *>(vt) : static_cast<const u32 *>(nullptr);
+        OS::Report("[NitroItems-v1] %s control=%u ptr=%p z=%u hidden=%u layout=%p vt=%08x calc=%08x draw=%08x root=%p resources=%p\n",
+                   stage, i, control, control->zIdx, control->isHidden,
+                   &control->layout.layout, vt, table != nullptr ? table[12] : 0,
+                   table != nullptr ? table[13] : 0, control->layout.layout.rootPane,
+                   control->layout.resources);
+    }
 }
 
 UIControl *CustomItemPage::CreateControl(u32 controlId) {
@@ -133,10 +181,18 @@ void CustomItemPage::OnActivate() {
             buttons[i].SetPaneVisibility("hilight_curr", false);
         }
     } else {
-        for (int i = 0; i < 20; ++i) buttons[i].manipulator.inaccessible = false;
+        // CodeWarrior's loop optimization incorrectly lowered the ordinary
+        // strided bool stores to memset(this + 0x3749, 0, 20), overwriting the
+        // separately allocated page-title layout. Volatile keeps each store
+        // on its actual PushButton member (stride sizeof(PushButton)).
+        for (int i = 0; i < 20; ++i) {
+            volatile bool *inaccessible = &buttons[i].manipulator.inaccessible;
+            *inaccessible = false;
+        }
         this->SelectButton(buttons[0]);
         this->OnButtonSelect(buttons[0], 0);
     }
+    this->TraceLayouts("activate");
 }
 
 void CustomItemPage::AfterControlUpdate() {

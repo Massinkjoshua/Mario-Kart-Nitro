@@ -36,6 +36,7 @@ public:
     static const PulPageId id = PULPAGE_CUSTOMITEMS;
 
 private:
+    void TraceLayouts(const char *stage) const;
     u32 GetDisplayBitfield() const;
     void UpdateButtonVisuals();
     void SetButtonIcon(PushButton &button, u32 itemId);

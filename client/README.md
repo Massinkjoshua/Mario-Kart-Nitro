@@ -5,11 +5,13 @@ Pack Creator source, editable config inputs, original notices, build scripts,
 recovery assembly/data and validation records. Read ../PUBLICATION_STATUS.md
 and SOURCE_STATUS.md before treating it as existing-release Corresponding Source.
 
-## Current review build
+## Confirmed client build
 
-The latest review build is `nitro-paging-20261018`. Use its [build and test instructions](docs/paging-update-2026-10-18.md), [source manifest](Validation/Paging-2026-10-18/compiled-source-manifest.json) and [validation records](Validation/Paging-2026-10-18/) to reproduce that version. The general build below is not a substitute for its versioned recipe.
+The current confirmed client is `nitro-ghost-reader-20261023`. The maintainer confirmed it working in Dolphin on 23 October 2026 after testing the Time Trials fix. Its exact source inputs, build record and confirmation are in [Validation/Confirmed-2026-10-23/](Validation/Confirmed-2026-10-23/).
 
-The historical Code.pul supplied on 21 October differs from this review build. See the [file comparison](docs/uploaded-code-review-2026-10-21.md). Full released-version mapping remains open.
+This build includes the Items-menu memory fix, released character-selection rules, Pauline model routing, preserved mini-turbo colours and bounded Time Trials ghost-folder reads. Follow the [versioned build instructions](docs/confirmed-build-2026-10-23.md) to reproduce it.
+
+Older releases have separate validation records. Confirmation of this client does not establish complete source mapping for every historical binary, Pack Creator resource availability, or validation of later server changes.
 
 ## Build the Wii engine and C++ loader on Linux x86_64
 

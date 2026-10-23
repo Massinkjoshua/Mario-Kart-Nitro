@@ -1,0 +1,26 @@
+[
+  {
+    "region": "P",
+    "loop_offset": "0x55ae4",
+    "byte_writes": 20,
+    "first_write": "0x8b9",
+    "last_write": "0x34f5",
+    "title_canary_unchanged": true
+  },
+  {
+    "region": "E",
+    "loop_offset": "0x55ae4",
+    "byte_writes": 20,
+    "first_write": "0x8b9",
+    "last_write": "0x34f5",
+    "title_canary_unchanged": true
+  },
+  {
+    "region": "J",
+    "loop_offset": "0x55ae4",
+    "byte_writes": 20,
+    "first_write": "0x8b9",
+    "last_write": "0x34f5",
+    "title_canary_unchanged": true
+  }
+]

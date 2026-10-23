@@ -10,7 +10,7 @@ The `source-recovery-2026-10-16` branch contains the client, server and connecti
 
 | Component | Source and build instructions | Current status |
 | --- | --- | --- |
-| Game client and Pack Creator | [client/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/client/README.md) | Source-built review candidate; released-version mapping remains open. |
+| Game client and Pack Creator | [client/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/client/README.md) | Current client confirmed in Dolphin on 23 October 2026; historical released-version mapping remains open. |
 | NitroWFC server | [server/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/server/README.md) | Deployed on 21 October 2026; an on-host rebuild matches the running executable. |
 | Connection payloads | [patcher/](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/patcher/README.md) | Stage1 and all four RMC payload rebuilds match the recorded deployment references. |
 

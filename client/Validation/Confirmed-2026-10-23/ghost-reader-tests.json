@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "cases": 12,
+  "method": "Actual NANDIO::ReadFolder C++ source with controlled allocation and ISFS calls; AddressSanitizer and UndefinedBehaviorSanitizer",
+  "leak_sanitizer_enabled": false,
+  "full_game_runtime_tested": false,
+  "original_source_regression": "Empty folder with poisoned allocation triggers AddressSanitizer heap-buffer-overflow in original source; fixed source passes."
+}

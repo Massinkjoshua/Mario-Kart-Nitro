@@ -37,39 +37,56 @@ bool NANDIO::CreateFolder(const char *path) {
 }
 
 void NANDIO::ReadFolder(const char *path) {
+    if (this->isBusy) return;
+    this->isBusy = true;
+    this->fileCount = 0;
+    if (this->fileNames != nullptr) delete[] this->fileNames;
+    this->fileNames = nullptr;
     this->Bind(path);
     char realPath[IOS::ipcMaxPath];
     this->GetCorrectPath(realPath, path);
 
     u32 count = maxFileCount;
-    char *tmpArray = new (this->heap, 0x20) char[255 * (count + 1)];
-    void *originalPtr = tmpArray;
-    s32 error = ISFS::ReadDir(realPath, tmpArray, &count);
-    if (error >= 0 && !isBusy) {
-        isBusy = true;
-        snprintf(this->folderName, IOS::ipcMaxPath, "%s", path);
-        IOS::IPCPath *namesArray = new (this->heap, 0x20) IOS::IPCPath[count];
-        u32 realCount = 0;
-        char curFile[IOS::ipcMaxPath];
-        while (tmpArray[0] != '\0') {
-            u32 length = strlen(tmpArray);
-            if (length > 255) break;
-            if (length <= IOS::ipcMaxFileName) {
-                snprintf(curFile, IOS::ipcMaxPath, "%s/%s", realPath, tmpArray);
-                s32 curFilefd = ISFS::Open(curFile, ISFS::MODE_NONE);
-                if (curFilefd >= 0) {
-                    snprintf(namesArray[realCount], IOS::ipcMaxPath, "%s", tmpArray);
-                    ++realCount;
-                    ISFS::Close(curFilefd);
-                }
-            }
-            tmpArray = tmpArray + length + 1;
-        }
-        this->fileCount = realCount;
-        this->fileNames = namesArray;
+    const u32 capacity = 255 * (maxFileCount + 1);
+    char *buffer = new (this->heap, 0x20) char[capacity];
+    if (buffer == nullptr) {
         this->isBusy = false;
+        return;
     }
-    EGG::Heap::free(originalPtr, this->heap);
+    memset(buffer, 0, capacity);
+    const s32 error = ISFS::ReadDir(realPath, buffer, &count);
+    if (error >= 0 && count > 0 && count <= maxFileCount) {
+        IOS::IPCPath *namesArray = new (this->heap, 0x20) IOS::IPCPath[count];
+        if (namesArray != nullptr) {
+            u32 realCount = 0;
+            u32 offset = 0;
+            char curFile[IOS::ipcMaxPath];
+            // ReadDir returns count NUL-terminated names, not a double-NUL list.
+            // Bound both the entry count and every string scan to the allocation.
+            for (u32 entry = 0; entry < count && offset < capacity; ++entry) {
+                const char *name = buffer + offset;
+                u32 length = 0;
+                while (length < capacity - offset && name[length] != '\0') ++length;
+                if (length == 0 || length == capacity - offset || length > 255) break;
+                if (length <= IOS::ipcMaxFileName) {
+                    const int written = snprintf(curFile, IOS::ipcMaxPath, "%s/%s", realPath, name);
+                    if (written >= 0 && static_cast<u32>(written) < IOS::ipcMaxPath) {
+                        const s32 curFilefd = ISFS::Open(curFile, ISFS::MODE_NONE);
+                        if (curFilefd >= 0) {
+                            snprintf(namesArray[realCount], IOS::ipcMaxPath, "%s", name);
+                            ++realCount;
+                            ISFS::Close(curFilefd);
+                        }
+                    }
+                }
+                offset += length + 1;
+            }
+            this->fileCount = realCount;
+            this->fileNames = namesArray;
+        }
+    }
+    EGG::Heap::free(buffer, this->heap);
+    this->isBusy = false;
 }
 
 bool NANDIO::RenameFile(const char *oldPath, const char *newPath) const {

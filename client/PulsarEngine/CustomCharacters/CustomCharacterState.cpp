@@ -101,6 +101,12 @@ const char *CustomPostfixBase(CharacterId character) {
 // Generated postfixes use the vanilla name plus a stable table suffix.
 const char *GeneratedCustomPostfix(CharacterId character, u8 table) {
     if (!IsCharacter(character) || table == TABLE_DEFAULT || table > CUSTOM_TABLE_LIMIT) return nullptr;
+    // Released PAL build routes Pauline through the bds-1 assets.
+    // Keep Rosalina table 3 as the selection/network identity.
+    if ((character == ROSALINA || character == ROSALINA_BIKER) && table == 3) {
+        character = DRY_BOWSER;
+        table = 1;
+    }
     char *postfix = customPostfixes[character][table];
     if (postfix[0] != '\0') return postfix;
     const char *base = CustomPostfixBase(character);
@@ -113,9 +119,28 @@ const char *GeneratedCustomPostfix(CharacterId character, u8 table) {
     return postfix;
 }
 
+// Selection exclusions recovered from the working PAL release (0xc04f4).
+// Keep table numbers stable: existing assets may still serve another slot.
+static bool IsReleasedSkinHidden(CharacterId character, u8 table) {
+    switch (character) {
+        case WALUIGI: return table == 3 || table == 6;
+        case DRY_BONES: return table == 5;
+        case DAISY:
+        case DAISY_BIKER: return table == 5 || table == 6;
+        case PEACH:
+        case PEACH_BIKER: return table == 2;
+        case DRY_BOWSER: return table == 1;
+        case FUNKY_KONG: return (table >= 1 && table <= 4) || table == 6;
+        case ROSALINA:
+        case ROSALINA_BIKER: return table == 2 || table == 5;
+        default: return false;
+    }
+}
+
 // Driver BRRES existence is cached because menu hooks query it repeatedly.
 bool CustomDriverFileExists(CharacterId character, u8 table) {
     if (!IsCharacter(character) || table == TABLE_DEFAULT || table > CUSTOM_TABLE_LIMIT) return false;
+    if (IsReleasedSkinHidden(character, table)) return false;
     u8 &cached = customSkinExists[character][table];
     if (cached != 0) return cached == 2;
     const char *postfix = GeneratedCustomPostfix(character, table);

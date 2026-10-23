@@ -1,3 +1,7 @@
+## Current client confirmation — 23 October 2026
+
+The current client source matches the recorded inputs for `nitro-ghost-reader-20261023`, confirmed working in Dolphin by the maintainer. See [the versioned build instructions](docs/confirmed-build-2026-10-23.md) and [runtime confirmation](Validation/Confirmed-2026-10-23/runtime-confirmation.json). Historical observations below retain their original version scope; they do not override this newer confirmation. Historical release mapping and missing editor/asset inputs remain open.
+
 ## New paging and matchmaking candidate (18 October 2026)
 
 The new 2507 candidate fixes the in-game leaderboard ceiling/navigation, adds a safe waiting-screen timeout, and corrects the VR room-filter scale. 142 new scenarios, 284 safeguard scenarios and 11,176 existing regression executions passed. Runtime testing remains pending. [Details](docs/paging-update-2026-10-18.md). Earlier records below describe previous candidates.

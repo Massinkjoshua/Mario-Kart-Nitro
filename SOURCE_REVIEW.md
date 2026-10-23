@@ -29,9 +29,9 @@ The previous deployment source remains in [Live-Export-2026-10-16](server/Live-E
 
 The [client directory](client/README.md) contains engine and loader source, Pack Creator C#/XAML, configuration inputs and build scripts.
 
-The latest review build is `nitro-paging-20261018`. Its [build instructions](client/docs/paging-update-2026-10-18.md), [compiled-source manifest](client/Validation/Paging-2026-10-18/compiled-source-manifest.json) and [validation records](client/Validation/Paging-2026-10-18/) identify the inputs and checks.
+The confirmed current client is `nitro-ghost-reader-20261023`. Its [build instructions](client/docs/confirmed-build-2026-10-23.md), [compiled-source manifest](client/Validation/Confirmed-2026-10-23/compiled-source-manifest.json) and [runtime confirmation](client/Validation/Confirmed-2026-10-23/runtime-confirmation.json) identify the exact inputs and maintainer-reported Dolphin result.
 
-This review build is distinct from the historical released Code.pul supplied on 21 October. The [comparison record](client/docs/uploaded-code-review-2026-10-21.md) documents that difference. Matching the deployed server does not establish matching source for every game-client release.
+The source includes the Items-menu memory correction, released character rules, Pauline routing, preserved mini-turbo colours and bounded ghost-folder reads. Earlier review builds and historical backups retain their own records; matching this client does not establish matching source for every older release.
 
 An authorised CodeWarrior toolchain is needed to build the client. Some editor and runtime inputs are missing from the public tree; see [client source status](client/SOURCE_STATUS.md) and the [omitted-input manifest](publication/omitted-client-inputs.json).
 

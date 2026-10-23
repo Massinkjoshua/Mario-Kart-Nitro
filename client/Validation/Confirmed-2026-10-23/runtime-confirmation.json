@@ -1,0 +1,10 @@
+{
+  "build_id": "nitro-ghost-reader-20261023",
+  "code_sha256": "735b7d0e3d674de031325f240dd07eebe7fb2d5d820e7d9c8372eb492fe0e1c2",
+  "confirmed_on": "2026-10-23",
+  "reported_by": "project maintainer",
+  "platform": "Mario Kart Wii PAL in Dolphin with Riivolution",
+  "result": "Maintainer reported that the Time Trials fix worked properly and that everything worked in their testing.",
+  "scope": "User-reported runtime confirmation; not independent execution by the source-review environment. No separate Wii, other-region or new-server-security test is claimed.",
+  "public_release_or_server_hash_updated": false
+}
