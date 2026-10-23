@@ -51,3 +51,7 @@ All four files from nitro-public-inputs-review.tar.gz passed manifest checks.
 See ../Live-Inputs-2026-10-16/ for exact inputs and upstream blob provenance.
 The translation generator still uses a remote sheet; the historical sheet input
 has not been recovered. The verified generated Go file is preserved unchanged.
+
+## Website source access verified — 23 October 2026
+
+The live https://mknitro.com/ footer links to Source & credits on the community page. That page links to this public server directory, whose README identifies deployed commit 8f0ca79513102480c0d8a53a723d7e902c98c5ca, provides build instructions, and retains AGPLv3 and upstream attribution. This verifies website discovery and destination content, not complete historical source correspondence or every game-client interaction surface. No server change was needed.

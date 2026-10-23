@@ -165,11 +165,6 @@
       "path": "docs/remaining-ppc-tests.log",
       "bytes": 166,
       "sha256": "d983a2b20332fa7d63bece130710b5d64c69cee2ccab53e83a48da4ee4788d85"
-    },
-    {
-      "path": "docs/upstream/wfc-patcher-wii-LICENSE",
-      "bytes": 1129,
-      "sha256": "e1543a219c39aa9184be079cbc1edd5c2535e832da2cc0e4474f7eea1826e2ba"
     }
   ]
 }

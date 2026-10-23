@@ -4,11 +4,15 @@ Updated 23 October 2026.
 
 This page describes the current source publication. Earlier progress reports are preserved in [the previous revision](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/767d098f9387460116d4b218cbc4a569c4fa462f/PUBLICATION_STATUS.md) and the component validation folders.
 
+## Current review scope
+
+Following Patchzy's reply provided by the maintainer on 23 October, this handoff focuses on the newest source. Historical correspondence is retained as a technical limitation, rather than a prerequisite requested by Patchzy for this review. His asset reply requests Retro Rewind attribution; see [ASSET_CREDITS.md](ASSET_CREDITS.md). Neither reply is recorded as approval of the delivered source.
+
 ## Current position
 
 | Component | Verified | Still to complete |
 | --- | --- | --- |
-| NitroWFC server | Published source built on the host; tests and focused race checks passed; running executable matches the staged build and a second on-host build. Public pagination and website navigation were checked. | Real ratings report/readback integration, remaining runtime-input review and the source link for this deployed version. |
+| NitroWFC server | Published source built on the host; tests and focused race checks passed; running executable matches the staged build and a second on-host build. Public pagination and website navigation were checked. | Real ratings report/readback integration and remaining runtime-input review. Website source access was verified on 23 October; see publication/follow-up-2026-10-23.md. |
 | Connection payloads | Stage1 and four RMC payload rebuilds match the recorded on-disk deployment references. | Independently verify the bytes served over HTTP and review the other retained build paths. |
 | Game client | Exact source and build manifest for `nitro-ghost-reader-20261023`; maintainer confirmed it working in Dolphin on 23 October. Released loader v15 is reproducible from assembly/data. | Public release rollout, Wii/other-region testing and historical release mapping remain separate. |
 | Pack Creator and assets | C#/XAML source and omitted-input records are included. A prior editor build with private resource inputs passed. | Supply or resolve missing editor resources, preferred editable asset sources and redistribution permissions. |

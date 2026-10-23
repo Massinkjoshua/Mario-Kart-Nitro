@@ -1,0 +1,107 @@
+{
+  "archive": "MKNitro_RR_Build_Kit(1).zip",
+  "files": [
+    {
+      "path": "PulsarPackCreator/Resources/Code.pul",
+      "sha256": "19a108b8caff533e8ee7baa876fff3bedbf2d8ae723d647fd71b0805f665b2e7",
+      "matches_omitted_reference": false,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/CommonAssets.szs",
+      "sha256": "b2328e5581ec13d895ffceb27e9c3bd96d321999d71af8139e61c87e825d4ff8",
+      "matches_omitted_reference": false,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/Loader.pul",
+      "sha256": "869bb7ab9c5c4b7e581b08152478df744fe02a4b8ec66aff566fdef033051766",
+      "matches_omitted_reference": false,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/Pulsar.ico",
+      "sha256": "a183a91332fb6af0bab7ad2216e062d7baefd8ae015dc667db87151775ba5daf",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/RaceAssets.szs",
+      "sha256": "ae4872fda17909f91b17f6d98a1af1d8e98931a131bc196daf71d9526db15b18",
+      "matches_omitted_reference": false,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/UIAssets.szs",
+      "sha256": "2f2a47c81f961e536a2b62b0851a8ac01bf0076c7519f1df6b7eb87a74cc7a37",
+      "matches_omitted_reference": false,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygcrypto-1.1.dll",
+      "sha256": "9b3f3a8f80f7f6d7e8ae2a18dc07133ba268dc4bf3bf9c2260f6c4076c3df081",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygncursesw-10.dll",
+      "sha256": "b23395fa3cd838a6377c88559820afa05cc6866ab9f772a88bbd41f693eaec99",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygpng16-16.dll",
+      "sha256": "24f581ca3272bb4fb77de36c4b7efe0d1e1bd38e40324cec48e715f526be0286",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygwin1.dll",
+      "sha256": "334f6acf07d034b9b9e8cccdd8f7eb423b3bd1ffad73d0c8e5bea049b5706366",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/cygz.dll",
+      "sha256": "bf07eed4b3648099ba1fde320a178a6bf98d0865c8be87429a6eb356a4555a77",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/mkwiiBG.png",
+      "sha256": "e87d4ac4b84544f54b0e44e521cbda80824d1ede4f0e131a88addbd7c4407d24",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/space.jpg",
+      "sha256": "5f50df4fa5d6e3713e3f370136e8be2758eb85806af3dcee95651a2ad2b97027",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/transparent.png",
+      "sha256": "176e254a94347b5f8d91b65b1ece72b7bf1fcd26982816231d5741ba8ac35501",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/wbmgt.exe",
+      "sha256": "510ff65d6477feaf5cfddecb5d58dc24bef4e73d4a6be144650bba780bfcd98b",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/wimgt.exe",
+      "sha256": "0a7005ab7d3483a75c893e54a06bf6b41b52df34793625b105a52c2ce8c86bad",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    },
+    {
+      "path": "PulsarPackCreator/Resources/wszst.exe",
+      "sha256": "1c5f512e21b4dabc344a98b2aac9bb65df2bda790180d5ccac285efb475a645c",
+      "matches_omitted_reference": true,
+      "status": "recovered privately; redistribution and editable-source review pending"
+    }
+  ]
+}

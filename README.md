@@ -18,6 +18,10 @@ For a technical review, start with the [review guide](https://github.com/Massink
 
 The source publication is still being completed. It has not been verified as complete Corresponding Source for every distributed version. Runtime pack assets and some editor resources are outside this source tree; the [omitted-input manifest](https://github.com/Massinkjoshua/Mario-Kart-Nitro-Releases/blob/source-recovery-2026-10-16/publication/omitted-client-inputs.json) records the missing client inputs.
 
+## Review scope
+
+This handoff focuses on the current confirmed client and deployed NitroWFC source. In the maintainer-provided conversation of 23 October, Patchzy said the newest source was sufficient for his review and that the reused Retro Rewind assets should be credited. This records the requested review scope, not acceptance of the delivered source or a blanket licence clearance. Historical records remain available.
+
 ## Credits and licences
 
 Mario Kart Nitro uses work from the Retro Rewind Team and the projects credited in the source:
@@ -31,3 +35,5 @@ The client is published under [GPLv3](https://github.com/Massinkjoshua/Mario-Kar
 Online communications credit to [WiiLink WFC](https://wfc.wiilink24.com). Tracks, music, artwork and tools retain their respective rights and licences.
 
 Mario Kart Nitro is an independent fan project, unaffiliated with Nintendo, Retro Rewind or WiiLink.
+
+See [UI and asset credits](ASSET_CREDITS.md) for the reused Retro Rewind menu assets.
